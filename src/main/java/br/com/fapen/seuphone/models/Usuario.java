@@ -40,9 +40,6 @@ public class Usuario implements UserDetails {
 	@Column(length = 100, unique = true, nullable = false)
 	private String email;
 
-	@Column(length = 11, unique = true, nullable = false)
-	private String cpf;
-
 	public Long getIdLogin() {
 		return idLogin;
 	}
@@ -81,14 +78,6 @@ public class Usuario implements UserDetails {
 
 	public void setEmail(String email) {
 		this.email = email;
-	}
-
-	public String getCpf() {
-		return cpf;
-	}
-
-	public void setCpf(String cpf) {
-		this.cpf = cpf;
 	}
 
 	public static long getSerialversionuid() {

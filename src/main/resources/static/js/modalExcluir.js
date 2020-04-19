@@ -7,12 +7,13 @@ $(".modal-excluir").click(function() {
     var modal     = $("#modalExcluir");
 
     modal.find('.modal-content p').html(`<span style="color: red;">O registro não poderá ser recuperado.</span> <br />
-    									Deseja realmente excluir este item? <br /> 
+    									Deseja realmente excluir? <br /> 
     									ID:<b> ${id} </b> <br/>
     									Descrição: <b> ${descricao} </b>`);
 
     $('#btnModalSim').click(function(){
-    	$(location).attr("href", `/${tabela}/${id}/apagar`);
+    	//$(location).attr("href", `/${tabela}/${id}/excluir`);
+        $(button).find('form').submit();
     });
     
     modal.modal('open');

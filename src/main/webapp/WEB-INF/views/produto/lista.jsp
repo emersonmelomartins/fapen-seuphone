@@ -75,22 +75,32 @@
 							<td><b>Valor</b></td>
 							<td colspan="3"><b>Ação</b></td>
 						</tr>
-						<c:forEach items="${produtos.content}" var="produto">
+						<c:forEach items="${listaPaginada.content}" var="produto">
 							<tr>
 								<td>${produto.idProduto}</td>
 								<td>${produto.descricao}</td>
 								<td>${produto.tipoProduto}</td>
 								<td><fmt:formatNumber value="${produto.valor }"
 										type="currency" /></td>
-								<td><a class="modal-trigger btn-floating orange"
+								<td class="center-align"><a
+									class="modal-trigger btn-floating orange"
 									href="${s:mvcUrl('visualizarProduto').arg(0, produto.idProduto).build() }"><i
-										class="material-icons">remove_red_eye</i></a></td>
-								<td><a class="btn-floating blue"
-									href="${s:mvcUrl('alterarProduto').arg(0, produto.idProduto).build() }"><i
-										class="material-icons">edit</i></a></td>
-								<td><a class="modal-excluir modal-trigger btn-floating red" href="#modalExcluir" data-tabela="produtos" data-id="${produto.idProduto }" data-descr="${produto.descricao }"><i
-										class="material-icons">delete</i></a>
-								</td>
+										class="material-icons">remove_red_eye</i></a> <a
+									class="btn-floating blue"
+									href="${s:mvcUrl('editarProduto').arg(0, produto.idProduto).build() }"><i
+										class="material-icons">edit</i></a>
+
+
+									<button href="#modalExcluir"
+										class="modal-excluir modal-trigger btn-floating red"
+										data-descr="${produto.descricao }" data-tabela="produtos"
+										data-id="${produto.idProduto }">
+										<i class="material-icons">delete</i>
+										<f:form
+											action="${s:mvcUrl('apagarProduto').arg(0, produto.idProduto).build() }"
+											method="POST">
+										</f:form>
+									</button></td>
 							</tr>
 						</c:forEach>
 					</table>
