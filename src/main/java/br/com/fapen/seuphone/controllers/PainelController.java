@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @RequestMapping(value = "/painel")
 public class PainelController {
 
-	@RequestMapping(method = RequestMethod.GET, name = "painelUrl")
+	@RequestMapping(method = RequestMethod.GET, name = "paginaPainel")
 	public String painel() {
 		return "painel";
 	}
