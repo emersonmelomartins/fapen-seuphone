@@ -1,0 +1,116 @@
+* {
+  margin: 0;
+  padding: 0;
+  font-family: "Arial", sans-serif;
+}
+.black-seuphone {
+	background-color: #212121;
+}
+
+.black-seuphone:hover, .black-seuphone:focus {
+	background-color: #444444;
+}
+
+.nav-menu nav li a i  {
+  font-size: 40px;
+}
+
+.nav-menu nav li a  {
+  text-transform: uppercase;
+}
+
+.produtos, .como-funciona, .sobre, .fale-conosco {
+  margin-top: 60px;
+}
+
+.nav-menu nav, .nav-menu nav li a i{
+  height: 90px;
+  line-height: 90px;
+}
+.logo {
+  vertical-align: middle;
+}
+
+
+.introducao {
+  background-image: URL(../img/intro-bg.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  height: 414px;
+}
+.introducao h1 {
+  text-transform: uppercase;
+}
+
+.titulo {
+  font-size: 46px;
+  text-transform: uppercase;
+  margin: 0 auto;
+  text-align: center;
+  font-weight: bold;
+}
+.titulo:after {
+  content: "";
+  background-color: black;
+  height: 10px;
+  display: block;
+  width: 80px;
+  margin: 0 auto;
+}
+.botao, .botao:active, .botao:focus {
+  background-color: transparent;
+  border: 2px solid black;
+  text-align: center;
+  text-transform: uppercase;
+  transition: 0.2s;
+  color: black;
+}
+.botao:hover {
+  background-color: transparent;
+  border: 2px solid #acacac;
+  transition: 0.2s;
+  cursor: pointer;
+}
+
+
+.sobre h5, .como-funciona h5 {
+  text-align: left;
+}
+.sobre p, .como-funciona p {
+  text-align: left;
+  margin-bottom: 20px;
+}
+.sobre img, .como-funciona img {
+  border-radius: 20px;
+  box-shadow: 2px 2px 8px rgba(0, 0, 0, .350);
+}
+
+
+.fale-conosco .materialize-textarea {
+  min-height: 10rem;
+  border-bottom: 2px solid black;
+}
+.fale-conosco input[type="text"] {
+  border-bottom: 2px solid black;
+}
+
+.status-message p {
+	font-weight: bold;
+	padding: 10px 0;
+	
+}
+.status-message div {
+	border-radius: 10px;
+	min-width: 300px;
+}
+.status-message {
+	margin-top: 10px;
+	position: absolute;
+}
+
+.pagination li.active {
+	background-color: #212121;
+}
+
+
