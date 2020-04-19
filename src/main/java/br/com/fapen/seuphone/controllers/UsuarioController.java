@@ -45,7 +45,7 @@ public class UsuarioController {
 		return "usuario/novo";
 	}
 	
-	@PostMapping(value = "/salvar", name = "criarUsuario")
+	@PostMapping(value = "/salvar", name = "salvarUsuario")
 	public String createUser(Usuario usuario, RedirectAttributes atributos) {
 		
 		usuarioRep.save(usuario);

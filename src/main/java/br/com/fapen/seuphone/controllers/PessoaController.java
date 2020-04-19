@@ -45,7 +45,7 @@ public class PessoaController {
 		return "pessoa/novo";
 	}
 
-	@PostMapping(value = "/salvar", name = "criarPessoa")
+	@PostMapping(value = "/salvar", name = "salvarPessoa")
 	public String createPerson(Pessoa pessoa, RedirectAttributes atributos) {
 
 		pessoaRep.save(pessoa);
