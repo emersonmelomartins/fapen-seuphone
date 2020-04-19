@@ -3,15 +3,14 @@ package br.com.fapen.seuphone.models;
 import java.time.LocalDate;
 import java.util.Collection;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
 
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.DateTimeFormat.ISO;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -25,39 +24,34 @@ public class Usuario implements UserDetails {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id_login")
+	@Column(name = "id_login", nullable = false)
 	private Long idLogin;
 	
-	@OneToOne(cascade = CascadeType.ALL)
-	  @JoinColumn(name = "id_pessoa")
-	  private Pessoa pessoa;
-	
-	@Column(unique = true, nullable = false)
+	@Column(nullable = false)
 	private String login;
 	
+	@Column(nullable = false)
 	private String senha;
 	
-	@Column(length = 100, unique = true)
-	private String email;
+	@Column(name = "nome_completo", nullable = false)
+	private String nomeCompleto;
 	
-	@Column(length = 11, unique = true)
+	@DateTimeFormat(iso = ISO.DATE)
+	@Column(name = "data_nascimento", nullable = false)
+	private LocalDate dataNascimento;
+	
+	@Column(length = 11, nullable = false)
 	private String cpf;
 	
-	
+	@Column(length = 100, nullable = false)
+	private String email;
+
 	public Long getIdLogin() {
 		return idLogin;
 	}
 
 	public void setIdLogin(Long idLogin) {
 		this.idLogin = idLogin;
-	}
-
-	public Long getIdPessoa() {
-		return idPessoa;
-	}
-
-	public void setIdPessoa(Long idPessoa) {
-		this.idPessoa = idPessoa;
 	}
 
 	public String getLogin() {
@@ -76,12 +70,12 @@ public class Usuario implements UserDetails {
 		this.senha = senha;
 	}
 
-	public String getEmail() {
-		return email;
+	public String getNomeCompleto() {
+		return nomeCompleto;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
+	public void setNomeCompleto(String nomeCompleto) {
+		this.nomeCompleto = nomeCompleto;
 	}
 
 	public LocalDate getDataNascimento() {
@@ -92,8 +86,20 @@ public class Usuario implements UserDetails {
 		this.dataNascimento = dataNascimento;
 	}
 
-	public static long getSerialversionuid() {
-		return serialVersionUID;
+	public String getCpf() {
+		return cpf;
+	}
+
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	@Override
