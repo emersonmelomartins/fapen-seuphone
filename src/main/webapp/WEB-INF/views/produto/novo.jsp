@@ -99,7 +99,7 @@
 					<div class="row">
 
 						<div class="col s2">
-							<a href="${s:mvcUrl('paginaProdutos').build() }"
+							<a href="${s:mvcUrl('listarProdutos').build() }"
 								class="btn left red">Voltar</a>
 						</div>
 

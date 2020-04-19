@@ -2,6 +2,7 @@
 <html lang="pt-BR">
 <head>
 <%@ taglib prefix="f" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="s" uri="http://www.springframework.org/tags"%>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Seuphone - Última geração em suas mãos.</title>
@@ -68,7 +69,7 @@
 							</div>
 						</div>
 						<div class="row">
-							<a href="#!">
+							<a href="${s:mvcUrl('listarProdutos').build() }">
 								<div style="padding: 30px;"
 									class="col s5 waves-effect">
 									<i class="grey-text text-darken-1 large material-icons">store</i>
