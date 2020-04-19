@@ -1,6 +1,5 @@
 package br.com.fapen.seuphone.models;
 
-import java.time.LocalDate;
 import java.util.Collection;
 
 import javax.persistence.CascadeType;
@@ -27,23 +26,23 @@ public class Usuario implements UserDetails {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id_login")
 	private Long idLogin;
-	
+
 	@OneToOne(cascade = CascadeType.ALL)
-	  @JoinColumn(name = "id_pessoa")
-	  private Pessoa pessoa;
-	
-	@Column(unique = true, nullable = false)
+	@JoinColumn(name = "id_pessoa")
+	private Pessoa pessoa;
+
+	@Column(length = 60, unique = true, nullable = false)
 	private String login;
-	
+
+	@Column(length = 100, nullable = false)
 	private String senha;
-	
-	@Column(length = 100, unique = true)
+
+	@Column(length = 100, unique = true, nullable = false)
 	private String email;
-	
-	@Column(length = 11, unique = true)
+
+	@Column(length = 11, unique = true, nullable = false)
 	private String cpf;
-	
-	
+
 	public Long getIdLogin() {
 		return idLogin;
 	}
@@ -52,12 +51,12 @@ public class Usuario implements UserDetails {
 		this.idLogin = idLogin;
 	}
 
-	public Long getIdPessoa() {
-		return idPessoa;
+	public Pessoa getPessoa() {
+		return pessoa;
 	}
 
-	public void setIdPessoa(Long idPessoa) {
-		this.idPessoa = idPessoa;
+	public void setPessoa(Pessoa pessoa) {
+		this.pessoa = pessoa;
 	}
 
 	public String getLogin() {
@@ -84,12 +83,12 @@ public class Usuario implements UserDetails {
 		this.email = email;
 	}
 
-	public LocalDate getDataNascimento() {
-		return dataNascimento;
+	public String getCpf() {
+		return cpf;
 	}
 
-	public void setDataNascimento(LocalDate dataNascimento) {
-		this.dataNascimento = dataNascimento;
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
 	}
 
 	public static long getSerialversionuid() {
@@ -137,6 +136,5 @@ public class Usuario implements UserDetails {
 		// TODO Auto-generated method stub
 		return true;
 	}
-	
-	
+
 }
