@@ -29,7 +29,7 @@
 
                         <div class="input-field col s12">
                             <label for="inputUsername">Usuário</label>
-                            <input id="inputUsername" name="username" type="text" class="validate" required="true">
+                            <input id="inputUsername" name="username" type="text" class="validate" required="true" autofocus> 
                         </div>
 
                         <div class="input-field col s12">

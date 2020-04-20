@@ -1,5 +1,7 @@
 package br.com.fapen.seuphone.controllers;
 
+import java.security.Principal;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -83,6 +85,16 @@ public class UsuarioController {
 		
 		ModelAndView mav = new ModelAndView("/usuario/visualizar");
 		mav.addObject("usuario", usuario);
+		
+		return mav;
+	}
+	
+	@GetMapping(value = "/perfil", name = "meuPerfil")
+	public ModelAndView myProfile(Principal principal) {
+		Usuario perfil = usuarioRep.findByLogin(principal.getName());
+		
+		ModelAndView mav = new ModelAndView("/usuario/perfil");
+		mav.addObject("perfil", perfil);
 		
 		return mav;
 	}
