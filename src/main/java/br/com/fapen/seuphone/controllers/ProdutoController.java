@@ -50,7 +50,7 @@ public class ProdutoController {
 			listaProdutos = produtoRep.findByDescricaoContainingIgnoreCase(busca, Paginacao.getPaginacao(pagina));
 		}
 
-		ModelAndView mav = new ModelAndView("produto/lista");
+		ModelAndView mav = new ModelAndView("produto/listar");
 		mav.addObject("listaPaginada", listaProdutos);
 
 		return mav;

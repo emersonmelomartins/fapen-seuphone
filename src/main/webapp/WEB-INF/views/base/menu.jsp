@@ -20,14 +20,22 @@
 					<li class="col s2 waves-effect hide-on-small-only"><a href="#">Registrar</a></li>
 				</sec:authorize>
 				<sec:authorize access="isAuthenticated()">
-					<li class="col s2 waves-effect hide-on-small-only">Bem
-						vindo, <b style="text-transform: uppercase;"><sec:authentication
-								property="principal.login" /></b>!
-					</li>
-					<li class="col s2 waves-effect hide-on-small-only"><a
-						href="/logout">Sair</a></li>
+					<li class="col s4 waves-effect hide-on-small-only"><a
+						class='dropdown-trigger' href='#' data-target='submenu'>Bem
+							vindo, <b style="text-transform: uppercase;"><sec:authentication
+									property="principal.login" /></b>!<i class="material-icons right">arrow_drop_down</i>
+					</a></li>
+
+
+					<ul id='submenu' class='black-seuphone dropdown-content'>
+						<li><a class="black-seuphone white-text waves-effect" href="${s:mvcUrl('paginaPainel').build() }">Acessar Painel</a></li>
+						<li><a class="black-seuphone white-text waves-effect" href="${s:mvcUrl('meuPerfil').build() }">Detalhes</a></li>
+						<li><a class="black-seuphone white-text waves-effect" href="/logout">Sair</a></li>
+					</ul>
 				</sec:authorize>
 			</ul>
+
+
 		</div>
 	</nav>
 </header>
@@ -58,10 +66,9 @@
 		<li><a href="#" class="white-text waves-effect">Registrar</a></li>
 	</sec:authorize>
 	<sec:authorize access="isAuthenticated()">
-	<li class="white-text waves-effect">Logado como: <sec:authentication property="principal.login" /></li>
-		<li><a href="" class="white-text waves-effect">Acessar Painel</a></li>
-		<li><a class="white-text waves-effect"
-			href="/logout">Sair</a></li>
+		<li><a href="${s:mvcUrl('paginaPainel').build() }" class="white-text waves-effect">Acessar Painel</a></li>
+		<li><a href="${s:mvcUrl('meuPerfil').build() }" class="white-text waves-effect">Detalhes</a></li>
+		<li><a class="white-text waves-effect" href="/logout">Sair</a></li>
 	</sec:authorize>
 	<li>
 		<div class="divider"></div>

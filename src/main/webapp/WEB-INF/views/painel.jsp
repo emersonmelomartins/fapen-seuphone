@@ -10,10 +10,10 @@
 <!-- Materialize CSS -->
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
 	rel="stylesheet" />
-<link type="text/css" rel="stylesheet" href="css/materialize.min.css"
+<link type="text/css" rel="stylesheet" href="/css/materialize.min.css"
 	media="screen,projection" />
 
-<link rel="stylesheet" href="css/style.css" />
+<link rel="stylesheet" href="/css/style.css" />
 </head>
 
 <body>
@@ -27,6 +27,9 @@
 			<br> <br>
 
 			<div class="row">
+			
+			
+			
 				<div class="col s6">
 					<div style="padding: 35px;" align="center" class="card">
 						<div class="row">
@@ -36,11 +39,11 @@
 						</div>
 
 						<div class="row">
-							<a href="#!">
-								<div style="padding: 30px;"
-									class="col s5 waves-effect">
-									<i class="grey-text text-darken-1 large material-icons">person</i>
-									<span class="grey-text text-darken-2">
+							<a href="${s:mvcUrl('listarUsuarios').build() }">
+								<div style="padding: 30px; border-radius: 10px;"
+									class="col s5 waves-effect black-seuphone">
+									<i class="white-text large material-icons">person</i>
+									<span class="white-text">
 										<h5>Usuários</h5>
 									</span>
 								</div>
@@ -48,11 +51,11 @@
 							<div class="col s1">&nbsp;</div>
 							<div class="col s1">&nbsp;</div>
 
-							<a href="#!">
-								<div style="padding: 30px;"
-									class="col s5 waves-effect">
-									<i class="grey-text text-darken-1 large material-icons">people</i>
-									<span class="grey-text text-darken-2">
+							<a href="#perfis">
+								<div style="padding: 30px; border-radius: 10px;"
+									class="col s5 waves-effect black-seuphone">
+									<i class="white-text large material-icons">people</i>
+									<span class="white-text">
 										<h5>Perfis</h5>
 									</span>
 								</div>
@@ -60,6 +63,7 @@
 						</div>
 					</div>
 				</div>
+				
 
 				<div class="col s6">
 					<div style="padding: 35px;" align="center" class="card">
@@ -70,10 +74,10 @@
 						</div>
 						<div class="row">
 							<a href="${s:mvcUrl('listarProdutos').build() }">
-								<div style="padding: 30px;"
-									class="col s5 waves-effect">
-									<i class="grey-text text-darken-1 large material-icons">store</i>
-									<span class="grey-text text-darken-2">
+								<div style="padding: 30px; border-radius: 10px;"
+									class="col s5 waves-effect black-seuphone">
+									<i class="white-text large material-icons">store</i>
+									<span class="white-text">
 										<h5>Produtos</h5>
 									</span>
 								</div>
@@ -82,11 +86,11 @@
 							<div class="col s1">&nbsp;</div>
 							<div class="col s1">&nbsp;</div>
 
-							<a href="#!">
-								<div style="padding: 30px;"
-									class="col s5 waves-effect">
-									<i class="grey-text text-darken-1 large material-icons">assignment</i>
-									<span class="grey-text text-darken-1">
+							<a href="#pedidos">
+								<div style="padding: 30px; border-radius: 10px;"
+									class="col s5 waves-effect black-seuphone">
+									<i class="white-text large material-icons">assignment</i>
+									<span class="white-text">
 										<h5>Pedidos</h5>
 									</span>
 								</div>
@@ -95,6 +99,60 @@
 					</div>
 				</div>
 			</div>
+			
+			<div class="col s6">
+					<div style="padding: 35px;" align="center" class="card">
+						<div class="row">
+							<div class="left card-title">
+								<b>Gerenciamento de Fornecedores</b>
+							</div>
+						</div>
+
+						<div class="row">
+							<a href="#fornecedores">
+								<div style="padding: 30px; border-radius: 10px;"
+									class="col s5 waves-effect black-seuphone">
+									<i class="white-text large material-icons">business_center</i>
+									<span class="white-text">
+										<h5>Fornecedor</h5>
+									</span>
+								</div>
+							</a>
+							<div class="col s1">&nbsp;</div>
+							<div class="col s1">&nbsp;</div>
+							<div class="col s5">&nbsp;</div>
+
+							
+						</div>
+					</div>
+				</div>
+				
+				<div class="col s6">
+					<div style="padding: 35px;" align="center" class="card">
+						<div class="row">
+							<div class="left card-title">
+								<b>Gerenciamento de Nota Fiscal</b>
+							</div>
+						</div>
+
+						<div class="row">
+							<a href="#nota-fiscal">
+								<div style="padding: 30px; border-radius: 10px;"
+									class="col s5 waves-effect black-seuphone">
+									<i class="white-text large material-icons">description</i>
+									<span class="white-text">
+										<h5>NFE</h5>
+									</span>
+								</div>
+							</a>
+							<div class="col s1">&nbsp;</div>
+							<div class="col s1">&nbsp;</div>
+							<div class="col s5">&nbsp;</div>
+
+							
+						</div>
+					</div>
+				</div>
 
 		</div>
 
@@ -103,10 +161,10 @@
 
 
 	<!--Materialize JS-->
-	<script src="js/jquery-3.4.1.min.js"></script>
-	<script src="js/jquery.mask.min.js"></script>
-	<script src="js/materialize.min.js"></script>
-	<script src="js/main.js"></script>
+	<script src="/js/jquery-3.4.1.min.js"></script>
+	<script src="/js/jquery.mask.min.js"></script>
+	<script src="/js/materialize.min.js"></script>
+	<script src="/js/main.js"></script>
 	<!-- <script src="/js/modalExcluir.js"></script> -->
 </body>
 

@@ -59,7 +59,7 @@ public class Pessoa {
 	}
 
 	public void setCpf(String cpf) {
-		this.cpf = cpf;
+		this.cpf = cpf.replaceAll("[^0-9]", "");
 	}
 
 	public LocalDate getDtNascimento() {

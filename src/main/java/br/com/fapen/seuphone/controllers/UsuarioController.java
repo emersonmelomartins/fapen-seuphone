@@ -1,5 +1,7 @@
 package br.com.fapen.seuphone.controllers;
 
+import java.security.Principal;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -18,6 +20,14 @@ import br.com.fapen.seuphone.repositories.UsuarioRepository;
 @Controller
 @RequestMapping("/usuarios")
 public class UsuarioController {
+	
+	// Criar validação para:
+	/*
+	 * Email duplicado
+	 * Email repetido
+	 * Campos vazios
+	 * Validar email (email@algumacoisa.com)
+	 */
 
 	@Autowired
 	private UsuarioRepository usuarioRep;
@@ -40,7 +50,7 @@ public class UsuarioController {
 	}
 	
 	@GetMapping(value = "/novo", name = "novoUsuario")
-	public String newUser() {
+	public String newUser(Usuario usuario) {
 		
 		return "usuario/novo";
 	}
@@ -50,7 +60,7 @@ public class UsuarioController {
 		
 		usuarioRep.save(usuario);
 		
-		atributos.addFlashAttribute("nensagemStatus", "Usuário salvo com sucesso!");
+		atributos.addFlashAttribute("mensagemStatus", "Usuário salvo com sucesso!");
 		
 		return "redirect:/usuarios";
 	}
@@ -83,6 +93,16 @@ public class UsuarioController {
 		
 		ModelAndView mav = new ModelAndView("/usuario/visualizar");
 		mav.addObject("usuario", usuario);
+		
+		return mav;
+	}
+	
+	@GetMapping(value = "/meuperfil", name = "meuPerfil")
+	public ModelAndView myProfile(Principal principal) {
+		Usuario perfil = usuarioRep.findByLogin(principal.getName());
+		
+		ModelAndView mav = new ModelAndView("/usuario/perfil");
+		mav.addObject("perfil", perfil);
 		
 		return mav;
 	}
