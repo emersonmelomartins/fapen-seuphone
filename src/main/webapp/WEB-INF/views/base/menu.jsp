@@ -29,7 +29,7 @@
 
 					<ul id='submenu' class='black-seuphone dropdown-content'>
 						<li><a class="black-seuphone white-text waves-effect" href="${s:mvcUrl('paginaPainel').build() }">Acessar Painel</a></li>
-						<li><a class="black-seuphone white-text waves-effect" href="#!">Detalhes</a></li>
+						<li><a class="black-seuphone white-text waves-effect" href="${s:mvcUrl('meuPerfil').build() }">Detalhes</a></li>
 						<li><a class="black-seuphone white-text waves-effect" href="/logout">Sair</a></li>
 					</ul>
 				</sec:authorize>
@@ -67,7 +67,7 @@
 	</sec:authorize>
 	<sec:authorize access="isAuthenticated()">
 		<li><a href="${s:mvcUrl('paginaPainel').build() }" class="white-text waves-effect">Acessar Painel</a></li>
-		<li><a href="" class="white-text waves-effect">Detalhes</a></li>
+		<li><a href="${s:mvcUrl('meuPerfil').build() }" class="white-text waves-effect">Detalhes</a></li>
 		<li><a class="white-text waves-effect" href="/logout">Sair</a></li>
 	</sec:authorize>
 	<li>

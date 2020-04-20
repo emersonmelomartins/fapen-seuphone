@@ -39,7 +39,7 @@
 						</div>
 
 						<div class="row">
-							<a href="#usuarios">
+							<a href="${s:mvcUrl('listarUsuarios').build() }">
 								<div style="padding: 30px; border-radius: 10px;"
 									class="col s5 waves-effect black-seuphone">
 									<i class="white-text large material-icons">person</i>

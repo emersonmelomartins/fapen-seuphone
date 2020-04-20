@@ -20,6 +20,14 @@ import br.com.fapen.seuphone.repositories.UsuarioRepository;
 @Controller
 @RequestMapping("/usuarios")
 public class UsuarioController {
+	
+	// Criar validação para:
+	/*
+	 * Email duplicado
+	 * Email repetido
+	 * Campos vazios
+	 * Validar email (email@algumacoisa.com)
+	 */
 
 	@Autowired
 	private UsuarioRepository usuarioRep;
@@ -42,7 +50,7 @@ public class UsuarioController {
 	}
 	
 	@GetMapping(value = "/novo", name = "novoUsuario")
-	public String newUser() {
+	public String newUser(Usuario usuario) {
 		
 		return "usuario/novo";
 	}
@@ -52,7 +60,7 @@ public class UsuarioController {
 		
 		usuarioRep.save(usuario);
 		
-		atributos.addFlashAttribute("nensagemStatus", "Usuário salvo com sucesso!");
+		atributos.addFlashAttribute("mensagemStatus", "Usuário salvo com sucesso!");
 		
 		return "redirect:/usuarios";
 	}
@@ -89,7 +97,7 @@ public class UsuarioController {
 		return mav;
 	}
 	
-	@GetMapping(value = "/perfil", name = "meuPerfil")
+	@GetMapping(value = "/meuperfil", name = "meuPerfil")
 	public ModelAndView myProfile(Principal principal) {
 		Usuario perfil = usuarioRep.findByLogin(principal.getName());
 		

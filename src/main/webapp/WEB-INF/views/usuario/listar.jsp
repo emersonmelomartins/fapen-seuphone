@@ -70,34 +70,31 @@
 					<table class="centered">
 						<tr class="grey lighten-2">
 							<td><b>ID</b></td>
-							<td><b>Descrição</b></td>
-							<td><b>Tipo de Produto</b></td>
-							<td><b>Valor</b></td>
+							<td><b>Login</b></td>
+							<td><b>Email</b></td>
 							<td colspan="3"><b>Ação</b></td>
 						</tr>
-						<c:forEach items="${listaPaginada.content}" var="produto">
+						<c:forEach items="${listaPaginada.content}" var="usuario">
 							<tr>
-								<td>${produto.idProduto}</td>
-								<td>${produto.descricao}</td>
-								<td>${produto.tipoProduto}</td>
-								<td><fmt:formatNumber value="${produto.valor }"
-										type="currency" /></td>
+								<td>${usuario.idLogin}</td>
+								<td>${usuario.login}</td>
+								<td>${usuario.email}</td>
 								<td class="center-align"><a
 									class="modal-trigger btn-floating orange"
-									href="${s:mvcUrl('visualizarProduto').arg(0, produto.idProduto).build() }"><i
+									href="${s:mvcUrl('visualizarUsuario').arg(0, usuario.idLogin).build() }"><i
 										class="material-icons">remove_red_eye</i></a> <a
 									class="btn-floating blue"
-									href="${s:mvcUrl('editarProduto').arg(0, produto.idProduto).build() }"><i
+									href="${s:mvcUrl('editarUsuario').arg(0, usuario.idLogin).build() }"><i
 										class="material-icons">edit</i></a>
 
 
 									<button href="#modalExcluir"
 										class="modal-excluir modal-trigger btn-floating red"
-										data-descr="${produto.descricao }" data-tabela="produtos"
-										data-id="${produto.idProduto }">
+										data-descr="${usuario.login }" data-tabela="usuarios"
+										data-id="${usuario.idLogin }">
 										<i class="material-icons">delete</i>
 										<f:form
-											action="${s:mvcUrl('apagarProduto').arg(0, produto.idProduto).build() }"
+											action="${s:mvcUrl('apagarUsuario').arg(0, usuario.idLogin).build() }"
 											method="POST">
 										</f:form>
 									</button></td>

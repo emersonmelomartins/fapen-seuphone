@@ -38,9 +38,9 @@
 
 		<div class="row">
 			<br> <br>
-			<h1 class="titulo">Produto</h1>
+			<h1 class="titulo">Usuário</h1>
 			<br> <br>
-			<c:forEach items="produto">
+			<c:forEach items="usuario">
 
 				<div class="row">
 
@@ -48,52 +48,59 @@
 					<div class="row">
 						<div class="col s6">
 							<h5>ID</h5>
-							<p>${produto.idProduto }</p>
+							<p>${usuario.idLogin }</p>
 						</div>
 					</div>
-					
+
 					<hr />
-					
+
 					<div class="row">
 						<div class="col s6">
-							<h5>Descrição</h5>
-							<p>${produto.descricao }</p>
+							<h5>Nome</h5>
+							<p>${usuario.pessoa.nome }</p>
+						</div>
+						<div class="col s6">
+							<h5>Login</h5>
+							<p>${usuario.login}</p>
+						</div>
+					</div>	
+
+					<hr />
+
+					<div class="row">
+						<div class="col s6">
+							<h5>Email</h5>
+							<p>${usuario.email}</p>
+						</div>
+						<div class="col s6">
+							<h5>CPF</h5>
+							<p class="fmt-cpf">${usuario.pessoa.cpf }</p>
 						</div>
 					</div>
-					
+
 					<hr />
-					
+
 					<div class="row">
 						<div class="col s6">
-							<h5>Tipo Produto</h5>
-							<p>${produto.tipoProduto }</p>
+							<h5>Data Nascimento</h5>
+							<p>${usuario.pessoa.dtNascimento}</p>
 						</div>
 						<div class="col s6">
-							<h5>Modelo</h5>
-							<p>${produto.modelo }</p>
+							<h5>Sexo</h5>
+							<p>${usuario.pessoa.sexo }</p>
 						</div>
 					</div>
-					
+
 					<hr />
-					
+
 					<div class="row">
 						<div class="col s6">
-							<h5>Cor</h5>
-							<p>${produto.cor }</p>
+							<h5>Telefone</h5>
+							<p>${usuario.pessoa.telefone}</p>
 						</div>
 						<div class="col s6">
-							<h5>Peso</h5>
-							<p>${produto.peso }</p>
-						</div>
-					</div>
-					
-					<hr />
-					
-					<div class="row">
-						<div class="col s6">
-							<h5>Valor</h5>
-							<p><fmt:formatNumber value="${produto.valor }"
-										type="currency" /></p>
+							<h5>Celular</h5>
+							<p>${usuario.pessoa.celular }</p>
 						</div>
 					</div>
 
@@ -105,7 +112,7 @@
 			<div class="row">
 
 				<div class="col s2">
-					<a href="${s:mvcUrl('listarProdutos').build() }"
+					<a href="${s:mvcUrl('listarUsuarios').build() }"
 						class="btn left red">Voltar</a>
 				</div>
 
