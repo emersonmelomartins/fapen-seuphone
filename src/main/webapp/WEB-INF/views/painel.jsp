@@ -51,7 +51,7 @@
 							<div class="col s1">&nbsp;</div>
 							<div class="col s1">&nbsp;</div>
 
-							<a href="#perfis">
+							<a href="${s:mvcUrl('listarPerfis').build() }">
 								<div style="padding: 30px; border-radius: 10px;"
 									class="col s5 waves-effect black-seuphone">
 									<i class="white-text large material-icons">people</i>

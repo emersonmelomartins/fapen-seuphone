@@ -2,10 +2,15 @@ package br.com.fapen.seuphone.controllers;
 
 import java.security.Principal;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,6 +21,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import br.com.fapen.seuphone.models.Usuario;
 import br.com.fapen.seuphone.repositories.Paginacao;
 import br.com.fapen.seuphone.repositories.UsuarioRepository;
+import br.com.fapen.seuphone.validations.UsuarioValidator;
 
 @Controller
 @RequestMapping("/usuarios")
@@ -31,6 +37,14 @@ public class UsuarioController {
 
 	@Autowired
 	private UsuarioRepository usuarioRep;
+	
+	@Autowired
+	private UsuarioValidator usuarioValidator;
+	
+	@InitBinder("usuario")
+	protected void init(WebDataBinder binder) {
+		binder.setValidator(usuarioValidator);
+	}
 
 	@GetMapping(name = "listarUsuarios")
 	public ModelAndView listUser(@RequestParam(defaultValue = "1") Integer pagina,
@@ -56,7 +70,12 @@ public class UsuarioController {
 	}
 	
 	@PostMapping(value = "/salvar", name = "salvarUsuario")
-	public String createUser(Usuario usuario, RedirectAttributes atributos) {
+	public String createUser(@Valid Usuario usuario, BindingResult resultadoValidacao ,RedirectAttributes atributos) {
+		
+		if(resultadoValidacao.hasErrors()) {
+			
+			return newUser(usuario);
+		}
 		
 		usuarioRep.save(usuario);
 		
