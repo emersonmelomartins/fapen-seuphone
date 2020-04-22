@@ -39,7 +39,7 @@
 
 		<div class="row center">
 			<br> <br>
-			<h1 class="titulo">Produtos</h1>
+			<h1 class="titulo">Usuários</h1>
 			<br> <br>
 
 			<div class="row center">
@@ -58,7 +58,7 @@
 				<div class="input-field col s2 left">
 					<a
 						class="btn-floating btn-large waves-effect waves-light green right"
-						title="novo" href="${s:mvcUrl('novoProduto').build() }"> <i
+						title="novo" href="${s:mvcUrl('novoUsuario').build() }"> <i
 						class="material-icons">add</i>
 					</a>
 				</div>
@@ -70,27 +70,34 @@
 					<table class="centered">
 						<tr class="grey lighten-2">
 							<td><b>ID</b></td>
-							<td><b>Descrição</b></td>
-							<td><b>Tipo de Produto</b></td>
-							<td><b>Valor</b></td>
+							<td><b>Login</b></td>
+							<td><b>Email</b></td>
 							<td colspan="3"><b>Ação</b></td>
 						</tr>
-						<c:forEach items="${produtos.content}" var="produto">
+						<c:forEach items="${listaPaginada.content}" var="usuario">
 							<tr>
-								<td>${produto.idProduto}</td>
-								<td>${produto.descricao}</td>
-								<td>${produto.tipoProduto}</td>
-								<td><fmt:formatNumber value="${produto.valor }"
-										type="currency" /></td>
-								<td><a class="modal-trigger btn-floating orange"
-									href="${s:mvcUrl('visualizarProduto').arg(0, produto.idProduto).build() }"><i
-										class="material-icons">remove_red_eye</i></a></td>
-								<td><a class="btn-floating blue"
-									href="${s:mvcUrl('alterarProduto').arg(0, produto.idProduto).build() }"><i
-										class="material-icons">edit</i></a></td>
-								<td><a class="modal-excluir modal-trigger btn-floating red" href="#modalExcluir" data-tabela="produtos" data-id="${produto.idProduto }" data-descr="${produto.descricao }"><i
-										class="material-icons">delete</i></a>
-								</td>
+								<td>${usuario.idLogin}</td>
+								<td>${usuario.login}</td>
+								<td>${usuario.email}</td>
+								<td class="center-align"><a
+									class="modal-trigger btn-floating orange"
+									href="${s:mvcUrl('visualizarUsuario').arg(0, usuario.idLogin).build() }"><i
+										class="material-icons">remove_red_eye</i></a> <a
+									class="btn-floating blue"
+									href="${s:mvcUrl('editarUsuario').arg(0, usuario.idLogin).build() }"><i
+										class="material-icons">edit</i></a>
+
+
+									<button href="#modalExcluir"
+										class="modal-excluir modal-trigger btn-floating red"
+										data-descr="${usuario.login }" data-tabela="usuarios"
+										data-id="${usuario.idLogin }">
+										<i class="material-icons">delete</i>
+										<f:form
+											action="${s:mvcUrl('apagarUsuario').arg(0, usuario.idLogin).build() }"
+											method="POST">
+										</f:form>
+									</button></td>
 							</tr>
 						</c:forEach>
 					</table>

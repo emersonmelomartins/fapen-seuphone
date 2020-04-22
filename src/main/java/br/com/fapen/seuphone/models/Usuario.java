@@ -1,10 +1,14 @@
 package br.com.fapen.seuphone.models;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -12,7 +16,14 @@ import javax.persistence.Id;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
 import org.springframework.security.core.GrantedAuthority;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
+
 import org.springframework.security.core.userdetails.UserDetails;
+
+
 
 @Entity(name = "tb_login")
 public class Usuario implements UserDetails {
@@ -50,8 +61,20 @@ public class Usuario implements UserDetails {
 		return idLogin;
 	}
 
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "id_pessoa")
+	private Pessoa pessoa;
+
 	public void setIdLogin(Long idLogin) {
 		this.idLogin = idLogin;
+	}
+
+	public Pessoa getPessoa() {
+		return pessoa;
+	}
+
+	public void setPessoa(Pessoa pessoa) {
+		this.pessoa = pessoa;
 	}
 
 	public String getLogin() {
@@ -100,12 +123,24 @@ public class Usuario implements UserDetails {
 
 	public void setEmail(String email) {
 		this.email = email;
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+	
+	@ManyToMany(fetch = FetchType.EAGER)
+	@JoinTable(name = "tb_login_perfil",
+			joinColumns = @JoinColumn(name = "id_login"),
+			inverseJoinColumns = @JoinColumn(name = "id_perfil"))
+	private List<Perfil> authorities = new ArrayList<Perfil>();
+	
+	public void setAuthorities(List<Perfil> authorities) {
+		this.authorities = authorities;
 	}
 
 	@Override
-	public Collection<? extends GrantedAuthority> getAuthorities() {
+	public Collection<Perfil> getAuthorities() {
 		// TODO Auto-generated method stub
-		return null;
+		return authorities;
 	}
 
 	@Override
@@ -143,6 +178,5 @@ public class Usuario implements UserDetails {
 		// TODO Auto-generated method stub
 		return true;
 	}
-	
-	
+
 }

@@ -7,10 +7,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -21,6 +22,7 @@ import br.com.fapen.seuphone.repositories.ProdutoRepository;
 import br.com.fapen.seuphone.validations.ProdutoValidator;
 
 @Controller
+@RequestMapping("/produtos")
 public class ProdutoController {
 
 	@Autowired
@@ -36,29 +38,44 @@ public class ProdutoController {
 	
 	
 
-	@RequestMapping(value = "/produtos", method = RequestMethod.GET, name = "paginaProdutos")
-	public ModelAndView listar(@RequestParam(defaultValue = "1") Integer pagina, @RequestParam(defaultValue = "") String busca) {
+	@GetMapping(name = "listarProdutos")
+	public ModelAndView listProduct(@RequestParam(defaultValue = "1") Integer pagina, @RequestParam(defaultValue = "") String busca) {
 		
-		Page<Produto> produtosCadastrados;
+		Page<Produto> listaProdutos;
 		if(busca.equals("")) {
-			produtosCadastrados = repProduto.findAllByOrderByIdProdutoAsc(Paginacao.getPaginacao(pagina));
+			listaProdutos = repProduto.findAllByOrderByIdProdutoAsc(Paginacao.getPaginacao(pagina));
 		} else {
-			produtosCadastrados = repProduto.findByDescricaoContainingIgnoreCase(busca, Paginacao.getPaginacao(pagina));
+			listaProdutos = repProduto.findByDescricaoContainingIgnoreCase(busca, Paginacao.getPaginacao(pagina));
 		}
 
-		ModelAndView mav = new ModelAndView("produto/lista");
-		mav.addObject("produtos", produtosCadastrados);
+		ModelAndView mav = new ModelAndView("produto/listar");
+		mav.addObject("listaPaginada", listaProdutos);
 
 		return mav;
 	}
 
-	@RequestMapping(value = "/produtos/novo", method = RequestMethod.GET, name = "novoProduto")
-	public String novo(Produto produto) {
+	@GetMapping(value = "/novo", name = "novoProduto")
+	public String newProduct(Produto produto) {
 		return "/produto/novo";
 	}
 	
-	@RequestMapping(value = "/produtos/{id}/editar", method = RequestMethod.GET, name = "alterarProduto")
-	public ModelAndView editar(@PathVariable Long id) {
+	@PostMapping(value = "/salvar", name = "salvarProduto")
+	public String createProduct(@Valid Produto produto, BindingResult resultadoValidacao, RedirectAttributes atributos) {
+		
+		if(resultadoValidacao.hasErrors()) {
+
+			
+			return newProduct(produto);
+		}
+		
+		repProduto.save(produto);
+		atributos.addFlashAttribute("mensagemStatus", "Produto salvo com sucesso!");
+		
+		return "redirect:/produtos";
+	}
+	
+	@GetMapping(value = "/{id}/editar", name = "editarProduto")
+	public ModelAndView editProduct(@PathVariable Long id) {
 		
 		Produto produto = repProduto.getOne(id);
 		
@@ -68,38 +85,22 @@ public class ProdutoController {
 		return mav;
 	}
 	
-
-	@RequestMapping(value = "/salvar", method = RequestMethod.POST, name = "salvarProduto")
-	public String salvar(@Valid Produto produto, BindingResult resultadoValidacao, RedirectAttributes atributos) {
+	@PostMapping(value = "/{id}/apagar", name = "apagarProduto")
+	public String apagar(@PathVariable Long id, RedirectAttributes atributos) {
+		Produto produto = repProduto.getOne(id);
+		repProduto.delete(produto);
 		
-		if(resultadoValidacao.hasErrors()) {
-			
-			atributos.addFlashAttribute("mensagemStatus", "Ocorreu um erro!");
-			return novo(produto);
-		}
-		
-		
-		repProduto.save(produto);
-		atributos.addFlashAttribute("mensagemStatus", "Produto adicionado com sucesso!");
+		atributos.addFlashAttribute("mensagemStatus", "Produto apagado com sucesso!");
 		return "redirect:/produtos";
 	}
 	
-	@RequestMapping(value = "/produtos/{id}", method = RequestMethod.GET, name = "visualizarProduto")
-	public ModelAndView visualizar(@PathVariable Long id) {
+	@GetMapping(value = "/{id}", name = "visualizarProduto")
+	public ModelAndView viewProduct(@PathVariable Long id) {
 		Produto produto = repProduto.getOne(id);
 		
 		ModelAndView mav = new ModelAndView("produto/visualizar");
 		mav.addObject("produto", produto);
 		
 		return mav;
-	}
-	
-	@RequestMapping(value = "/produtos/{id}/apagar", method = RequestMethod.GET, name = "apagarProduto")
-	public String apagar(@PathVariable Long id, RedirectAttributes atributos) {
-		Produto produto = repProduto.getOne(id);
-		repProduto.delete(produto);
-		
-		atributos.addFlashAttribute("mensagemStatus", "Produto " + id + " apagado com sucesso!");
-		return "redirect:/produtos";
 	}
 }

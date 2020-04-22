@@ -1,6 +1,8 @@
 $(document).ready(function() {
 	$('.sidenav').sidenav();
-	$(".dropdown-trigger").dropdown();	 
+	$(".dropdown-trigger").dropdown({
+		container: document.body
+	});	 
 	$('ul.tabs').tabs();
 	$('select').formSelect();
 	$('.modal').modal();
@@ -43,5 +45,8 @@ $(".fmt-cnpj").mask("00.000.000/0000-00");
 $(".fmt-cpf").mask("000.000.000-00");
 $(".fmt-cep").mask("00000-000");
 
-// voltar ao topo
 
+//Configuração dropdown menu
+$('.dropdown-button').dropdown({
+    container: document.body
+  }); 
