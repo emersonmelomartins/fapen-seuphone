@@ -25,8 +25,6 @@ public class ProdutoController {
 
 	@Autowired
 	private ProdutoRepository repProduto;
-
-	
 	
 	@Autowired
 	private ProdutoValidator produtoValidator;
