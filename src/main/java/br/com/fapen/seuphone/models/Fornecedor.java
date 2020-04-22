@@ -1,15 +1,38 @@
 package br.com.fapen.seuphone.models;
 
-public class Fornecedor {
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
+public class Fornecedor {
+    
+    @Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id_fornecedor")
     private Long id;
+
+    @Column(name = "razao_social")
     private String razaoSocial;
+    
+    @Column(name = "cnpj")
     private String cnpj;
+
+    @Column(name = "tel_fornecedor")
     private String tel;
+
+    @Column(name = "email")
     private String email;
+
+    @Column(name = "categoria_produto")
     private String categoriaProduto;
+
+    @Column(name = "inativo")
     private int inativo;
 
+    @OneToOne
+    private Endereco endereco;
 
     public Long getId() {
         return this.id;
