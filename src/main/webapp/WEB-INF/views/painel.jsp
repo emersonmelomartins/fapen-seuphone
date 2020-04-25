@@ -109,7 +109,7 @@
 						</div>
 
 						<div class="row">
-							<a href="#fornecedores">
+							<a href="${s:mvcUrl('listarFornecedores').build() }">
 								<div style="padding: 30px; border-radius: 10px;"
 									class="col s5 waves-effect black-seuphone">
 									<i class="white-text large material-icons">business_center</i>

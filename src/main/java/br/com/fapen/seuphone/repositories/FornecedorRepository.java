@@ -11,7 +11,7 @@ import br.com.fapen.seuphone.models.Fornecedor;
 @Repository
 public interface FornecedorRepository extends JpaRepository<Fornecedor, Long> {
 
-    public Page<Fornecedor> findByDescricaoContainingIgnoreCase(String busca, Pageable paginacao);
+    public Page<Fornecedor> findByRazaoSocialContainingIgnoreCase(String busca, Pageable paginacao);
 
-    public Page<Fornecedor> findAllByOrderByIdFornecedor(Pageable paginacao);
+    public Page<Fornecedor> findAllByOrderById(Pageable paginacao);
 }

@@ -1,11 +1,15 @@
 package br.com.fapen.seuphone.models;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
+@Entity(name = "tb_fornecedor")
 public class Fornecedor {
     
     @Id
@@ -29,79 +33,76 @@ public class Fornecedor {
     private String categoriaProduto;
 
     @Column(name = "inativo")
-    private int inativo;
+    private boolean inativo;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_endereco")
     private Endereco endereco;
 
-    public Long getId() {
-        return this.id;
-    }
+	public Long getId() {
+		return id;
+	}
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-    public String getRazaoSocial() {
-        return this.razaoSocial;
-    }
+	public String getRazaoSocial() {
+		return razaoSocial;
+	}
 
-    public void setRazaoSocial(String razaoSocial) {
-        this.razaoSocial = razaoSocial;
-    }
+	public void setRazaoSocial(String razaoSocial) {
+		this.razaoSocial = razaoSocial;
+	}
 
-    public String getCnpj() {
-        return this.cnpj;
-    }
+	public String getCnpj() {
+		return cnpj;
+	}
 
-    public void setCnpj(String cnpj) {
-        this.cnpj = cnpj;
-    }
+	public void setCnpj(String cnpj) {
+		this.cnpj = cnpj;
+	}
 
-    public String getTel() {
-        return this.tel;
-    }
+	public String getTel() {
+		return tel;
+	}
 
-    public void setTel(String tel) {
-        this.tel = tel;
-    }
+	public void setTel(String tel) {
+		this.tel = tel;
+	}
 
-    public String getEmail() {
-        return this.email;
-    }
+	public String getEmail() {
+		return email;
+	}
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
-    public String getCategoriaProduto() {
-        return this.categoriaProduto;
-    }
+	public String getCategoriaProduto() {
+		return categoriaProduto;
+	}
 
-    public void setCategoriaProduto(String categoriaProduto) {
-        this.categoriaProduto = categoriaProduto;
-    }
+	public void setCategoriaProduto(String categoriaProduto) {
+		this.categoriaProduto = categoriaProduto;
+	}
 
-    public int getInativo() {
-        return this.inativo;
-    }
+	public boolean isInativo() {
+		return inativo;
+	}
 
-    public void setInativo(int inativo) {
-        this.inativo = inativo;
-    }
+	public void setInativo(boolean inativo) {
+		this.inativo = inativo;
+	}
 
-    @Override
-    public String toString() {
-        return "{" +
-            " id='" + id + "'" +
-            ", razaoSocial='" + razaoSocial + "'" +
-            ", cnpj='" + cnpj + "'" +
-            ", tel='" + tel + "'" +
-            ", email='" + email + "'" +
-            ", categoriaProduto='" + categoriaProduto + "'" +
-            ", inativo='" + inativo + "'" +
-            "}";
-    }
+	public Endereco getEndereco() {
+		return endereco;
+	}
+
+	public void setEndereco(Endereco endereco) {
+		this.endereco = endereco;
+	}
+
     
 
 }
