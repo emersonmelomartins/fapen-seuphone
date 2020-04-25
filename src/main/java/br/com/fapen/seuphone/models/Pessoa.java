@@ -83,7 +83,7 @@ public class Pessoa {
 	}
 
 	public void setCelular(String celular) {
-		this.celular = celular;
+		this.celular = celular.replaceAll("[^0-9]", "");
 	}
 
 	public String getTelefone() {
@@ -91,7 +91,7 @@ public class Pessoa {
 	}
 
 	public void setTelefone(String telefone) {
-		this.telefone = telefone;
+		this.telefone = telefone.replaceAll("[^0-9]", "");
 	}
 	
 	

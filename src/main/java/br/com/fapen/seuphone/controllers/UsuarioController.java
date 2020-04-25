@@ -70,7 +70,7 @@ public class UsuarioController {
 	}
 	
 	@PostMapping(value = "/salvar", name = "salvarUsuario")
-	public String createUser(@Valid Usuario usuario, BindingResult resultadoValidacao ,RedirectAttributes atributos) {
+	public String createUser(@Valid Usuario usuario/*usuarioForm*/, BindingResult resultadoValidacao ,RedirectAttributes atributos) {
 		
 		if(resultadoValidacao.hasErrors()) {
 			

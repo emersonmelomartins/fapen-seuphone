@@ -38,72 +38,130 @@
 
 		<div class="row">
 			<br> <br>
-			<h1 class="titulo">Usuário</h1>
+			<h1 class="titulo">Fornecedor</h1>
 			<br> <br>
-			<c:forEach items="usuario">
-			<fmt:parseDate value="${usuario.pessoa.dtNascimento }" pattern="yyyy-MM-dd" type="date" var="parsedDate"/>
+			<c:forEach items="fornecedor">
+
 
 				<div class="row">
 
-
-					<div class="row">
-						<div class="col s6">
-							<h5>ID</h5>
-							<p>${usuario.idLogin }</p>
-						</div>
-					</div>
-
+					<h5>Dados Cadastrais</h5>
 					<hr />
 
 					<div class="row">
 						<div class="col s6">
-							<h5>Nome</h5>
-							<p>${usuario.pessoa.nome }</p>
-						</div>
-						<div class="col s6">
-							<h5>Login</h5>
-							<p>${usuario.login}</p>
-						</div>
-					</div>	
-
-					<hr />
-
-					<div class="row">
-						<div class="col s6">
-							<h5>Email</h5>
-							<p>${usuario.email}</p>
-						</div>
-						<div class="col s6">
-							<h5>CPF</h5>
-							<p class="fmt-cpf">${usuario.pessoa.cpf }</p>
+							<h6>ID</h6>
+							<p>
+								<b>${fornecedor.id }</b>
+							</p>
 						</div>
 					</div>
 
-					<hr />
+
 
 					<div class="row">
 						<div class="col s6">
-							<h5>Data Nascimento</h5>
-							<p><fmt:formatDate value="${parsedDate }" pattern="dd/MM/yyyy" /></p>
+							<h6>Razão Social</h6>
+							<p>
+								<b>${fornecedor.razaoSocial}</b>
+							</p>
 						</div>
+						
 						<div class="col s6">
-							<h5>Sexo</h5>
-							<p>${usuario.pessoa.sexo }</p>
+							<h6>Telefone</h6>
+							<p style="font-weight: bold;" class="fmt-tel">
+								${fornecedor.tel}
+							</p>
 						</div>
+
 					</div>
 
-					<hr />
 
 					<div class="row">
 						<div class="col s6">
-							<h5>Telefone</h5>
-							<p class="fmt-tel">${usuario.pessoa.telefone}</p>
+							<h6>CNPJ</h6>
+							<p style="font-weight: bold;" class="fmt-cnpj">${fornecedor.cnpj}</p>
 						</div>
+						
 						<div class="col s6">
-							<h5>Celular</h5>
-							<p class="fmt-cel">${usuario.pessoa.celular }</p>
+							<h6>E-mail</h6>
+							<p style="font-weight: bold;">${fornecedor.email}</p>
+						</div>
+
+
+
+					</div>
+
+
+					<h5>Endereço</h5>
+					<hr />
+
+
+
+					<div class="row">
+						<div class="col s6">
+							<h6>CEP</h6>
+							<p>
+								<b><span class="fmt-cep">${fornecedor.endereco.cep}</span></b>
+							</p>
 						</div>
 					</div>
+
+					<div class="row">
+						<div class="col s12">
+							<h6>Logradouro</h6>
+							<p>
+								<b>${fornecedor.endereco.logradouro}</b>
+							</p>
+						</div>
+					</div>
+
+					<div class="row">
+
+						<div class="col s6">
+							<h6>Bairro</h6>
+							<p>
+								<b>${fornecedor.endereco.bairro}</b>
+							</p>
+						</div>
+						<div class="col s6">
+							<h6>Número</h6>
+							<p>
+								<b>${fornecedor.endereco.numero}</b>
+							</p>
+						</div>
+					</div>
+
+					<div class="row">
+
+						<div class="col s6">
+							<h6>UF</h6>
+							<p>
+								<b>${fornecedor.endereco.uf}</b>
+							</p>
+						</div>
+						<div class="col s6">
+							<h6>Município</h6>
+							<p>
+								<b>${fornecedor.endereco.cidade}</b>
+							</p>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col s6">
+							<h6>Complemento</h6>
+							<p>
+								<b>${fornecedor.endereco.complemento}</b>
+							</p>
+						</div>
+					</div>
+
+
+
+
+					<hr />
+
 
 				</div>
 
@@ -113,7 +171,7 @@
 			<div class="row">
 
 				<div class="col s2">
-					<a href="${s:mvcUrl('listarUsuarios').build() }"
+					<a href="${s:mvcUrl('listarFornecedores').build() }"
 						class="btn left red">Voltar</a>
 				</div>
 
@@ -124,9 +182,7 @@
 	</div>
 
 
-
-
-	<!--Materialize JS-->
+<!--Materialize JS-->
 	<script src="/js/jquery-3.4.1.min.js"></script>
 	<script src="/js/jquery.mask.min.js"></script>
 	<script src="/js/materialize.min.js"></script>

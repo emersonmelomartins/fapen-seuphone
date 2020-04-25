@@ -36,7 +36,7 @@ $(document).ready(function() {
 							'S' ],
 				},
 
-				format : "yyyy-mm-dd"
+				format : "dd/mm/yyyy"
 			});
 });
 
@@ -44,6 +44,9 @@ $(document).ready(function() {
 $(".fmt-cnpj").mask("00.000.000/0000-00");
 $(".fmt-cpf").mask("000.000.000-00");
 $(".fmt-cep").mask("00000-000");
+$(".fmt-tel").mask("(00)0000-0000");
+$(".fmt-cel").mask("(00)00000-0000");
+$(".datepicker").mask("00/00/0000");
 
 
 //Configuração dropdown menu
