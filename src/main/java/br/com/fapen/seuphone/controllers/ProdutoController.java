@@ -26,9 +26,7 @@ import br.com.fapen.seuphone.validations.ProdutoValidator;
 public class ProdutoController {
 
 	@Autowired
-	private ProdutoRepository produtoRep;
-
-	
+	private ProdutoRepository repProduto;
 	
 	@Autowired
 	private ProdutoValidator produtoValidator;
@@ -45,9 +43,9 @@ public class ProdutoController {
 		
 		Page<Produto> listaProdutos;
 		if(busca.equals("")) {
-			listaProdutos = produtoRep.findAllByOrderByIdProdutoAsc(Paginacao.getPaginacao(pagina));
+			listaProdutos = repProduto.findAllByOrderByIdProdutoAsc(Paginacao.getPaginacao(pagina));
 		} else {
-			listaProdutos = produtoRep.findByDescricaoContainingIgnoreCase(busca, Paginacao.getPaginacao(pagina));
+			listaProdutos = repProduto.findByDescricaoContainingIgnoreCase(busca, Paginacao.getPaginacao(pagina));
 		}
 
 		ModelAndView mav = new ModelAndView("produto/listar");
@@ -70,7 +68,7 @@ public class ProdutoController {
 			return newProduct(produto);
 		}
 		
-		produtoRep.save(produto);
+		repProduto.save(produto);
 		atributos.addFlashAttribute("mensagemStatus", "Produto salvo com sucesso!");
 		
 		return "redirect:/produtos";
@@ -79,7 +77,7 @@ public class ProdutoController {
 	@GetMapping(value = "/{id}/editar", name = "editarProduto")
 	public ModelAndView editProduct(@PathVariable Long id) {
 		
-		Produto produto = produtoRep.getOne(id);
+		Produto produto = repProduto.getOne(id);
 		
 		ModelAndView mav = new ModelAndView("produto/novo");
 		mav.addObject("produto", produto);
@@ -89,8 +87,8 @@ public class ProdutoController {
 	
 	@PostMapping(value = "/{id}/apagar", name = "apagarProduto")
 	public String apagar(@PathVariable Long id, RedirectAttributes atributos) {
-		Produto produto = produtoRep.getOne(id);
-		produtoRep.delete(produto);
+		Produto produto = repProduto.getOne(id);
+		repProduto.delete(produto);
 		
 		atributos.addFlashAttribute("mensagemStatus", "Produto apagado com sucesso!");
 		return "redirect:/produtos";
@@ -98,7 +96,7 @@ public class ProdutoController {
 	
 	@GetMapping(value = "/{id}", name = "visualizarProduto")
 	public ModelAndView viewProduct(@PathVariable Long id) {
-		Produto produto = produtoRep.getOne(id);
+		Produto produto = repProduto.getOne(id);
 		
 		ModelAndView mav = new ModelAndView("produto/visualizar");
 		mav.addObject("produto", produto);
