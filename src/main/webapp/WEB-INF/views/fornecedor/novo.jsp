@@ -47,7 +47,7 @@
 					<div class="row">
 
 						<div class="row">
-							<div class="input-field col s6">
+							<div class="input-field col s12">
 								<label for="razaoSocial">Razao Social</label>
 								<f:input path="razaoSocial" cssClass="validate" />
 								<f:errors path="razaoSocial" cssClass="left helper-text red-text" />
@@ -80,7 +80,7 @@
 
 							<div class="input-field col s6">
 								<label for="tel">Telefone</label>
-								<f:input path="tel" cssClass="validate" />
+								<f:input path="tel" cssClass="validate fmt-tel" />
 								<f:errors path="tel" cssClass="left helper-text red-text" />
 							</div>
 						</div>
@@ -88,7 +88,7 @@
 						<div class="row">
 							<div class="input-field col s6">
 								<label for="endereco.cep">CEP</label>
-								<f:input path="endereco.cep" cssClass="validate" />
+								<f:input path="endereco.cep" cssClass="validate fmt-cep" />
 								<f:errors path="endereco.cep"
 									cssClass="left helper-text red-text" />
 							</div>
@@ -100,6 +100,72 @@
 							</div>
 						</div>
 						
+						<div class="row">
+							<div class="input-field col s6">
+								<label for="endereco.cidade">Cidade</label>
+								<f:input path="endereco.cidade" cssClass="validate" />
+								<f:errors path="endereco.cidade"
+									cssClass="left helper-text red-text" />
+							</div>
+
+							<div class="input-field col s6">
+									<f:select path="endereco.uf" cssClass="validate">
+										<f:option value="" >Selecione um estado</f:option>
+										<f:option value="AC">AC</f:option>
+										<f:option value="AL">AL</f:option>
+										<f:option value="AM">AM</f:option>
+										<f:option value="AP">AP</f:option>
+										<f:option value="BA">BA</f:option>
+										<f:option value="CE">CE</f:option>
+										<f:option value="DF">DF</f:option>
+										<f:option value="ES">ES</f:option>
+										<f:option value="GO">GO</f:option>
+										<f:option value="MA">MA</f:option>
+										<f:option value="MG">MG</f:option>
+										<f:option value="MS">MS</f:option>
+										<f:option value="MT">MT</f:option>
+										<f:option value="PA">PA</f:option>
+										<f:option value="PB">PB</f:option>
+										<f:option value="PE">PE</f:option>
+										<f:option value="PI">PI</f:option>
+										<f:option value="PR">PR</f:option>
+										<f:option value="RJ">RJ</f:option>
+										<f:option value="RN">RN</f:option>
+										<f:option value="RS">RS</f:option>
+										<f:option value="RO">RO</f:option>
+										<f:option value="RR">RR</f:option>
+										<f:option value="SC">SC</f:option>
+										<f:option value="SE">SE</f:option>
+										<f:option value="SP">SP</f:option>
+										<f:option value="TO">TO</f:option>
+									</f:select>
+									<label name="uf">UF</label>
+									<f:errors path="endereco.uf" cssClass="helper-text red-text" />
+								</div>
+						</div>
+						
+						<div class="row">
+							<div class="input-field col s6">
+								<label for="endereco.bairro">Bairro</label>
+								<f:input path="endereco.bairro" cssClass="validate" />
+								<f:errors path="endereco.bairro"
+									cssClass="left helper-text red-text" />
+							</div>
+
+							<div class="input-field col s6">
+								<label for="endereco.numero">Número</label>
+								<f:input path="endereco.numero" type="number" cssClass="validate" />
+								<f:errors path="endereco.numero" cssClass="left helper-text red-text" />
+							</div>
+						</div>
+						
+						<div class="row">
+							<div class="input-field col s12">
+								<label for="endereco.complemento">Complemento</label>
+								<f:input path="endereco.complemento" cssClass="validate" />
+								<f:errors path="endereco.complemento" cssClass="left helper-text red-text" />
+							</div>
+						</div>
 						
 						
 
@@ -132,6 +198,7 @@
 	<script src="/js/jquery.mask.min.js"></script>
 	<script src="/js/materialize.min.js"></script>
 	<script src="/js/main.js"></script>
+	<script src="/js/viacep.js"></script>
 
 	<script>
 		setTimeout(function() {

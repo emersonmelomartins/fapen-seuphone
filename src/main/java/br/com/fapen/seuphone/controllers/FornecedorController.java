@@ -74,7 +74,7 @@ public class FornecedorController {
 		return "redirect:/fornecedores";
 	}
 	
-	@RequestMapping(value = "/fornecedores/{id}", method = RequestMethod.GET, name = "visualizarFornecedor")
+	@GetMapping(value = "/{id}", name = "visualizarFornecedor")
 	public ModelAndView visualizar(@PathVariable Long id) {
 		Fornecedor fornecedor = fornecedorRepository.getOne(id);
 		
@@ -84,7 +84,7 @@ public class FornecedorController {
 		return mav;
 	}
 	
-	@RequestMapping(value = "/fornecedores/{id}/apagar", method = RequestMethod.GET, name = "apagarFornecedor")
+	@PostMapping(value = "/{id}/apagar", name = "apagarFornecedor")
 	public String apagar(@PathVariable Long id, RedirectAttributes atributos) {
 		Fornecedor fornecedor = fornecedorRepository.getOne(id);
 		fornecedorRepository.delete(fornecedor);
