@@ -41,6 +41,7 @@
 			<h1 class="titulo">Usuário</h1>
 			<br> <br>
 			<c:forEach items="usuario">
+			<fmt:parseDate value="${usuario.pessoa.dtNascimento }" pattern="yyyy-MM-dd" type="date" var="parsedDate"/>
 
 				<div class="row">
 
@@ -83,7 +84,7 @@
 					<div class="row">
 						<div class="col s6">
 							<h5>Data Nascimento</h5>
-							<p>${usuario.pessoa.dtNascimento}</p>
+							<p><fmt:formatDate value="${parsedDate }" pattern="dd/MM/yyyy" /></p>
 						</div>
 						<div class="col s6">
 							<h5>Sexo</h5>
@@ -96,11 +97,11 @@
 					<div class="row">
 						<div class="col s6">
 							<h5>Telefone</h5>
-							<p>${usuario.pessoa.telefone}</p>
+							<p class="fmt-tel">${usuario.pessoa.telefone}</p>
 						</div>
 						<div class="col s6">
 							<h5>Celular</h5>
-							<p>${usuario.pessoa.celular }</p>
+							<p class="fmt-cel">${usuario.pessoa.celular }</p>
 						</div>
 					</div>
 

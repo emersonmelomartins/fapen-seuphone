@@ -106,14 +106,14 @@
 						<div class="row">
 							<div class="input-field col s6">
 								<label for="pessoa.telefone">Telefone</label>
-								<f:input path="pessoa.telefone" cssClass="validate" />
+								<f:input path="pessoa.telefone" cssClass="validate fmt-tel" />
 								<f:errors path="pessoa.telefone"
 									cssClass="left helper-text red-text" />
 							</div>
 
 							<div class="input-field col s6">
 								<label for="pessoa.celular">Celular</label>
-								<f:input path="pessoa.celular" cssClass="validate" />
+								<f:input path="pessoa.celular" cssClass="validate fmt-cel" />
 								<f:errors path="pessoa.celular" cssClass="left helper-text red-text" />
 							</div>
 						</div>
