@@ -89,6 +89,8 @@ public class UsuarioController {
 		
 		Usuario usuario = usuarioRep.getOne(id);
 		
+		System.out.println(usuarioRep.findByPessoaCpf(usuario.getPessoa().getCpf()));
+		
 		ModelAndView mav = new ModelAndView("/usuario/novo");
 		mav.addObject("usuario", usuario);
 		
