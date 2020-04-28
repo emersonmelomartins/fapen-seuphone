@@ -60,7 +60,7 @@ public class Fornecedor {
 	}
 
 	public void setCnpj(String cnpj) {
-		this.cnpj = cnpj;
+		this.cnpj = cnpj.replaceAll("[^0-9]", "");;
 	}
 
 	public String getTel() {
@@ -68,7 +68,7 @@ public class Fornecedor {
 	}
 
 	public void setTel(String tel) {
-		this.tel = tel;
+		this.tel = tel.replaceAll("[^0-9]", "");
 	}
 
 	public String getEmail() {

@@ -81,7 +81,7 @@ public class Endereco {
     }
 
     public void setCep(String cep) {
-        this.cep = cep;
+        this.cep = cep.replaceAll("[^0-9]", "");
     }
 
     public String getComplemento() {
