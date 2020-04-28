@@ -18,7 +18,17 @@ public class FornecedorValidator implements Validator {
 	@Override
 	public void validate(Object target, Errors errors) {
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "razaoSocial", "campo.obrigatorio");
-		
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "cnpj", "campo.obrigatorio");
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "tel", "campo.obrigatorio");
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "email", "campo.obrigatorio");
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "categoriaProduto", "campo.obrigatorio");
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "endereco.uf", "campo.obrigatorio");
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "endereco.cidade", "campo.obrigatorio");
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "endereco.logradouro", "campo.obrigatorio");
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "endereco.bairro", "campo.obrigatorio");
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "endereco.cep", "campo.obrigatorio");
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "endereco.numero", "campo.obrigatorio");
+
 	}
 
 }

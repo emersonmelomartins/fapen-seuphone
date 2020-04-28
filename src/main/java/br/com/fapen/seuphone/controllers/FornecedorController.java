@@ -6,7 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,13 +20,22 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import br.com.fapen.seuphone.models.Fornecedor;
 import br.com.fapen.seuphone.repositories.FornecedorRepository;
 import br.com.fapen.seuphone.repositories.Paginacao;
+import br.com.fapen.seuphone.validations.FornecedorValidator;
 
 @Controller
 @RequestMapping("/fornecedores")
 public class FornecedorController {
 
     @Autowired
-    public FornecedorRepository fornecedorRepository;
+    private FornecedorRepository fornecedorRepository;
+    
+    @Autowired
+    private FornecedorValidator fornecedorValidator;
+    
+    @InitBinder("fornecedor")
+    protected void init(WebDataBinder binder) {
+    	binder.setValidator(fornecedorValidator);
+    }
 
     @GetMapping(name = "listarFornecedores")
 	public ModelAndView listProviders(@RequestParam(defaultValue = "1") Integer pagina, @RequestParam(defaultValue = "") String busca) {
