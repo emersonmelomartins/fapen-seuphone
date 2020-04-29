@@ -46,7 +46,7 @@
 				<f:form method="GET">
 					<div class="input-field col s11">
 						<input id="busca" name="busca" id="search" type="text" placeholder="Pesquisar por Login..."
-							value="${busca}">
+							value="${busca}" autofocus>
 					</div>
 					<div class="input-field col s1">
 						<button class="btn black-seuphone" type="submit">
