@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 
 <!DOCTYPE html>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -8,18 +10,16 @@
 <html lang="pt-BR">
 
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Seuphone - Última geração em suas mãos.</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Seuphone - Ãšltima geraÃ§Ã£o em suas mÃ£os.</title>
 
-<!-- Materialize CSS -->
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
-	rel="stylesheet" />
-<link type="text/css" rel="stylesheet" href="/css/materialize.min.css"
-	media="screen,projection" />
+	<!-- Materialize CSS -->
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+	<link type="text/css" rel="stylesheet" href="/css/materialize.min.css" media="screen,projection" />
 
-<link rel="stylesheet" href="/css/style.css" />
-<link rel="stylesheet" href="/css/animate.css" />
+	<link rel="stylesheet" href="/css/style.css" />
+	<link rel="stylesheet" href="/css/animate.css" />
 </head>
 
 <body>
@@ -44,77 +44,84 @@
 
 			<div class="row center">
 				<f:form method="GET">
-					<div class="input-field col s8">
-						<input id="busca" name="busca" id="search" type="text"
-							placeholder="Pesquisar por Razão Social" value="${busca}">
+					<div class="input-field col s11">
+						<input id="busca" name="busca" id="search" type="text" placeholder="Pesquisar por RazÃ£o Social..."
+							value="${busca}" autofocus>
 					</div>
 					<div class="input-field col s1">
-						<button class="btn-small black-seuphone" type="submit">
+						<button class="btn black-seuphone" type="submit">
 							<i class="material-icons">search</i>
 						</button>
 					</div>
 				</f:form>
 
-				<div class="input-field col s2 left">
-					<a
-						class="btn-floating btn-large waves-effect waves-light green right"
-						title="novo" href="${s:mvcUrl('novoFornecedor').build() }"> <i
-						class="material-icons">add</i>
-					</a>
-				</div>
+				
+			</div>
+			
+			<div class="input-field left">
+				<a class="waves-effect waves-light btn green white-text" title="novo"
+				href="${s:mvcUrl('novoFornecedor').build() }"><i class="material-icons left">add</i>adicionar</a>
 			</div>
 
 			<div class="row">
-
-				<div class="col s12">
-					<table class="centered">
-						<tr class="grey lighten-2">
-							<td><b>ID</b></td>
-							<td><b>Razão Social</b></td>
-							<td><b>CNPJ</b></td>
-							<td><b>E-mail</b></td>
-							<td colspan="3"><b>Ação</b></td>
-						</tr>
-						<c:forEach items="${listaPaginada.content}" var="fornecedor">
+				<div class="col s12">		
+					<table class="responsive-table striped">
+						<thead>
 							<tr>
-								<td>${fornecedor.id}</td>
-								<td>${fornecedor.razaoSocial}</td>
-								<td>${fornecedor.cnpj}</td>
-								<td>${fornecedor.email}</td>
-								<td class="center-align"><a
-									class="modal-trigger btn-floating orange"
-									href="${s:mvcUrl('visualizarFornecedor').arg(0, fornecedor.id).build() }"><i
-										class="material-icons">remove_red_eye</i></a> <a
-									class="btn-floating blue"
-									href="${s:mvcUrl('editarFornecedor').arg(0, fornecedor.id).build() }"><i
-										class="material-icons">edit</i></a>
-
-
-									<button href="#modalExcluir"
-										class="modal-excluir modal-trigger btn-floating red"
-										data-descr="${fornecedor.razaoSocial }" data-tabela="fornecedores"
-										data-id="${fornecedor.id }">
-										<i class="material-icons">delete</i>
-										<f:form
-											action="${s:mvcUrl('apagarFornecedor').arg(0, fornecedor.id).build() }"
-											method="POST">
-										</f:form>
-									</button></td>
+								<th>ID</th>
+								<th>RazÃ£o Social</th>
+								<th>CNPJ</th>
+								<th>Telefone</th>
+								<th>Status</th>
+								<th class="center-align">AÃ§Ã£o</th>
 							</tr>
-						</c:forEach>
-					</table>
+						</thead>
+						<tbody>
+							<c:forEach items="${listaPaginada.content}" var="fornecedor">
+								<tr>
+									<td>${fornecedor.id}</td>
+									<td>${fornecedor.razaoSocial}</td>
+									<td class="fmt-cnpj">${fornecedor.cnpj}</td>
+									<td class="fmt-tel">${fornecedor.tel}</td>
+									<td>
+										<c:if test="${!fornecedor.inativo }">
+											<div class="chip green-text">Ativo</div>
+										</c:if>
+										<c:if test="${fornecedor.inativo }">
+											<div class="chip red-text">Inativo</div>
+										</c:if>
+									</td>
+				<td class="center-align"><a class="waves-effect waves-light btn-small yellow"
+						href="${s:mvcUrl('visualizarFornecedor').arg(0, fornecedor.id).build() }" title="Visualizar"><i
+							class="material-icons yellow-text text-darken-3">remove_red_eye</i></a> <a
+						class="waves-effect waves-light btn-small blue"
+						href="${s:mvcUrl('editarFornecedor').arg(0, fornecedor.id).build() }" title="Editar"><i
+							class="material-icons blue-text text-darken-3">edit</i></a>
 
 
+					<button href="#modalExcluir" class="modal-excluir modal-trigger waves-effect waves-light btn-small red"
+						data-descr="${fornecedor.razaoSocial }" data-tabela="fornecedores" data-id="${fornecedor.id }" title="Excluir">
+						<i class="material-icons red-text text-darken-3">delete</i>
+						<f:form action="${s:mvcUrl('apagarFornecedor').arg(0, fornecedor.id).build() }" method="POST">
+						</f:form>
+					</button></td>
+				</tr>
+				</c:forEach>
+				</tbody>
+				</table>
 
-				</div>
+
 
 			</div>
-			<%@ include file="../base/paginacao.jsp"%>
-			<%@ include file="../base/modalExcluir.jsp"%>
 
 		</div>
+		<%@ include file="../base/paginacao.jsp"%>
+		<%@ include file="../base/modalExcluir.jsp"%>
 
 	</div>
+
+	</div>
+	<%@ include file="../base/rodape.jsp"%>
 
 
 
@@ -126,9 +133,9 @@
 	<script src="/js/modalExcluir.js"></script>
 
 	<script>
-		setTimeout(function() {
+		setTimeout(function () {
 			$('.status-message').fadeOut('slow');
-		}, 3000);
+		}, 4000);
 	</script>
 </body>
 

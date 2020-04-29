@@ -32,8 +32,8 @@ public class Fornecedor {
     @Column(name = "categoria_produto")
     private String categoriaProduto;
 
-    @Column(name = "inativo")
-    private boolean inativo;
+    @Column(columnDefinition = "boolean default false")
+	private boolean inativo;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_endereco")
