@@ -48,6 +48,12 @@ public class UsuarioValidator implements Validator {
 			errors.rejectValue("email", "email.invalido");
 		}
 		
+		if(usuario.getEmail() != null) {
+			if(usuarioRep.existsByEmail(usuario.getEmail()) && !usuarioRep.findByEmail(usuario.getEmail()).getIdLogin().equals(usuario.getIdLogin())) {
+				errors.rejectValue("email", "email.existente");
+			}
+		}
+		
 		List<ValidationMessage> validationMessages = cpfValidator.invalidMessagesFor(usuario.getPessoa().getCpf());
 
 		
