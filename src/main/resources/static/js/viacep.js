@@ -1,28 +1,65 @@
-	<script type="text/javascript">
-		$("#cep").focusout(function(){
-			//Início do Comando AJAX
-			$.ajax({
-				//O campo URL diz o caminho de onde virá os dados
-				//É importante concatenar o valor digitado no CEP
-				url: 'https://viacep.com.br/ws/'+$(this).val()+'/json/unicode/',
-				//Aqui você deve preencher o tipo de dados que será lido,
-				//no caso, estamos lendo JSON.
-				dataType: 'json',
-				//SUCESS é referente a função que será executada caso
-				//ele consiga ler a fonte de dados com sucesso.
-				//O parâmetro dentro da função se refere ao nome da variável
-				//que você vai dar para ler esse objeto.
-				success: function(resposta){
-					//Agora basta definir os valores que você deseja preencher
-					//automaticamente nos campos acima.
-					$("#endereco\\.logradouro").val(resposta.logradouro);
-					$("#endereco\\.complemento").val(resposta.complemento);
-					$("#endereco\\.bairro").val(resposta.bairro);
-					$("#endereco\\.cidade").val(resposta.localidade);
-					$("#endereco\\.uf").val(resposta.uf);
-					//Vamos incluir para que o Número seja focado automaticamente
-					//melhorando a experiência do usuário
-					$("#numero").focus();
-				}
-			});
+$(document).ready(
+		function() {
+
+			function limpa_formulário_cep() {
+				// Limpa valores do formulário de cep.
+				$("#endereco\\.logradouro").val("");
+				$("#endereco\\.bairro").val("");
+				$("#endereco\\.cidade").val("");
+				$("#endereco\\.uf").val("");
+			}
+
+			// Quando o campo cep perde o foco.
+			$("#endereco\\.cep").blur(
+					function() {
+
+						// Nova variável "cep" somente com dígitos.
+						var cep = $(this).val().replace(/\D/g, '');
+
+						// Verifica se campo cep possui valor informado.
+						if (cep != "") {
+
+							// Expressão regular para validar o CEP.
+							var validacep = /^[0-9]{8}$/;
+
+							// Valida o formato do CEP.
+							if (validacep.test(cep)) {
+
+								// Preenche os campos com "..." enquanto
+								// consulta webservice.
+								$("#endereco\\.logradouro").val("...");
+								$("#endereco\\.bairro").val("...");
+								$("#endereco\\.cidade").val("...");
+								$("#endereco\\.uf").val("...");
+
+								// Consulta o webservice viacep.com.br/
+								$.getJSON("https://viacep.com.br/ws/" + cep
+										+ "/json/?callback=?", function(dados) {
+
+									if (!("erro" in dados)) {
+										// Atualiza os campos com os valores da
+										// consulta.
+										$("#endereco\\.logradouro").val(dados.logradouro);
+										$("#endereco\\.bairro").val(dados.bairro);
+										$("#endereco\\.cidade").val(dados.localidade);
+										$("#endereco\\.uf").val(dados.uf);
+									} // end if.
+									else {
+										// CEP pesquisado não foi encontrado.
+										limpa_formulário_cep();
+										alert("CEP não encontrado.");
+									}
+								});
+							} // end if.
+							else {
+								// cep é inválido.
+								limpa_formulário_cep();
+								alert("Formato de CEP inválido.");
+							}
+						} // end if.
+						else {
+							// cep sem valor, limpa formulário.
+							limpa_formulário_cep();
+						}
+					});
 		});

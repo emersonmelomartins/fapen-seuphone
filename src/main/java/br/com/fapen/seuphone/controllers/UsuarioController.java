@@ -26,14 +26,6 @@ import br.com.fapen.seuphone.validations.UsuarioValidator;
 @Controller
 @RequestMapping("/usuarios")
 public class UsuarioController {
-	
-	// Criar validação para:
-	/*
-	 * Email duplicado
-	 * Email repetido
-	 * Campos vazios
-	 * Validar email (email@algumacoisa.com)
-	 */
 
 	@Autowired
 	private UsuarioRepository usuarioRep;
