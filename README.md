@@ -1,12 +1,13 @@
 <p align="center">
   <img src="/logo.png" alt="Seuphone Logo" />
+  <img src="/logo_fapen.png" alt="Faculdade Pentágono Logo" />
 </p>
 
 <h3 align="center">
   Seuphone - Gerenciamento de Estoque
 </h3>
 
-<p align="center">Projeto Articulador e de Inovação (P.A.I.) da faculdade FAPEN, objetivo é desenvolver um gerenciamento de estoque</blockquote>
+<p align="center">Projeto Articulador e de Inovação (P.A.I.) da faculdade <a href="https://fapen.edu.br/" target="_blank">FAPEN (Faculdade Pentágono)</a> com objetivo de desenvolver um gerenciamento de estoque</p>
 
 ##  Requisitos
 
