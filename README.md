@@ -1,6 +1,6 @@
 <p align="center">
   <img src="/logo.png" alt="Seuphone Logo" />
-  <img src="/logo_fapen.png" alt="Faculdade Pentágono Logo" />
+  <a href="https://fapen.edu.br/" target="_blank"><img src="/logo_fapen.png" width=130 alt="Faculdade Pentágono Logo" /></a>
 </p>
 
 <h3 align="center">
