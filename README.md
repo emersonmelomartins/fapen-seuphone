@@ -22,7 +22,7 @@ us.apache.org/dist/maven/maven-3/3.6.3/binaries/apache-maven-3.6.3-bin.zip
 enterprise-java-developers
 " target="_blank">Eclipse IDE EE 2019-09</a>
 - <a href="https://download.springsource.com/release/TOOLS/update/e4.13/" target="_blank">Plugin Spring Tools Suite 3</a>
-- <a href="https://www.postgresql.org/download/" target="_blank">PostgreSQL 10</a>
+- <a href="https://www.postgresql.org/download/" target="_blank">PostgreSQL 12</a>
 
 
 ##  Como usar
