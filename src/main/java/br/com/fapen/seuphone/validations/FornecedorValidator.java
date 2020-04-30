@@ -51,6 +51,12 @@ public class FornecedorValidator implements Validator {
 		if (!m.matches()) {
 			errors.rejectValue("email", "email.invalido");
 		}
+		
+		if(fornecedor.getEmail() != null) {
+			if(fornecedorRep.existsByEmail(fornecedor.getEmail()) && !fornecedorRep.findByEmail(fornecedor.getEmail()).getId().equals(fornecedor.getId())) {
+				errors.rejectValue("email", "email.existente");
+			}
+		}
 
 		List<ValidationMessage> validationMessages = cnpjValidator.invalidMessagesFor(fornecedor.getCnpj());
 
