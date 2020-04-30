@@ -67,6 +67,10 @@
 											<td>${produto.idProduto}</td>
 										</tr>
 										<tr>
+											<td>Fornecedor:</td>
+											<td>${produto.fornecedor.razaoSocial}</td>
+										</tr>
+										<tr>
 											<td>Tipo de Produto:</td>
 											<td>${produto.tipoProduto}</td>
 										</tr>

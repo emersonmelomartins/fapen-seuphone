@@ -23,5 +23,6 @@ public class ProdutoValidator implements Validator {
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "cor", "campo.obrigatorio");
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "peso", "campo.obrigatorio");
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "valor", "campo.obrigatorio");
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "fornecedor", "campo.obrigatorio");
 	}
 }

@@ -71,6 +71,7 @@
 								<th>ID</th>
 								<th>Imagem</th>
 								<th>Descrição</th>
+								<th>Fornecedor</th>
 								<th>Tipo de Produto</th>
 								<th>Valor</th>
 								<th>Status</th>
@@ -83,6 +84,7 @@
 									<td>${produto.idProduto}</td>
 									<td><img src="/img/default_product.png" width=30 alt="Imagem de iPhone"></td>
 									<td>${produto.descricao}</td>
+									<td>${produto.fornecedor.razaoSocial }</td>
 									<td>${produto.tipoProduto}</td>
 									<td><fmt:formatNumber value="${produto.valor}" type="currency" /></td>
 									<td>

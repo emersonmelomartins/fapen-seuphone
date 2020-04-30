@@ -5,6 +5,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.com.fapen.seuphone.models.Produto;
+import br.com.fapen.seuphone.repositories.FornecedorRepository;
 import br.com.fapen.seuphone.repositories.Paginacao;
 import br.com.fapen.seuphone.repositories.ProdutoRepository;
 import br.com.fapen.seuphone.validations.ProdutoValidator;
@@ -28,6 +30,8 @@ public class ProdutoController {
 	@Autowired
 	private ProdutoRepository produtoRep;
 
+	@Autowired
+	private FornecedorRepository fornecedorRep;
 	
 	
 	@Autowired
@@ -57,12 +61,15 @@ public class ProdutoController {
 	}
 
 	@GetMapping(value = "/novo", name = "novoProduto")
-	public String newProduct(Produto produto) {
-		return "/produto/novo";
+	public ModelAndView newProduct(Produto produto) {
+		
+		ModelAndView mav = new ModelAndView("/produto/novo");
+		mav.addObject("listaFornecedores", fornecedorRep.findAll());
+		return mav;
 	}
 	
 	@PostMapping(value = "/salvar", name = "salvarProduto")
-	public String createProduct(@Valid Produto produto, BindingResult resultadoValidacao, RedirectAttributes atributos) {
+	public ModelAndView createProduct(@Valid Produto produto, BindingResult resultadoValidacao, RedirectAttributes atributos) {
 		
 		if(resultadoValidacao.hasErrors()) {
 
@@ -73,18 +80,18 @@ public class ProdutoController {
 		produtoRep.save(produto);
 		atributos.addFlashAttribute("mensagemStatus", "Produto salvo com sucesso!");
 		
-		return "redirect:/produtos";
+		return new ModelAndView("redirect:/produtos");
 	}
 	
 	@GetMapping(value = "/{id}/editar", name = "editarProduto")
-	public ModelAndView editProduct(@PathVariable Long id) {
+	public ModelAndView editProduct(@PathVariable Long id, Model model) {
 		
 		Produto produto = produtoRep.getOne(id);
 		
-		ModelAndView mav = new ModelAndView("produto/novo");
-		mav.addObject("produto", produto);
 		
-		return mav;
+		model.addAttribute(produto);
+		
+		return newProduct(produto);
 	}
 	
 	@PostMapping(value = "/{id}/apagar", name = "apagarProduto")

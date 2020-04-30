@@ -53,12 +53,12 @@
 									class="col s12">
 									<f:hidden path="idProduto" />
 
-									<div class="row">
+									
 
 										<div class="card-image col s6">
 											<img class="product-image" src="/img/default_product.png" alt="Imagem do Produto">
 										</div>
-										<form action="#" method="POST" enctype="multipart/form-data">
+										
 											<div class="file-field input-field col s6">
 												<div class="btn indigo">
 													<span><i class="material-icons">attach_file</i></span>
@@ -69,7 +69,9 @@
 												</div>
 												<button class="btn-small indigo"type="submit">Enviar</button>
 											</div>
-										</form>
+										
+									<div class="row">
+
 										
 
 										<div class="input-field col s12">
@@ -77,6 +79,19 @@
 											<f:input path="descricao" cssClass="validate" placeholder="iPhone 11 - 128GB - Dourado" />
 											<f:errors path="descricao" cssClass="helper-text red-text" />
 											<label for="descricao">Descrição</label>
+										</div>
+									</div>
+									<div class="row">
+										<div class="input-field col s6">
+											<i class="material-icons prefix">description</i>
+											<f:select path="fornecedor">
+												<f:option value="">Selecione um Fornecedor</f:option>
+												<c:forEach items="${listaFornecedores}" var="fornecedor">
+													<f:option value="${fornecedor.id}">${fornecedor.razaoSocial}</f:option>
+												</c:forEach>
+											</f:select>
+											<f:errors path="fornecedor" cssClass="helper-text red-text" />
+											<label for="fornecedor">Descrição</label>
 										</div>
 									</div>
 
