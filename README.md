@@ -47,7 +47,11 @@ INSERT INTO tb_login(login, senha, email, id_pessoa, inativo) VALUES('admin',
 'admin@seuphone.com.br', 1, false);
 ```
 
-Com isso você pode acessar o sistema utilizando as credenciais:
+Com isso você pode acessar o sistema através da url:
+```
+http://localhost:8080/
+```
+Você pode acessar o sistema pelas credenciais criadas anteriormente:
 ```
 Usuário: admin
 Senha: 1234
