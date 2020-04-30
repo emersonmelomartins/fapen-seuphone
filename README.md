@@ -39,12 +39,20 @@ Após a criação do banco, você deve iniciar o projeto ṕelo <b>eclipse</b>, 
 
 Agora você pode adicionar o usuário <b>Administrador</b> do sistema pelo <b>PGAdmin</b> na seção "Query Tools" com o seguinte código:
 ```sql
+-- Cria o endereço do usuário
 INSERT INTO tb_pessoa(cpf, nome, sexo, dt_nascimento, telefone, celular) 
 VALUES('11111111111', 'Administrador', 'M', '2000-01-01','1145554555', '11933333333');
 
+-- Credenciais do usuário
 INSERT INTO tb_login(login, senha, email, id_pessoa, inativo) VALUES('admin', 
 '$2a$10$gmZkZRZx/RuNCNgLBWw3LO0qSOFukn/Q10ixXmHzuhoEm3gcZ7msi',
 'admin@seuphone.com.br', 1, false);
+
+-- Cria perfil administrador
+INSERT INTO tb_perfil (id_perfil, descricao) VALUES ('ROLE_ADMIN', 'Administrador do Sistema');
+
+-- Adiciona perfil administrador ao usuário criado anteriormente
+INSERT INTO tb_login_perfil (id_login, id_perfil) VALUES (1, 'ROLE_ADMIN');
 ```
 
 Com isso você pode acessar o sistema através da url:
