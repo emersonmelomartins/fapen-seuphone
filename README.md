@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="/logo.png" alt="Seuphone Logo" />
+</p>
+
 <h3 align="center">
   Seuphone - Gerenciamento de Estoque
 </h3>
