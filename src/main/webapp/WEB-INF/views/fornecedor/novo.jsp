@@ -207,6 +207,7 @@
 	<script src="/js/jquery.mask.min.js"></script>
 	<script src="/js/materialize.min.js"></script>
 	<script src="/js/main.js"></script>
+	<script src="/js/viacep.js"></script>
 </body>
 
 </html>
