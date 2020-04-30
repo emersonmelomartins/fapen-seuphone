@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="pt-BR">
 
@@ -6,18 +8,24 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Seuphone - �ltima gera��o em suas m�os.</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Seuphone - Última geração em suas mãos.</title>
 
-<!-- Materialize CSS -->
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
-	rel="stylesheet" />
-<link type="text/css" rel="stylesheet" href="/css/materialize.min.css"
-	media="screen,projection" />
+	<!-- Materialize CSS -->
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+	<link type="text/css" rel="stylesheet" href="/css/materialize.min.css" media="screen,projection" />
 
-<link rel="stylesheet" href="/css/style.css" />
-<link rel="stylesheet" href="/css/animate.css" />
+	<link rel="stylesheet" href="/css/style.css" />
+	<link rel="stylesheet" href="/css/animate.css" />
+
+	<style>
+		/*Configuração Temporária*/
+		.helper-text {
+			font-family: Arial, sans-serif;
+			text-align: left;
+		}
+	</style>
 
 </head>
 
@@ -27,89 +35,97 @@
 
 	<div class="container">
 
-		<c:if test="${mensagemStatus != null }">
-			<div class="status-message row">
-				<div class="center col s4 red white-text animated bounceInLeft">
-					<p>${mensagemStatus }</p>
-				</div>
-			</div>
-		</c:if>
+		<div class="row">
 
-		<div class="row center">
-			<br> <br>
-			<h1 class="titulo">Fornecedor</h1>
-
-			<f:form method="POST" action="${s:mvcUrl('salvarFornecedor').build() }"
-				modelAttribute="fornecedor">
-				<f:hidden path="id"/>
-				<div class="center">
-
-					<div class="row">
-
-						<div class="row">
-							<div class="input-field col s12">
-								<label for="razaoSocial">Razao Social</label>
-								<f:input path="razaoSocial" cssClass="validate" />
-								<f:errors path="razaoSocial" cssClass="left helper-text red-text" />
-							</div>
-						</div>
-
-
-						<div class="row">
-							<div class="input-field col s6">
-								<label for="cnpj">CNPJ</label>
-								<f:input path="cnpj" cssClass="validate fmt-cnpj" />
-								<f:errors path="cnpj"
-									cssClass="left helper-text red-text" />
-							</div>
-
-							<div class="input-field col s6">
-								<label for="email">E-mail</label>
-								<f:input path="email" cssClass="validate" />
-								<f:errors path="email" cssClass="left helper-text red-text" />
-							</div>
-						</div>
+			<div class="row">
+				<div class="col s12">
+					<div class="card ">
 						
-						<div class="row">
-							<div class="input-field col s6">
-								<label for="categoriaProduto">Categoria Produto</label>
-								<f:input path="categoriaProduto" cssClass="validate" />
-								<f:errors path="categoriaProduto"
-									cssClass="left helper-text red-text" />
-							</div>
+						<div class="card-content">
+							<span class="card-title"><h1 class="titulo">Fornecedor</h1></span>
 
-							<div class="input-field col s6">
-								<label for="tel">Telefone</label>
-								<f:input path="tel" cssClass="validate fmt-tel" />
-								<f:errors path="tel" cssClass="left helper-text red-text" />
-							</div>
-						</div>
-						
-						<div class="row">
-							<div class="input-field col s6">
-								<label for="endereco.cep">CEP</label>
-								<f:input path="endereco.cep" cssClass="validate fmt-cep" />
-								<f:errors path="endereco.cep"
-									cssClass="left helper-text red-text" />
-							</div>
+							<div class="row">
+								<f:form method="POST" action="${s:mvcUrl('salvarFornecedor').build() }" modelAttribute="fornecedor"
+									class="col s12">
+									<f:hidden path="id" />
 
-							<div class="input-field col s6">
-								<label for="endereco.logradouro">Logradouro</label>
-								<f:input path="endereco.logradouro" cssClass="validate" />
-								<f:errors path="endereco.logradouro" cssClass="left helper-text red-text" />
-							</div>
-						</div>
-						
-						<div class="row">
-							<div class="input-field col s6">
-								<label for="endereco.cidade">Cidade</label>
-								<f:input path="endereco.cidade" cssClass="validate" />
-								<f:errors path="endereco.cidade"
-									cssClass="left helper-text red-text" />
-							</div>
+									<div class="row">
+										<div class="input-field col s6">
+											<i class="material-icons prefix">description</i>
+											<f:input path="razaoSocial" cssClass="validate" placeholder="Apple Computadores" />
+											<f:errors path="razaoSocial" cssClass="helper-text red-text" />
+											<label for="razaoSocial">Razão Social</label>
+										</div>
 
-							<div class="input-field col s6">
-									<f:select path="endereco.uf" cssClass="validate">
+										<div class="input-field col s6">
+											<i class="material-icons prefix">description</i>
+											<f:input path="cnpj" cssClass="validate fmt-cnpj" placeholder="12.345.678/0001-23" />
+											<f:errors path="cnpj" cssClass="helper-text red-text" />
+											<label for="cnpj">CNPJ</label>
+										</div>
+									</div>
+
+
+									<div class="row">
+										<div class="input-field col s6">
+											<i class="material-icons prefix">email</i>
+											<f:input path="email" cssClass="validate" placeholder="contato@apple.com.br" />
+											<f:errors path="email" cssClass="helper-text red-text" />
+											<label for="email">E-mail</label>
+										</div>
+
+										<div class="input-field col s6">
+											<i class="material-icons prefix">phone</i>
+											<f:input path="tel" cssClass="validate fmt-tel" placeholder="(11)1234-5678" />
+											<f:errors path="tel" cssClass="helper-text red-text" />
+											<label for="tel">Telefone</label>
+										</div>
+									</div>
+
+									<div class="row">
+										<div class="input-field col s6">
+											<i class="material-icons prefix">description</i>
+											<f:input path="categoriaProduto" cssClass="validate" placeholder="Smartphone" />
+											<f:errors path="categoriaProduto" cssClass="helper-text red-text" />
+											<label for="categoriaProduto">Categoria Produto</label>
+										</div>
+									</div>
+
+									<div class="row">
+										<div class="input-field col s6">
+											<i class="material-icons prefix">description</i>
+											<f:input path="endereco.cep" cssClass="validate fmt-cep" placeholder="09111-222" />
+											<f:errors path="endereco.cep" cssClass="helper-text red-text" />
+											<label for="endereco.cep">CEP</label>
+										</div>
+
+										<div class="input-field col s6">
+											<i class="material-icons prefix">description</i>
+											<f:input path="endereco.logradouro" cssClass="validate" placeholder="Rua Ipiranga" />
+											<f:errors path="endereco.logradouro" cssClass="helper-text red-text" />
+											<label for="endereco.logradouro">Logradouro</label>
+										</div>
+									</div>
+									<div class="row">
+										<div class="input-field col s6">
+											<i class="material-icons prefix">description</i>
+											<f:input path="endereco.bairro" cssClass="validate" placeholder="Vila Matriz" />
+											<f:errors path="endereco.bairro" cssClass="helper-text red-text" />
+											<label for="endereco.bairro">Bairro</label>
+										</div>
+
+										<div class="input-field col s6">
+											<i class="material-icons prefix">description</i>
+											<f:input path="endereco.numero" cssClass="validate" type="number" placeholder="1234" />
+											<f:errors path="endereco.numero" cssClass="helper-text red-text" />
+											<label for="endereco.numero">Número</label>
+										</div>
+									</div>
+
+									<div class="row">
+										<div class="input-field col s6">
+											<i class="material-icons prefix">description</i>
+											<f:select path="endereco.uf" id="endereco.uf" cssClass="validate">
 										<f:option value="" >Selecione um estado</f:option>
 										<f:option value="AC">AC</f:option>
 										<f:option value="AL">AL</f:option>
@@ -139,57 +155,50 @@
 										<f:option value="SP">SP</f:option>
 										<f:option value="TO">TO</f:option>
 									</f:select>
-									<label name="uf">UF</label>
 									<f:errors path="endereco.uf" cssClass="helper-text red-text" />
+											<label for="endereco.uf">UF</label>
+										</div>
+
+										<div class="input-field col s6">
+											<i class="material-icons prefix">description</i>
+											<f:input path="endereco.cidade" cssClass="validate" placeholder="São Paulo" />
+											<f:errors path="endereco.cidade" cssClass="helper-text red-text" />
+											<label for="endereco.cidade">Cidade</label>
+										</div>
+									</div>
+
+									<div class="row">
+										<div class="input-field col s6">
+											<i class="material-icons prefix">description</i>
+											<f:input path="endereco.complemento" cssClass="validate" placeholder="Casa do portão branco" />
+											<f:errors path="endereco.complemento" cssClass="helper-text red-text" />
+											<label for="endereco.complemento">Complemento</label>
+										</div>
+									</div>
+
+							</div>
+
+						</div>
+						<div class="card-action">
+							<div class="row">
+								<div class="col s2">
+									<a href="${s:mvcUrl('listarFornecedores').build() }" class="waves-effect waves-light btn red"><i
+											class="material-icons left">arrow_back</i>Voltar</a>
 								</div>
-						</div>
-						
-						<div class="row">
-							<div class="input-field col s6">
-								<label for="endereco.bairro">Bairro</label>
-								<f:input path="endereco.bairro" cssClass="validate" />
-								<f:errors path="endereco.bairro"
-									cssClass="left helper-text red-text" />
-							</div>
 
-							<div class="input-field col s6">
-								<label for="endereco.numero">N�mero</label>
-								<f:input path="endereco.numero" type="number" cssClass="validate" />
-								<f:errors path="endereco.numero" cssClass="left helper-text red-text" />
+								<div class="col s2">
+									<button type="submit" class="waves-effect waves-light btn green white-text"><i
+											class="material-icons left">add</i>Salvar</button>
+								</div>
 							</div>
 						</div>
-						
-						<div class="row">
-							<div class="input-field col s12">
-								<label for="endereco.complemento">Complemento</label>
-								<f:input path="endereco.complemento" cssClass="validate" />
-								<f:errors path="endereco.complemento" cssClass="left helper-text red-text" />
-							</div>
-						</div>
-						
-						
-
 					</div>
-
-
-					<div class="row">
-
-						<div class="col s2">
-							<a href="${s:mvcUrl('listarFornecedores').build() }"
-								class="btn left red">Voltar</a>
-						</div>
-
-						<div class="col s2">
-							<input type="submit" value="Salvar" class="green btn left">
-						</div>
-
-					</div>
-
 				</div>
-			</f:form>
+			</div>
 		</div>
-
+		</f:form>
 	</div>
+	<%@ include file="../base/rodape.jsp"%>
 
 
 
@@ -198,14 +207,6 @@
 	<script src="/js/jquery.mask.min.js"></script>
 	<script src="/js/materialize.min.js"></script>
 	<script src="/js/main.js"></script>
-	<script src="/js/viacep.js"></script>
-
-	<script>
-		setTimeout(function() {
-			$('.status-message').fadeOut('slow');
-		}, 3000);
-	</script>
-	<!-- <script src="/js/modalExcluir.js"></script> -->
 </body>
 
 </html>

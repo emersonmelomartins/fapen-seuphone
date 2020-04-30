@@ -3,7 +3,7 @@
   <div class="container">
     <div class="row">
       <div class="col m4 l4 xl4 s12">
-        <img src="img/menu-logo.png" alt="" />
+        <img src="/img/menu-logo.png" alt="" />
         <p class="grey-text text-lighten-4">
           A Seu Phone surgiu com o objetivo de facilitar a aquisição dessa
           tecnologia que somos tão dependentes, o celular, hoje ele tem sido

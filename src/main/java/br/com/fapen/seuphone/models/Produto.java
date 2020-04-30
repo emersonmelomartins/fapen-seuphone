@@ -1,15 +1,13 @@
 package br.com.fapen.seuphone.models;
 
-import java.time.LocalDate;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-
-import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.format.annotation.DateTimeFormat.ISO;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 
 @Entity(name = "tb_produto")
 public class Produto {
@@ -25,6 +23,7 @@ public class Produto {
 	@Column(length = 100)
 	private String modelo;
 	
+	@Column(nullable = false)
 	private Double valor;
 	
 	@Column(length = 100)
@@ -38,6 +37,10 @@ public class Produto {
 	
 	@Column(name = "quantidade_estoque")
 	private int quantidadeEstoque;
+	
+	@OneToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "id_fornecedor")
+	private Fornecedor fornecedor;
 	
 	@Column(columnDefinition = "boolean default false")
 	private boolean inativo;
@@ -115,6 +118,15 @@ public class Produto {
 		this.inativo = inativo;
 	}
 
+	public Fornecedor getFornecedor() {
+		return fornecedor;
+	}
+
+	public void setFornecedor(Fornecedor fornecedor) {
+		this.fornecedor = fornecedor;
+	}
+
+	
 	
 	
 	

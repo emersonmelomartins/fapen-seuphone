@@ -30,6 +30,11 @@
 					<ul id='submenu' class='black-seuphone dropdown-content'>
 						<li><a class="black-seuphone white-text waves-effect" href="${s:mvcUrl('paginaPainel').build() }">Acessar Painel</a></li>
 						<li><a class="black-seuphone white-text waves-effect" href="${s:mvcUrl('meuPerfil').build() }">Detalhes</a></li>
+						<hr />
+						<li><a class="black-seuphone white-text waves-effect" href="${s:mvcUrl('listarUsuarios').build() }">Usuários</a></li>
+						<li><a class="black-seuphone white-text waves-effect" href="${s:mvcUrl('listarPerfis').build() }">Perfis</a></li>
+						<li><a class="black-seuphone white-text waves-effect" href="${s:mvcUrl('listarProdutos').build() }">Produtos</a></li>
+						<li><a class="black-seuphone white-text waves-effect" href="${s:mvcUrl('listarFornecedores').build() }">Fornecedores</a></li>
 						<li><a class="black-seuphone white-text waves-effect" href="/logout">Sair</a></li>
 					</ul>
 				</sec:authorize>
@@ -68,6 +73,11 @@
 	<sec:authorize access="isAuthenticated()">
 		<li><a href="${s:mvcUrl('paginaPainel').build() }" class="white-text waves-effect">Acessar Painel</a></li>
 		<li><a href="${s:mvcUrl('meuPerfil').build() }" class="white-text waves-effect">Detalhes</a></li>
+								<hr />
+						<li><a class="black-seuphone white-text waves-effect" href="${s:mvcUrl('listarUsuarios').build() }">Usuários</a></li>
+						<li><a class="black-seuphone white-text waves-effect" href="${s:mvcUrl('listarPerfis').build() }">Perfis</a></li>
+						<li><a class="black-seuphone white-text waves-effect" href="${s:mvcUrl('listarProdutos').build() }">Produtos</a></li>
+						<li><a class="black-seuphone white-text waves-effect" href="${s:mvcUrl('listarFornecedores').build() }">Fornecedores</a></li>
 		<li><a class="white-text waves-effect" href="/logout">Sair</a></li>
 	</sec:authorize>
 	<li>

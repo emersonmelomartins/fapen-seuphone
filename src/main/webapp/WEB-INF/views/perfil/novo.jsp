@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="pt-BR">
 
@@ -6,18 +8,24 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Seuphone - ⁄ltima geraÁ„o em suas m„os.</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Seuphone - √öltima gera√ß√£o em suas m√£os.</title>
 
-<!-- Materialize CSS -->
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
-	rel="stylesheet" />
-<link type="text/css" rel="stylesheet" href="/css/materialize.min.css"
-	media="screen,projection" />
+	<!-- Materialize CSS -->
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+	<link type="text/css" rel="stylesheet" href="/css/materialize.min.css" media="screen,projection" />
 
-<link rel="stylesheet" href="/css/style.css" />
-<link rel="stylesheet" href="/css/animate.css" />
+	<link rel="stylesheet" href="/css/style.css" />
+	<link rel="stylesheet" href="/css/animate.css" />
+
+	<style>
+		/*Configura√ß√£o Tempor√°ria*/
+		.helper-text {
+			font-family: Arial, sans-serif;
+			text-align: left;
+		}
+	</style>
 
 </head>
 
@@ -27,62 +35,58 @@
 
 	<div class="container">
 
-		<c:if test="${mensagemStatus != null }">
-			<div class="status-message row">
-				<div class="center col s4 red white-text animated bounceInLeft">
-					<p>${mensagemStatus }</p>
+		<div class="row">
+
+			<div class="row">
+				<div class="col s12">
+					<div class="card ">
+						
+						<div class="card-content">
+							<span class="card-title"><h1 class="titulo">Perfil</h1></span>
+
+							<div class="row">
+								<f:form method="POST" action="${s:mvcUrl('salvarPerfil').build() }" modelAttribute="perfil"
+									class="col s12">
+
+									<div class="row">
+										<div class="input-field col s6">
+											<i class="material-icons prefix">verified_user</i>
+											<f:input path="authority" cssClass="validate" placeholder="ROLE_GERENTE" />
+											<f:errors path="authority" cssClass="helper-text red-text" />
+											<label for="authority">Perfil</label>
+										</div>
+
+										<div class="input-field col s6">
+											<i class="material-icons prefix">description</i>
+											<f:input path="descricao" cssClass="validate" placeholder="Gerente do Sistema" />
+											<f:errors path="descricao" cssClass="helper-text red-text" />
+											<label for="descricao">Descri√ß√£o</label>
+										</div>
+									</div>
+
+							</div>
+
+						</div>
+						<div class="card-action">
+							<div class="row">
+								<div class="col s2">
+									<a href="${s:mvcUrl('listarPerfis').build() }" class="waves-effect waves-light btn red"><i
+											class="material-icons left">arrow_back</i>Voltar</a>
+								</div>
+
+								<div class="col s2">
+									<button type="submit" class="waves-effect waves-light btn green white-text"><i
+											class="material-icons left">add</i>Salvar</button>
+								</div>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
-		</c:if>
-
-		<div class="row center">
-			<br> <br>
-			<h1 class="titulo">Perfil</h1>
-
-			<f:form method="POST" action="${s:mvcUrl('salvarPerfil').build() }"
-				modelAttribute="perfil">
-				<div class="center">
-
-					<div class="row">
-
-
-
-						<div class="row">
-							<div class="input-field col s6">
-								<label for="authority">Role</label>
-								<f:input path="authority" cssClass="validate" />
-								<f:errors path="authority"
-									cssClass="left helper-text red-text" />
-							</div>
-
-							<div class="input-field col s6">
-								<label for="descricao">DescriÁ„o</label>
-								<f:input path="descricao" cssClass="validate" />
-								<f:errors path="descricao" cssClass="left helper-text red-text" />
-							</div>
-						</div>
-
-					</div>
-
-
-					<div class="row">
-
-						<div class="col s2">
-							<a href="${s:mvcUrl('listarPerfis').build() }"
-								class="btn left red">Voltar</a>
-						</div>
-
-						<div class="col s2">
-							<input type="submit" value="Salvar" class="green btn left">
-						</div>
-
-					</div>
-
-				</div>
-			</f:form>
 		</div>
-
+		</f:form>
 	</div>
+	<%@ include file="../base/rodape.jsp"%>
 
 
 
@@ -91,13 +95,6 @@
 	<script src="/js/jquery.mask.min.js"></script>
 	<script src="/js/materialize.min.js"></script>
 	<script src="/js/main.js"></script>
-
-	<script>
-		setTimeout(function() {
-			$('.status-message').fadeOut('slow');
-		}, 3000);
-	</script>
-	<!-- <script src="/js/modalExcluir.js"></script> -->
 </body>
 
 </html>

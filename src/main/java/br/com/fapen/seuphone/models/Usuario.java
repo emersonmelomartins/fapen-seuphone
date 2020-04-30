@@ -37,14 +37,17 @@ public class Usuario implements UserDetails {
 	@JoinColumn(name = "id_pessoa")
 	private Pessoa pessoa;
 
-	@Column(length = 60, unique = true, nullable = false)
+	@Column(length = 60, nullable = false)
 	private String login;
 
 	@Column(length = 100, nullable = false)
 	private String senha;
 
-	@Column(length = 100, unique = true, nullable = false)
+	@Column(length = 100, nullable = false)
 	private String email;
+	
+	@Column(columnDefinition = "boolean default false")
+	private boolean inativo;
 
 	public Long getIdLogin() {
 		return idLogin;
@@ -84,6 +87,15 @@ public class Usuario implements UserDetails {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+	
+
+	public boolean isInativo() {
+		return inativo;
+	}
+
+	public void setInativo(boolean inativo) {
+		this.inativo = inativo;
 	}
 
 	public static long getSerialversionuid() {

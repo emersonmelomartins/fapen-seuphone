@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 
 <!DOCTYPE html>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -8,18 +10,16 @@
 <html lang="pt-BR">
 
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Seuphone - Última geração em suas mãos.</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Seuphone - Ãšltima geraÃ§Ã£o em suas mÃ£os.</title>
 
-<!-- Materialize CSS -->
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
-	rel="stylesheet" />
-<link type="text/css" rel="stylesheet" href="/css/materialize.min.css"
-	media="screen,projection" />
+	<!-- Materialize CSS -->
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+	<link type="text/css" rel="stylesheet" href="/css/materialize.min.css" media="screen,projection" />
 
-<link rel="stylesheet" href="/css/style.css" />
-<link rel="stylesheet" href="/css/animate.css" />
+	<link rel="stylesheet" href="/css/style.css" />
+	<link rel="stylesheet" href="/css/animate.css" />
 </head>
 
 <body>
@@ -44,71 +44,69 @@
 
 			<div class="row center">
 				<f:form method="GET">
-					<div class="input-field col s8">
-						<input id="busca" name="busca" id="search" type="text"
-							placeholder="Pesquisar por Role" value="${busca}">
+					<div class="input-field col s11">
+						<input id="busca" name="busca" id="search" type="text" placeholder="Pesquisar por Perfil..."
+							value="${busca}">
 					</div>
 					<div class="input-field col s1">
-						<button class="btn-small black-seuphone" type="submit">
+						<button class="btn black-seuphone" type="submit">
 							<i class="material-icons">search</i>
 						</button>
 					</div>
 				</f:form>
 
-				<div class="input-field col s2 left">
-					<a
-						class="btn-floating btn-large waves-effect waves-light green right"
-						title="novo" href="${s:mvcUrl('novoPerfil').build() }"> <i
-						class="material-icons">add</i>
-					</a>
-				</div>
+				
+			</div>
+			
+			<div class="input-field left">
+				<a class="waves-effect waves-light btn green white-text" title="novo"
+				href="${s:mvcUrl('novoPerfil').build() }"><i class="material-icons left">add</i>adicionar</a>
 			</div>
 
 			<div class="row">
-
-				<div class="col s12">
-					<table class="centered">
-						<tr class="grey lighten-2">
-							<td><b>Role</b></td>
-							<td><b>Descrição</b></td>
-							<td colspan="2"><b>Ação</b></td>
-						</tr>
-						<c:forEach items="${listaPaginada.content}" var="perfil">
+				<div class="col s12">		
+					<table class="responsive-table striped">
+						<thead>
 							<tr>
-								<td>${perfil.authority}</td>
-								<td>${perfil.descricao}</td>
-								<td class="center-align"> 
-								<a
-									class="btn-floating blue"
-									href="${s:mvcUrl('editarPerfil').arg(0, perfil.authority).build() }"><i
-										class="material-icons">edit</i></a>
-
-
-									<button href="#modalExcluir"
-										class="modal-excluir modal-trigger btn-floating red"
-										data-descr="${perfil.descricao }" data-tabela="perfis"
-										data-id="${perfil.authority }">
-										<i class="material-icons">delete</i>
-										<f:form
-											action="${s:mvcUrl('apagarPerfil').arg(0, perfil.authority).build() }"
-											method="POST">
-										</f:form>
-									</button></td>
+								<th>Perfil</th>
+								<th>DescriÃ§Ã£o</th>
+								<th class="center-align">AÃ§Ã£o</th>
 							</tr>
-						</c:forEach>
-					</table>
+						</thead>
+						<tbody>
+							<c:forEach items="${listaPaginada.content}" var="perfil">
+								<tr>
+									<td>${perfil.authority}</td>
+									<td>${perfil.descricao}</td>
+				<td class="center-align"> <a
+						class="waves-effect waves-light btn-small blue"
+						href="${s:mvcUrl('editarPerfil').arg(0, perfil.authority).build() }" title="Editar"><i
+							class="material-icons blue-text text-darken-3">edit</i></a>
 
 
+					<button href="#modalExcluir" class="modal-excluir modal-trigger waves-effect waves-light btn-small red"
+						data-descr="${perfil.descricao }" data-tabela="perfis" data-id="${perfil.authority }" title="Excluir">
+						<i class="material-icons red-text text-darken-3">delete</i>
+						<f:form action="${s:mvcUrl('apagarPerfil').arg(0, perfil.authority).build() }" method="POST">
+						</f:form>
+					</button></td>
+				</tr>
+				</c:forEach>
+				</tbody>
+				</table>
 
-				</div>
+
 
 			</div>
-			<%@ include file="../base/paginacao.jsp"%>
-			<%@ include file="../base/modalExcluir.jsp"%>
 
 		</div>
+		<%@ include file="../base/paginacao.jsp"%>
+		<%@ include file="../base/modalExcluir.jsp"%>
 
 	</div>
+
+	</div>
+	<%@ include file="../base/rodape.jsp"%>
 
 
 
@@ -120,9 +118,9 @@
 	<script src="/js/modalExcluir.js"></script>
 
 	<script>
-		setTimeout(function() {
+		setTimeout(function () {
 			$('.status-message').fadeOut('slow');
-		}, 3000);
+		}, 4000);
 	</script>
 </body>
 

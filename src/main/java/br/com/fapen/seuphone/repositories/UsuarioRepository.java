@@ -15,4 +15,12 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
 	public Page<Usuario> findAllByOrderByIdLoginAsc(Pageable paginacao);
 
 	public Page<Usuario> findByLoginContainingIgnoreCase(String busca, Pageable paginacao);
+	
+	public boolean existsByPessoaCpf(String cpf);
+	
+	public boolean existsByEmail(String email);
+	
+	public Usuario findByEmail(String email);
+	
+	public Usuario findByPessoaCpf(String cpf);
 }

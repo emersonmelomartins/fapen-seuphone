@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="pt-BR">
 
@@ -7,19 +9,24 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Seuphone - �ltima gera��o em suas m�os.</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Seuphone - Última geração em suas mãos.</title>
 
-<!-- Materialize CSS -->
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
-	rel="stylesheet" />
-<link type="text/css" rel="stylesheet" href="/css/materialize.min.css"
-	media="screen,projection" />
+	<!-- Materialize CSS -->
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+	<link type="text/css" rel="stylesheet" href="/css/materialize.min.css" media="screen,projection" />
 
-<link rel="stylesheet" href="/css/style.css" />
-<link rel="stylesheet" href="/css/animate.css" />
+	<link rel="stylesheet" href="/css/style.css" />
+	<link rel="stylesheet" href="/css/animate.css" />
 
+	<style>
+		/*Configuração Temporária*/
+		.profile-avatar {
+			max-width: 150px;
+			margin: 0 auto;
+		}
+	</style>
 </head>
 
 <body>
@@ -28,116 +35,114 @@
 
 	<div class="container">
 
-		<c:if test="${mensagemStatus != null }">
-			<div class="status-message row">
-				<div class="center col s4 red white-text animated bounceInLeft">
-					<p>${mensagemStatus }</p>
-				</div>
-			</div>
-		</c:if>
-
 		<div class="row">
 			<br> <br>
-			<h1 class="titulo">Usu�rio</h1>
+			<h1 class="titulo">Usuário</h1>
+
 			<br> <br>
+
 			<c:forEach items="usuario">
-			<fmt:parseDate value="${usuario.pessoa.dtNascimento }" pattern="yyyy-MM-dd" type="date" var="parsedDate"/>
+				<fmt:parseDate value="${usuario.pessoa.dtNascimento }" pattern="yyyy-MM-dd" type="date" var="parsedDate" />
 
 				<div class="row">
 
+					<div class="col s3">
 
-					<div class="row">
-						<div class="col s6">
-							<h5>ID</h5>
-							<p>${usuario.idLogin }</p>
-						</div>
 					</div>
+					<div class="col s6">
+						<div class="card">
+							<br>
+							<div class="card-image">
+								<img class="profile-avatar" src="/img/default_avatar.png" alt="Avatar do Usuário">
+							</div>
+							<div class="card-content">
+								<h5 style="text-transform: uppercase;" class="black-text">
+									${usuario.pessoa.nome }
+								</h5>
+								<hr />
 
-					<hr />
+								<table class="striped">
+									<tbody>
+										<tr>
+											<td>ID:</td>
+											<td>${usuario.idLogin}</td>
+										</tr>
+										<tr>
+											<td>Login:</td>
+											<td>${usuario.login}</td>
+										</tr>
+										<tr>
+											<td>Email:</td>
+											<td>${usuario.email}</td>
+										</tr>
+										<tr>
+											<td>CPF:</td>
+											<td class="fmt-cpf">${usuario.pessoa.cpf}</td>
+										</tr>
+										<tr>
+											<td>Data Nascimento: </td>
+											<td>
+												<fmt:formatDate value="${parsedDate }" pattern="dd/MM/yyyy" />
+											</td>
+										</tr>
+										<tr>
+											<td>Sexo: </td>
+											<td>${usuario.pessoa.sexo}</td>
+										</tr>
+										<tr>
+											<td>Telefone: </td>
+											<td class="fmt-tel">${usuario.pessoa.telefone}</td>
+										</tr>
+										<tr>
+											<td>Status:</td>
+											<td>
+												<c:if test="${!usuario.inativo }">
+													<span class="chip green-text">Ativo</span>
+												</c:if>
+												<c:if test="${usuario.inativo }">
+													<span class="chip red-text">Inativo</span>
+												</c:if>
 
-					<div class="row">
-						<div class="col s6">
-							<h5>Nome</h5>
-							<p>${usuario.pessoa.nome }</p>
-						</div>
-						<div class="col s6">
-							<h5>Login</h5>
-							<p>${usuario.login}</p>
-						</div>
-					</div>	
+											</td>
+										</tr>
+									</tbody>
+								</table>
 
-					<hr />
-
-					<div class="row">
-						<div class="col s6">
-							<h5>Email</h5>
-							<p>${usuario.email}</p>
-						</div>
-						<div class="col s6">
-							<h5>CPF</h5>
-							<p class="fmt-cpf">${usuario.pessoa.cpf }</p>
-						</div>
-					</div>
-
-					<hr />
-
-					<div class="row">
-						<div class="col s6">
-							<h5>Data Nascimento</h5>
-							<p><fmt:formatDate value="${parsedDate }" pattern="dd/MM/yyyy" /></p>
-						</div>
-						<div class="col s6">
-							<h5>Sexo</h5>
-							<p>${usuario.pessoa.sexo }</p>
-						</div>
-					</div>
-
-					<hr />
-
-					<div class="row">
-						<div class="col s6">
-							<h5>Telefone</h5>
-							<p class="fmt-tel">${usuario.pessoa.telefone}</p>
-						</div>
-						<div class="col s6">
-							<h5>Celular</h5>
-							<p class="fmt-cel">${usuario.pessoa.celular }</p>
-						</div>
-					</div>
-
-				</div>
-
+								<h5>Permissões</h5>
+								<div class="chip blue">ROLE_ADMIN</div>
+								<div class="chip red">ROLE_GERENTE</div>
+								<div class="chip green">ROLE_VENDEDOR</div>
+								<div class="chip deep-purple">ROLE_ESTOQUE</div>
+								<div class="chip teal">ROLE_NOTAFISCAL</div>
+								<div class="chip yellow">ROLE_USUARIO</div>
 			</c:forEach>
-
-
-			<div class="row">
-
-				<div class="col s2">
-					<a href="${s:mvcUrl('listarUsuarios').build() }"
-						class="btn left red">Voltar</a>
-				</div>
-
-
-			</div>
-
 		</div>
+	</div>
+
+	</div>
+	<div class="col s3"></div>
+
+
 	</div>
 
 
 
+	<div class="row">
+		<div class="col s3"></div>
+		<div class="col s6">
+			<a href="${s:mvcUrl('listarUsuarios').build() }" class="waves-effect waves-light btn red"><i class="material-icons left">arrow_back</i>Voltar</a>
+		</div>
+		<div class="col s3"></div>
+	</div>
+	</div>
+	</div>
 
-	<!--Materialize JS-->
+	<%@ include file="../base/rodape.jsp"%>
+
 	<script src="/js/jquery-3.4.1.min.js"></script>
 	<script src="/js/jquery.mask.min.js"></script>
 	<script src="/js/materialize.min.js"></script>
 	<script src="/js/main.js"></script>
-
-	<script>
-		setTimeout(function() {
-			$('.status-message').fadeOut('slow');
-		}, 3000);
-	</script>
-	<!-- <script src="/js/modalExcluir.js"></script> -->
 </body>
 
 </html>

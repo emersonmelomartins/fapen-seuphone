@@ -22,7 +22,7 @@ public class Pessoa {
 	@Column(length = 100, nullable = false)
 	private String nome;
 	
-	@Column(length = 11, nullable = false, unique = true)
+	@Column(length = 11, nullable = false)
 	private String cpf;
 	
 	@DateTimeFormat(iso = ISO.DATE)
