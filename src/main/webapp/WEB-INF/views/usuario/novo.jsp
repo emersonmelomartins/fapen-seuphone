@@ -161,6 +161,8 @@
 													<option value="${perfil.authority }">${perfil.descricao }</option>
 												</c:forEach>
 											</select>
+											<f:errors path="listaPerfil"
+												cssClass="helper-text red-text" />
 										</div>
 										<div class="col s2">
 											<a class="btn" id="btnAddPerfil">Adicionar</a>

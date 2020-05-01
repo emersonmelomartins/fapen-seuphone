@@ -25,7 +25,7 @@ import br.com.fapen.seuphone.repositories.Paginacao;
 import br.com.fapen.seuphone.repositories.PerfilRepository;
 import br.com.fapen.seuphone.repositories.UsuarioRepository;
 import br.com.fapen.seuphone.services.UsuarioService;
-import br.com.fapen.seuphone.validations.UsuarioValidator;
+import br.com.fapen.seuphone.validations.UsuarioFormValidator;
 
 @Controller
 @RequestMapping("/usuarios")
@@ -41,11 +41,11 @@ public class UsuarioController {
 	private UsuarioService usuarioService;
 	
 	@Autowired
-	private UsuarioValidator usuarioValidator;
+	private UsuarioFormValidator usuarioFormValidator;
 	
-	@InitBinder("usuario")
+	@InitBinder("usuarioForm")
 	protected void init(WebDataBinder binder) {
-		binder.setValidator(usuarioValidator);
+		binder.setValidator(usuarioFormValidator);
 	}
 
 	@GetMapping(name = "listarUsuarios")
