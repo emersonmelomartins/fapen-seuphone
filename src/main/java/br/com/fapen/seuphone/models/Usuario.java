@@ -40,11 +40,14 @@ public class Usuario implements UserDetails {
 	@Column(length = 60, nullable = false)
 	private String login;
 
-	@Column(length = 100, nullable = false)
+	@Column(length = 100, nullable = false, updatable = false)
 	private String senha;
 
 	@Column(length = 100, nullable = false)
 	private String email;
+	
+	@Column(name = "caminho_foto")
+	private String caminhoFoto;
 	
 	@Column(columnDefinition = "boolean default false")
 	private boolean inativo;
@@ -90,6 +93,14 @@ public class Usuario implements UserDetails {
 	}
 	
 
+	public String getCaminhoFoto() {
+		return caminhoFoto;
+	}
+
+	public void setCaminhoFoto(String caminhoFoto) {
+		this.caminhoFoto = caminhoFoto;
+	}
+
 	public boolean isInativo() {
 		return inativo;
 	}
@@ -97,6 +108,7 @@ public class Usuario implements UserDetails {
 	public void setInativo(boolean inativo) {
 		this.inativo = inativo;
 	}
+
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;

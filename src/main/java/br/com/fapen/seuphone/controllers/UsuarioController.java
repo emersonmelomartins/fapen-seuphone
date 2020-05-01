@@ -7,6 +7,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,13 +16,18 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import br.com.fapen.seuphone.forms.UsuarioForm;
 import br.com.fapen.seuphone.models.Usuario;
 import br.com.fapen.seuphone.repositories.Paginacao;
+import br.com.fapen.seuphone.repositories.PerfilRepository;
 import br.com.fapen.seuphone.repositories.UsuarioRepository;
-import br.com.fapen.seuphone.validations.UsuarioValidator;
+import br.com.fapen.seuphone.services.ArquivoService;
+import br.com.fapen.seuphone.services.UsuarioService;
+import br.com.fapen.seuphone.validations.UsuarioFormValidator;
 
 @Controller
 @RequestMapping("/usuarios")
@@ -31,11 +37,20 @@ public class UsuarioController {
 	private UsuarioRepository usuarioRep;
 	
 	@Autowired
-	private UsuarioValidator usuarioValidator;
+	private PerfilRepository perfilRep;
 	
-	@InitBinder("usuario")
+	@Autowired
+	private UsuarioService usuarioService;
+	
+	@Autowired
+	private ArquivoService arquivoService;
+	
+	@Autowired
+	private UsuarioFormValidator usuarioFormValidator;
+	
+	@InitBinder("usuarioForm")
 	protected void init(WebDataBinder binder) {
-		binder.setValidator(usuarioValidator);
+		binder.setValidator(usuarioFormValidator);
 	}
 
 	@GetMapping(name = "listarUsuarios")
@@ -56,37 +71,40 @@ public class UsuarioController {
 	}
 	
 	@GetMapping(value = "/novo", name = "novoUsuario")
-	public String newUser(Usuario usuario) {
+	public ModelAndView newUser(UsuarioForm usuarioForm) {
 		
-		return "usuario/novo";
+		System.out.println(usuarioForm.isInclusao());
+		
+		ModelAndView mav = new ModelAndView("/usuario/novo");
+		mav.addObject("listaPerfis", perfilRep.findAll());
+		return mav;
 	}
 	
 	@PostMapping(value = "/salvar", name = "salvarUsuario")
-	public String createUser(@Valid Usuario usuario/*usuarioForm*/, BindingResult resultadoValidacao ,RedirectAttributes atributos) {
+	public ModelAndView createUser(@Valid UsuarioForm usuarioForm, BindingResult resultadoValidacao ,RedirectAttributes atributos) {
 		
 		if(resultadoValidacao.hasErrors()) {
 			
-			return newUser(usuario);
+			return newUser(usuarioForm);
 		}
 		
-		usuarioRep.save(usuario);
+		usuarioService.salvar(usuarioForm);
 		
 		atributos.addFlashAttribute("mensagemStatus", "Usuário salvo com sucesso!");
 		
-		return "redirect:/usuarios";
+		return new ModelAndView("redirect:/usuarios");
 	}
 	
 	@GetMapping(value = "/{id}/editar", name = "editarUsuario")
-	public ModelAndView editUser(@PathVariable Long id) {
+	public ModelAndView editUser(@PathVariable Long id, Model model) {
 		
 		Usuario usuario = usuarioRep.getOne(id);
 		
-		System.out.println(usuarioRep.findByPessoaCpf(usuario.getPessoa().getCpf()));
+		UsuarioForm usuarioForm = new UsuarioForm(usuario);
 		
-		ModelAndView mav = new ModelAndView("/usuario/novo");
-		mav.addObject("usuario", usuario);
+		model.addAttribute(usuarioForm);
 		
-		return mav;
+		return newUser(usuarioForm);
 	}
 	
 	@PostMapping(value = "/{id}/apagar", name = "apagarUsuario")
@@ -113,10 +131,22 @@ public class UsuarioController {
 	@GetMapping(value = "/meuperfil", name = "meuPerfil")
 	public ModelAndView myProfile(Principal principal) {
 		Usuario perfil = usuarioRep.findByLogin(principal.getName());
+		perfil.getCaminhoFoto();
 		
 		ModelAndView mav = new ModelAndView("/usuario/perfil");
 		mav.addObject("perfil", perfil);
 		
 		return mav;
+	}
+	
+	@PostMapping(value = "/alterarFoto", name = "alterarFotoPerfil")
+	public String alterarFotoPerfil(MultipartFile foto, Principal principal) {
+		
+		String caminhoDaFoto = arquivoService.salvarArquivo(foto);
+		Usuario usuario = usuarioRep.findByLogin(principal.getName());
+		usuario.setCaminhoFoto(caminhoDaFoto);
+		usuarioRep.save(usuario);
+		
+		return "redirect:/usuarios/meuperfil";
 	}
 }

@@ -54,19 +54,28 @@
 					<div class="card">
 						<br>
 						<div class="card-image">
-							<img class="profile-avatar" src="/img/default_avatar.png" alt="Avatar do Usuário">
-							<form action="#" method="POST" enctype="multipart/form-data">
+						
+						
+						<c:forEach items="perfil">
+							<c:if test="${perfil.caminhoFoto == null }">
+								<img class="profile-avatar" src="/img/default_avatar.png" alt="Avatar do Usuário">
+							</c:if>
+							<c:if test="${perfil.caminhoFoto != null}">
+								<img class="profile-avatar" src="/${perfil.caminhoFoto }" alt="Avatar do Usuário">
+							</c:if>
+						</c:forEach>
+							<f:form action="${s:mvcUrl('alterarFotoPerfil').build() }" method="POST" enctype="multipart/form-data">
 								<div class="file-field input-field">
 									<div class="btn indigo">
 										<span><i class="material-icons">attach_file</i></span>
-										<input type="file" multiple>
+										<input type="file" name="foto" multiple>
 									</div>
 									<div class="file-path-wrapper">
 										<input class="file-path validate" type="text" placeholder="Selecione uma imagem">
 									</div>
-									<button class="btn-small indigo"type="submit">Enviar</button>
+									<button class="btn-small indigo"type="submit">Alterar Foto</button>
 								</div>
-							</form>
+							</f:form>
 						</div>
 						<div class="card-content">
 							<h5 style="text-transform: uppercase;" class="black-text">
