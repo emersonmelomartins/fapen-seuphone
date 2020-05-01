@@ -29,6 +29,8 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
 	
 	public Usuario findByPessoaCpf(String cpf);
 	
+	public boolean existsByLogin(String login);
+	
 	@Transactional
 	@Modifying(clearAutomatically = true)
 	@Query(value = "UPDATE tb_login SET senha = :senha WHERE id_login = :id", nativeQuery = true)

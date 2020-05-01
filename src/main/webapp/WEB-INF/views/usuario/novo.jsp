@@ -51,6 +51,7 @@
 									action="${s:mvcUrl('salvarUsuario').build() }"
 									modelAttribute="usuarioForm" class="col s12">
 									<f:hidden path="usuario.idLogin" />
+									<f:hidden path="inclusao" />
 
 									<div class="row">
 										<div class="input-field col s6">

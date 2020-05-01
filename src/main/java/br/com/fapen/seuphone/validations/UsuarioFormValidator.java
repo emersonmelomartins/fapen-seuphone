@@ -17,9 +17,9 @@ import br.com.fapen.seuphone.repositories.UsuarioRepository;
 
 @Component
 public class UsuarioFormValidator implements Validator {
-	
+
 	private CPFValidator cpfValidator = new CPFValidator();
-	
+
 	@Autowired
 	private UsuarioRepository usuarioRep;
 
@@ -31,7 +31,7 @@ public class UsuarioFormValidator implements Validator {
 	@Override
 	public void validate(Object target, Errors errors) {
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "usuario.login", "campo.obrigatorio");
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "usuario.senha", "campo.obrigatorio");
+
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "usuario.email", "campo.obrigatorio");
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "usuario.pessoa.nome", "campo.obrigatorio");
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "usuario.pessoa.cpf", "campo.obrigatorio");
@@ -39,9 +39,21 @@ public class UsuarioFormValidator implements Validator {
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "usuario.pessoa.sexo", "campo.obrigatorio");
 
 		UsuarioForm usuarioForm = (UsuarioForm) target;
-		
+
+		// Verifica se senha é necessário (inclusão)
+		if (usuarioForm.isInclusao()) {
+			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "usuario.senha", "campo.obrigatorio");
+		}
+
+		// Verifica se login existe
+		if (usuarioRep.existsByLogin(usuarioForm.getUsuario().getLogin())
+				&& !usuarioRep.findByLogin(usuarioForm.getUsuario().getLogin()).getIdLogin()
+						.equals(usuarioForm.getUsuario().getIdLogin())) {
+			errors.rejectValue("usuario.login", "login.existente");
+		}
+
 		// Verifica se existe perfil
-		if(usuarioForm.getListaPerfil().isEmpty()) {
+		if (usuarioForm.getListaPerfil().isEmpty()) {
 			errors.rejectValue("listaPerfil", "campo.obrigatorio");
 		}
 
@@ -53,18 +65,19 @@ public class UsuarioFormValidator implements Validator {
 		if (!m.matches()) {
 			errors.rejectValue("usuario.email", "email.invalido");
 		}
-		
 
 		// Verifica se email existe
 		if (usuarioForm.getUsuario().getEmail() != null) {
 			if (usuarioRep.existsByEmail(usuarioForm.getUsuario().getEmail())
-					&& !usuarioRep.findByEmail(usuarioForm.getUsuario().getEmail()).getIdLogin().equals(usuarioForm.getUsuario().getIdLogin())) {
+					&& !usuarioRep.findByEmail(usuarioForm.getUsuario().getEmail()).getIdLogin()
+							.equals(usuarioForm.getUsuario().getIdLogin())) {
 				errors.rejectValue("usuario.email", "email.existente");
 			}
 		}
 
 		// Validação de CPF
-		List<ValidationMessage> validationMessages = cpfValidator.invalidMessagesFor(usuarioForm.getUsuario().getPessoa().getCpf());
+		List<ValidationMessage> validationMessages = cpfValidator
+				.invalidMessagesFor(usuarioForm.getUsuario().getPessoa().getCpf());
 
 		if (usuarioForm.getUsuario().getPessoa().getCpf() != null) {
 			if (!validationMessages.isEmpty()) {
@@ -72,8 +85,9 @@ public class UsuarioFormValidator implements Validator {
 			}
 
 			// Verifica se CPF já existe
-			if (usuarioRep.existsByPessoaCpf(usuarioForm.getUsuario().getPessoa().getCpf()) && !usuarioRep
-					.findByPessoaCpf(usuarioForm.getUsuario().getPessoa().getCpf()).getIdLogin().equals(usuarioForm.getUsuario().getIdLogin())) {
+			if (usuarioRep.existsByPessoaCpf(usuarioForm.getUsuario().getPessoa().getCpf())
+					&& !usuarioRep.findByPessoaCpf(usuarioForm.getUsuario().getPessoa().getCpf()).getIdLogin()
+							.equals(usuarioForm.getUsuario().getIdLogin())) {
 				errors.rejectValue("usuario.pessoa.cpf", "cpf.existente");
 			}
 
