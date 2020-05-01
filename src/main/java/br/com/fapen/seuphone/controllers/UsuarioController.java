@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -24,6 +25,7 @@ import br.com.fapen.seuphone.models.Usuario;
 import br.com.fapen.seuphone.repositories.Paginacao;
 import br.com.fapen.seuphone.repositories.PerfilRepository;
 import br.com.fapen.seuphone.repositories.UsuarioRepository;
+import br.com.fapen.seuphone.services.ArquivoService;
 import br.com.fapen.seuphone.services.UsuarioService;
 import br.com.fapen.seuphone.validations.UsuarioFormValidator;
 
@@ -39,6 +41,9 @@ public class UsuarioController {
 	
 	@Autowired
 	private UsuarioService usuarioService;
+	
+	@Autowired
+	private ArquivoService arquivoService;
 	
 	@Autowired
 	private UsuarioFormValidator usuarioFormValidator;
@@ -126,10 +131,22 @@ public class UsuarioController {
 	@GetMapping(value = "/meuperfil", name = "meuPerfil")
 	public ModelAndView myProfile(Principal principal) {
 		Usuario perfil = usuarioRep.findByLogin(principal.getName());
+		perfil.getCaminhoFoto();
 		
 		ModelAndView mav = new ModelAndView("/usuario/perfil");
 		mav.addObject("perfil", perfil);
 		
 		return mav;
+	}
+	
+	@PostMapping(value = "/alterarFoto", name = "alterarFotoPerfil")
+	public String alterarFotoPerfil(MultipartFile foto, Principal principal) {
+		
+		String caminhoDaFoto = arquivoService.salvarArquivo(foto);
+		Usuario usuario = usuarioRep.findByLogin(principal.getName());
+		usuario.setCaminhoFoto(caminhoDaFoto);
+		usuarioRep.save(usuario);
+		
+		return "redirect:/usuarios/meuperfil";
 	}
 }

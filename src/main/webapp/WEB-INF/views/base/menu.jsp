@@ -3,6 +3,7 @@
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!--Menu de Navegação-->
 <header class="nav-menu">
 	<nav class="grey darken-4 z-depth-2">
@@ -21,10 +22,25 @@
 				</sec:authorize>
 				<sec:authorize access="isAuthenticated()">
 					<li class="col s4 waves-effect hide-on-small-only"><a
-						class='dropdown-trigger' href='#' data-target='submenu'>Bem
-							vindo, <b style="text-transform: uppercase;"><sec:authentication
-									property="principal.login" /></b>!<i class="material-icons right">arrow_drop_down</i>
-					</a></li>
+						class='dropdown-trigger valign-wrapper' href='#' data-target='submenu'>
+						
+						<sec:authentication property="principal" var="user"/>
+						
+						
+							<c:if test="${user.caminhoFoto == null }">
+							<img style="max-width: 30px;" src="/img/default_avatar.png" alt="Avatar do Usuário">
+							</c:if>
+							<c:if test="${user.caminhoFoto != null}">
+								<img style="width: 30px;" src="/${user.caminhoFoto }" alt="Avatar do Usuário">
+							</c:if>
+						
+						<span>Bem-vindo, <b style="text-transform: uppercase;"><sec:authentication
+									property="principal.login" /></b>!<i class="material-icons right">arrow_drop_down</i></span>
+					</a>
+					
+					</div>
+					
+					</li>
 
 
 					<ul id='submenu' class='black-seuphone dropdown-content'>
