@@ -28,6 +28,8 @@ public class SeuphoneSecurityConfig extends WebSecurityConfigurerAdapter{
 		.antMatchers("/js/**").permitAll()
 		.antMatchers("/css/**").permitAll()
 		.antMatchers("/img/**").permitAll()
+		.antMatchers("/esqueci-senha").permitAll()
+		.antMatchers("/esqueci-senha/**").permitAll()
 		.antMatchers("/usuarios/**").hasRole("ADMIN")
 		.antMatchers("/perfis/**").hasRole("ADMIN")
 		.antMatchers("/produtos/**/excluir").hasRole("ADMIN")
