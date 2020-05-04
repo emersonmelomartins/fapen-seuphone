@@ -31,6 +31,10 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
 	
 	public boolean existsByLogin(String login);
 	
+	public Usuario findByHash(String hash);
+	
+	public boolean existsByHash(String hash);
+	
 	@Transactional
 	@Modifying(clearAutomatically = true)
 	@Query(value = "UPDATE tb_login SET hash = :novoHash WHERE id_login = :id", nativeQuery = true)

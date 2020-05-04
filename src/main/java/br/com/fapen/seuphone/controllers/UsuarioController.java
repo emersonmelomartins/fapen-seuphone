@@ -26,9 +26,7 @@ import br.com.fapen.seuphone.repositories.Paginacao;
 import br.com.fapen.seuphone.repositories.PerfilRepository;
 import br.com.fapen.seuphone.repositories.UsuarioRepository;
 import br.com.fapen.seuphone.services.ArquivoService;
-import br.com.fapen.seuphone.services.EmailService;
 import br.com.fapen.seuphone.services.UsuarioService;
-import br.com.fapen.seuphone.templates.HtmlTemplate;
 import br.com.fapen.seuphone.validations.UsuarioFormValidator;
 
 @Controller
@@ -47,8 +45,6 @@ public class UsuarioController {
 	@Autowired
 	private ArquivoService arquivoService;
 	
-	@Autowired
-	private EmailService emailService;
 	
 	
 	@Autowired
@@ -156,11 +152,4 @@ public class UsuarioController {
 		return "redirect:/usuarios/meuperfil";
 	}
 	
-	@GetMapping(value = "/enviar-email")
-	public String enviarEmailTeste() {
-		
-		emailService.enviarEmailHtml("emerson25xd@gmail.com", "Teste", HtmlTemplate.RECUPERAR_SENHA);
-		
-		return "redirect:/home";
-	}
 }

@@ -61,5 +61,13 @@ public class UsuarioService implements UserDetailsService {
 		return hash.toString(16);
 	}
 	
+	public void alterarSenha(String senha, Long id) {
+		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+		String senhaCripto = encoder.encode(senha);
+		
+		usuarioRep.alterarSenha(senhaCripto, id);
+		usuarioRep.alterarHash(null, id);
+	}
+	
 	
 }

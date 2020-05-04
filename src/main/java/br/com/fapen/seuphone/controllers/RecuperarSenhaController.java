@@ -4,12 +4,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.com.fapen.seuphone.models.Usuario;
 import br.com.fapen.seuphone.repositories.UsuarioRepository;
 import br.com.fapen.seuphone.services.EmailService;
 import br.com.fapen.seuphone.services.UsuarioService;
+import br.com.fapen.seuphone.templates.HtmlTemplate;
 
 @Controller
 public class RecuperarSenhaController {
@@ -22,6 +25,7 @@ public class RecuperarSenhaController {
 	
 	@Autowired
 	private EmailService emailService;
+	
 
 	@GetMapping(value = "/esqueci-senha", name = "esqueciSenha")
 	public String esqueciSenha() {
@@ -41,11 +45,49 @@ public class RecuperarSenhaController {
 		String novoHash = usuarioService.gerarHash(email);
 		usuarioRep.alterarHash(novoHash, buscaUsuario.getIdLogin());
 		
+		emailService.enviarEmailHtml(email, "Seuphone - Recuperar Senha", HtmlTemplate.recuperarSenha(novoHash));
+		
 		atributos.addFlashAttribute("mensagemSucesso", "Foi enviado um email de recuperação para <span class='indigo-text darken-1'>" + usuario.getEmail() + "</b>");
 		return "redirect:/esqueci-senha";
 	}
 	
-	public String recuperarSenha() {
-		return "";
+	@GetMapping("/recuperar-senha")
+	public ModelAndView verificaToken(@RequestParam(defaultValue = "") String token, RedirectAttributes atributos) {
+		
+		if(token.equals("")) {
+			atributos.addFlashAttribute("mensagemErro", "É necessário informar um token!");
+			return new ModelAndView("redirect:/esqueci-senha");
+		}
+		
+		boolean verificaToken = usuarioRep.existsByHash(token);
+		if(!verificaToken) {
+			atributos.addFlashAttribute("mensagemErro", "Token Inválido!");
+			return new ModelAndView("redirect:/esqueci-senha");
+		}
+		Usuario usuario = usuarioRep.findByHash(token);
+		
+		return formularioNovaSenha(usuario);
+	}
+	
+	@GetMapping("/formulario-senha")
+	public ModelAndView formularioNovaSenha(Usuario usuario) {
+		ModelAndView mav = new ModelAndView("/recuperar-senha/trocar");
+		mav.addObject("usuario", usuario);
+		return mav;
+	}
+	
+	@PostMapping(value = "/trocar-senha", name = "trocarSenha")
+	public ModelAndView trocaSenha(Usuario usuario, RedirectAttributes atributos) {
+		if(usuario.getSenha().equals("")) {
+			
+			return formularioNovaSenha(usuario);
+		}
+		
+		String novaSenha = usuario.getPassword();
+		Long id = usuario.getIdLogin();
+		
+		usuarioService.alterarSenha(novaSenha, id);
+		atributos.addFlashAttribute("mensagemSucesso", "Senha alterada com sucesso!");
+		return new ModelAndView("redirect:/login");
 	}
 }
