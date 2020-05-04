@@ -38,6 +38,7 @@
                         </div>
 
                         <div class="input-field col s12">
+                        <a href="${s:mvcUrl('esqueciSenha').build() }">Esqueci minha senha</a>
                             <input type="submit" value="Enviar" class="left btn botao">
                         </div>
 

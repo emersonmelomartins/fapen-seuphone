@@ -1,6 +1,7 @@
 package br.com.fapen.seuphone;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -30,6 +31,9 @@ public class SeuphoneSecurityConfig extends WebSecurityConfigurerAdapter{
 		.antMatchers("/img/**").permitAll()
 		.antMatchers("/esqueci-senha").permitAll()
 		.antMatchers("/esqueci-senha/**").permitAll()
+		.antMatchers("/recuperar-senha").permitAll()
+		.antMatchers("/recuperar-senha/**").permitAll()
+		.antMatchers(HttpMethod.POST, "/trocar-senha").permitAll()
 		.antMatchers("/usuarios/**").hasRole("ADMIN")
 		.antMatchers("/perfis/**").hasRole("ADMIN")
 		.antMatchers("/produtos/**/excluir").hasRole("ADMIN")

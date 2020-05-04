@@ -48,18 +48,24 @@
 
 		<div class="row center">
 			<br> <br>
-			<h1 class="titulo">Esqueci minha Senha</h1>
+			<h1 class="titulo">Nova Senha</h1>
 			<br> <br>
 			
 			<div class="row">
-				<f:form method="POST" action="${s:mvcUrl('verificarEmail').build() }" >
+				<f:form method="POST" action="${s:mvcUrl('trocarSenha').build() }" modelAttribute="usuario">
+                <f:hidden path="idLogin" />
+                
                 <div class="row">
                     <div class="col s4"></div>
                     <div class="col s4">
 
                         <div class="input-field col s12">
-                            <label for="email">E-mail</label>
-                            <input id="email" name="email" type="text" class="validate" required="true" autofocus> 
+                            <label for="senha">Nova Senha</label>
+                            <input id="senha" name="senha" type="password" class="validate" required="true" autofocus> 
+                        </div>
+                        <div class="input-field col s12">
+                            <label for="confirmarSenha">Confirmar Senha</label>
+                            <input id="confirmarSenha" name="confirmarSenha" type="password" class="validate" required="true"> 
                         </div>
 
 
