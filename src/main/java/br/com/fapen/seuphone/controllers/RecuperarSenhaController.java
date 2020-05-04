@@ -87,6 +87,7 @@ public class RecuperarSenhaController {
 		Long id = usuario.getIdLogin();
 		
 		usuarioService.alterarSenha(novaSenha, id);
+		atributos.addFlashAttribute("mensagemSucesso", "Senha alterada com sucesso!");
 		return new ModelAndView("redirect:/login");
 	}
 }
