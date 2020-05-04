@@ -33,6 +33,11 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
 	
 	@Transactional
 	@Modifying(clearAutomatically = true)
+	@Query(value = "UPDATE tb_login SET hash = :novoHash WHERE id_login = :id", nativeQuery = true)
+	public void alterarHash(@Param("novoHash") String novoHash, @Param("id") Long id);
+	
+	@Transactional
+	@Modifying(clearAutomatically = true)
 	@Query(value = "UPDATE tb_login SET senha = :senha WHERE id_login = :id", nativeQuery = true)
 	public void alterarSenha(@Param("senha") String novaSenha, @Param("id") Long id);
 }

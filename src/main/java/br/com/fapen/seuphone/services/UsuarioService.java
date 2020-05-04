@@ -1,5 +1,9 @@
 package br.com.fapen.seuphone.services;
 
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -40,6 +44,21 @@ public class UsuarioService implements UserDetailsService {
 		}
 		
 		usuarioRep.save(usuarioForm.getUsuario());
+	}
+	
+	public String gerarHash(String email) {
+		Usuario usuario = usuarioRep.findByEmail(email);
+		
+		String dadosUsuario = usuario.getLogin() + usuario.getEmail() + usuario.getSenha();
+		MessageDigest md;
+		try {
+			md = MessageDigest.getInstance("MD5");
+		} catch(NoSuchAlgorithmException e) {
+			throw new RuntimeException();
+		}
+		
+		BigInteger hash = new BigInteger(1, md.digest(dadosUsuario.getBytes()));
+		return hash.toString(16);
 	}
 	
 	
