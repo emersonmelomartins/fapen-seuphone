@@ -108,7 +108,7 @@ public class UsuarioController {
 	}
 	
 	@PostMapping(value = "/{id}/apagar", name = "apagarUsuario")
-	public String deleteUser(@PathVariable Long id, RedirectAttributes atributos) {
+	public String inativar(@PathVariable Long id, RedirectAttributes atributos) {
 		
 		Usuario usuario = usuarioRep.getOne(id);
 		usuarioRep.delete(usuario);

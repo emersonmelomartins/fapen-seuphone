@@ -96,7 +96,7 @@ public class FornecedorController {
 	}
 	
 	@PostMapping(value = "/{id}/apagar", name = "apagarFornecedor")
-	public String apagar(@PathVariable Long id, RedirectAttributes atributos) {
+	public String inativar(@PathVariable Long id, RedirectAttributes atributos) {
 		Fornecedor fornecedor = fornecedorRepository.getOne(id);
 		fornecedorRepository.delete(fornecedor);
 		

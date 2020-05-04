@@ -95,7 +95,7 @@ public class ProdutoController {
 	}
 	
 	@PostMapping(value = "/{id}/apagar", name = "apagarProduto")
-	public String apagar(@PathVariable Long id, RedirectAttributes atributos) {
+	public String inativar(@PathVariable Long id, RedirectAttributes atributos) {
 		Produto produto = produtoRep.getOne(id);
 		produtoRep.delete(produto);
 		
