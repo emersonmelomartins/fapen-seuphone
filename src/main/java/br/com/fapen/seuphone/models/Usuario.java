@@ -49,6 +49,8 @@ public class Usuario implements UserDetails {
 	@Column(name = "caminho_foto")
 	private String caminhoFoto;
 	
+	private String hash;
+	
 	@Column(columnDefinition = "boolean default false")
 	private boolean inativo;
 
@@ -99,6 +101,15 @@ public class Usuario implements UserDetails {
 
 	public void setCaminhoFoto(String caminhoFoto) {
 		this.caminhoFoto = caminhoFoto;
+	}
+	
+
+	public String getHash() {
+		return hash;
+	}
+
+	public void setHash(String hash) {
+		this.hash = hash;
 	}
 
 	public boolean isInativo() {
