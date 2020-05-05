@@ -30,6 +30,8 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
 	public Usuario findByPessoaCpf(String cpf);
 	
 	public boolean existsByLogin(String login);
+
+	Long findOneByIdLogin(Long id);
 	
 	@Transactional
 	@Modifying(clearAutomatically = true)
