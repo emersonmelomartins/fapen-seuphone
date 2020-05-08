@@ -50,32 +50,37 @@
 			<br> <br>
 			<h1 class="titulo">Nova Senha</h1>
 			<br> <br>
-			
+
 			<div class="row">
-				<f:form method="POST" action="${s:mvcUrl('trocarSenha').build() }" modelAttribute="usuario">
-                <f:hidden path="idLogin" />
-                
-                <div class="row">
-                    <div class="col s4"></div>
-                    <div class="col s4">
+				<f:form method="POST" action="${s:mvcUrl('trocarSenha').build() }"
+					modelAttribute="recuperarSenhaForm">
+					<f:hidden path="usuario.idLogin" />
 
-                        <div class="input-field col s12">
-                            <label for="senha">Nova Senha</label>
-                            <input id="senha" name="senha" type="password" class="validate" required="true" autofocus> 
-                        </div>
-                        <div class="input-field col s12">
-                            <label for="confirmarSenha">Confirmar Senha</label>
-                            <input id="confirmarSenha" name="confirmarSenha" type="password" class="validate" required="true"> 
-                        </div>
+					<div class="row">
+						<div class="col s4"></div>
+						<div class="col s4">
+
+							<div class="input-field col s12">
+								<label name="novoPassword">Nova Senha</label>
+								<f:input path="novoPassword" type="password" cssClass="validate" />
+								<f:errors path="novoPassword" cssClass="helper-text red-text" />
+							</div>
+							<div class="input-field col s12">
+								<label for="confirmarPassword">Confirmar Senha</label>
+								<f:input path="confirmarPassword" type="password"
+									cssClass="validate" />
+								<f:errors path="confirmarPassword"
+									cssClass="helper-text red-text" />
+							</div>
 
 
-                        <div class="input-field col s12">
-                            <input type="submit" value="Enviar" class="left btn botao">
-                        </div>
+							<div class="input-field col s12">
+								<input type="submit" value="Enviar" class="left btn botao">
+							</div>
 
-                    </div>
-                </div>
-            </f:form>
+						</div>
+					</div>
+				</f:form>
 			</div>
 
 		</div>

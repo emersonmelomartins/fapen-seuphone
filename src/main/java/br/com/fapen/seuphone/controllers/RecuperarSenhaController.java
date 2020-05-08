@@ -1,7 +1,10 @@
 package br.com.fapen.seuphone.controllers;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
@@ -76,27 +79,28 @@ public class RecuperarSenhaController {
 			atributos.addFlashAttribute("mensagemErro", "Token Inválido!");
 			return new ModelAndView("redirect:/esqueci-senha");
 		}
-		Usuario usuario = usuarioRep.findByHash(token);
+		RecuperarSenhaForm recuperarSenhaForm = new RecuperarSenhaForm(usuarioRep.findByHash(token));
 		
-		return formularioNovaSenha(usuario);
+		return formularioNovaSenha(recuperarSenhaForm);
 	}
 	
 	@GetMapping("/formulario-senha")
-	public ModelAndView formularioNovaSenha(Usuario usuario) {
+	public ModelAndView formularioNovaSenha(RecuperarSenhaForm recuperarSenhaForm) {
 		ModelAndView mav = new ModelAndView("/recuperar-senha/trocar");
-		mav.addObject("usuario", usuario);
+		mav.addObject("recuperarSenhaForm", recuperarSenhaForm);
 		return mav;
 	}
 	
 	@PostMapping(value = "/trocar-senha", name = "trocarSenha")
-	public ModelAndView trocaSenha(Usuario usuario, RedirectAttributes atributos) {
-		if(usuario.getSenha().equals("")) {
+	public ModelAndView trocaSenha(@Valid RecuperarSenhaForm recuperarSenhaForm, BindingResult resultadoValidacao, RedirectAttributes atributos) {
+		
+		if(resultadoValidacao.hasErrors()) {
 			
-			return formularioNovaSenha(usuario);
+			return formularioNovaSenha(recuperarSenhaForm);
 		}
 		
-		String novaSenha = usuario.getPassword();
-		Long id = usuario.getIdLogin();
+		String novaSenha = recuperarSenhaForm.getNovoPassword();
+		Long id = recuperarSenhaForm.getUsuario().getIdLogin();
 		
 		usuarioService.alterarSenha(novaSenha, id);
 		atributos.addFlashAttribute("mensagemSucesso", "Senha alterada com sucesso!");
