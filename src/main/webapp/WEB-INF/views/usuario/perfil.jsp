@@ -145,12 +145,9 @@
 						</f:form>
 
 							<h5>Permissões</h5>
-							<div class="chip blue">ROLE_ADMIN</div>
-							<div class="chip red">ROLE_GERENTE</div>
-							<div class="chip green">ROLE_VENDEDOR</div>
-							<div class="chip deep-purple">ROLE_ESTOQUE</div>
-							<div class="chip teal">ROLE_NOTAFISCAL</div>
-							<div class="chip yellow">ROLE_USUARIO</div>
+							<c:forEach items="${perfil.authorities }" var="authority">
+								<div class="chip">${authority.getAuthority() }</div>
+							</c:forEach>
 
 	</div>
 </div>
