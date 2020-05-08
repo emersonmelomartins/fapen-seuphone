@@ -1,5 +1,7 @@
 package br.com.fapen.seuphone.repositories;
 
+import java.util.List;
+
 import javax.transaction.Transactional;
 
 import org.springframework.data.domain.Page;
@@ -32,6 +34,11 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
 	public boolean existsByLogin(String login);
 
 	Long findOneByIdLogin(Long id);
+
+	@Transactional
+	@Modifying(clearAutomatically = true)
+	@Query(value = "SELECT * FROM tb_login WHERE inativo = false", nativeQuery = true)
+	public List<Usuario> findAllWhereInativo();
 	
 	@Transactional
 	@Modifying(clearAutomatically = true)
