@@ -57,11 +57,11 @@
 						
 						
 						<c:forEach items="perfil">
-							<c:if test="${perfil.caminhoFoto == null }">
+							<c:if test="${perfil.getCaminhoFoto() == null }">
 								<img class="profile-avatar" src="/img/default_avatar.png" alt="Avatar do Usuário">
 							</c:if>
-							<c:if test="${perfil.caminhoFoto != null}">
-								<img class="profile-avatar" src="/${perfil.caminhoFoto }" alt="Avatar do Usuário">
+							<c:if test="${perfil.getCaminhoFoto() != null}">
+								<img class="profile-avatar" src="/${perfil.getCaminhoFoto() }" alt="Avatar do Usuário">
 							</c:if>
 						</c:forEach>
 							<f:form action="${s:mvcUrl('alterarFotoPerfil').build() }" method="POST" enctype="multipart/form-data">
