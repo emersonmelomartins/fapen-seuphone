@@ -57,11 +57,11 @@
 						
 						
 						<c:forEach items="perfil">
-							<c:if test="${perfil.caminhoFoto == null }">
+							<c:if test="${perfil.getCaminhoFoto() == null }">
 								<img class="profile-avatar" src="/img/default_avatar.png" alt="Avatar do Usuário">
 							</c:if>
-							<c:if test="${perfil.caminhoFoto != null}">
-								<img class="profile-avatar" src="/${perfil.caminhoFoto }" alt="Avatar do Usuário">
+							<c:if test="${perfil.getCaminhoFoto() != null}">
+								<img class="profile-avatar" src="/${perfil.getCaminhoFoto() }" alt="Avatar do Usuário">
 							</c:if>
 						</c:forEach>
 							<f:form action="${s:mvcUrl('alterarFotoPerfil').build() }" method="POST" enctype="multipart/form-data">
@@ -145,12 +145,9 @@
 						</f:form>
 
 							<h5>Permissões</h5>
-							<div class="chip blue">ROLE_ADMIN</div>
-							<div class="chip red">ROLE_GERENTE</div>
-							<div class="chip green">ROLE_VENDEDOR</div>
-							<div class="chip deep-purple">ROLE_ESTOQUE</div>
-							<div class="chip teal">ROLE_NOTAFISCAL</div>
-							<div class="chip yellow">ROLE_USUARIO</div>
+							<c:forEach items="${perfil.authorities }" var="authority">
+								<div class="chip">${authority.getAuthority() }</div>
+							</c:forEach>
 
 	</div>
 </div>

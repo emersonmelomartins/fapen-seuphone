@@ -27,7 +27,7 @@ public class EmailService  {
 			helper.setText(conteudo, true);
 			
 			File logo = new File("/home/emerson/Downloads/dev/media/logo.png");
-			helper.addAttachment("logo.png", logo);
+			helper.addInline("logo-seuphone", logo);
 			
 			sender.send(htmlMessage);
 			System.out.println("Email enviado com sucesso!");

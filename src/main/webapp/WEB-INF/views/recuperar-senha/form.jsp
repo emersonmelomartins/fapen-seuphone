@@ -50,26 +50,28 @@
 			<br> <br>
 			<h1 class="titulo">Esqueci minha Senha</h1>
 			<br> <br>
-			
+
 			<div class="row">
-				<f:form method="POST" action="${s:mvcUrl('verificarEmail').build() }" >
-                <div class="row">
-                    <div class="col s4"></div>
-                    <div class="col s4">
+				<f:form method="POST"
+					action="${s:mvcUrl('verificarEmail').build() }">
+					<div class="row">
+						<div class="col s4"></div>
+						<div class="col s4">
 
-                        <div class="input-field col s12">
-                            <label for="email">E-mail</label>
-                            <input id="email" name="email" type="text" class="validate" required="true" autofocus> 
-                        </div>
+							<div class="input-field col s12">
+								<label for="usuario.email">E-mail</label> <input
+									id="usuario.email" name="usuario.email" type="text"
+									class="validate" autofocus>
+							</div>
 
 
-                        <div class="input-field col s12">
-                            <input type="submit" value="Enviar" class="left btn botao">
-                        </div>
+							<div class="input-field col s12">
+								<input type="submit" value="Enviar" class="left btn botao">
+							</div>
 
-                    </div>
-                </div>
-            </f:form>
+						</div>
+					</div>
+				</f:form>
 			</div>
 
 		</div>
