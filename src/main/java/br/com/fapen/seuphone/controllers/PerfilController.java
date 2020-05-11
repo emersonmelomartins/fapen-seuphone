@@ -92,6 +92,7 @@ public class PerfilController {
 		Perfil perfil = perfilRep.getOne(id);
 		perfilRep.delete(perfil);
 		
+		
 		atributos.addFlashAttribute("mensagemStatus", "Perfil apagado com sucesso!");
 		
 		return "redirect:/perfis";
