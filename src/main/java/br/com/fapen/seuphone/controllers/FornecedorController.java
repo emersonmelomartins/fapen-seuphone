@@ -42,7 +42,7 @@ public class FornecedorController {
 		
 		Page<Fornecedor> fornecedoresCadastrados;
 		if(busca.equals("")) {
-			fornecedoresCadastrados = fornecedorRepository.findAllByOrderById(Paginacao.getPaginacao(pagina));
+			fornecedoresCadastrados = fornecedorRepository.findByInativoFalse(Paginacao.getPaginacao(pagina));
 		} else {
 			fornecedoresCadastrados = fornecedorRepository.findByRazaoSocialContainingIgnoreCase(busca, Paginacao.getPaginacao(pagina));
 		}

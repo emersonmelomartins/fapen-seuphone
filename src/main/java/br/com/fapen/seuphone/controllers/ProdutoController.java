@@ -49,7 +49,7 @@ public class ProdutoController {
 		
 		Page<Produto> listaProdutos;
 		if(busca.equals("")) {
-			listaProdutos = produtoRep.findAllByOrderByIdProdutoAsc(Paginacao.getPaginacao(pagina));
+			listaProdutos = produtoRep.findByInativoFalse(Paginacao.getPaginacao(pagina));
 		} else {
 			listaProdutos = produtoRep.findByDescricaoContainingIgnoreCase(busca, Paginacao.getPaginacao(pagina));
 		}
