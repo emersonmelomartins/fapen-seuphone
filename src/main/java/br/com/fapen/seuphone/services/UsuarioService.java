@@ -60,7 +60,6 @@ public class UsuarioService implements UserDetailsService {
 		BigInteger hash = new BigInteger(1, md.digest(dadosUsuario.getBytes()));
 		return hash.toString(16);
 	}
-<<<<<<< HEAD
 	
 	public void alterarSenha(String senha, Long id) {
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
@@ -69,9 +68,4 @@ public class UsuarioService implements UserDetailsService {
 		usuarioRep.alterarSenha(senhaCripto, id);
 		usuarioRep.alterarHash(null, id);
 	}
-	
-	
-=======
-
->>>>>>> origin/davidBranch
 }
