@@ -97,10 +97,10 @@ public class FornecedorController {
 	
 	@PostMapping(value = "/{id}/apagar", name = "apagarFornecedor")
 	public String inativar(@PathVariable Long id, RedirectAttributes atributos) {
-		Fornecedor fornecedor  = new Fornecedor();
-		Long fornecedorId = fornecedorRepository.findOneById(id);
-		fornecedor.setId(fornecedorId);
+		Fornecedor fornecedor = fornecedorRepository.findOneById(id);
+	
 		fornecedor.setInativo(true);
+
 		fornecedorRepository.save(fornecedor);
 		
 		atributos.addFlashAttribute("mensagemStatus", "fornecedor " + id + " apagado com sucesso!");
