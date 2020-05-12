@@ -31,7 +31,7 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
 	
 	public boolean existsByLogin(String login);
 
-	Long findOneByIdLogin(Long id);
+	Usuario findOneByIdLogin(Long id);
 
 	public Page<Usuario> findByInativoFalse(Pageable paginacao);
 	

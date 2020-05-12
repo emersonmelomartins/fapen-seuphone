@@ -115,13 +115,11 @@ public class UsuarioController {
 	
 	@PostMapping(value = "/{id}/apagar", name = "apagarUsuario")
 	public String inativar(@PathVariable Long id, RedirectAttributes atributos) {
-		Usuario usuario = new Usuario();
-		Long usuarioId = usuarioRep.findOneByIdLogin(id);
-		usuario.setIdLogin(usuarioId);
+		Usuario usuario = usuarioRep.findOneByIdLogin(id);
+	
 		usuario.setInativo(true);
 
 		usuarioRep.save(usuario);
-		
 		atributos.addFlashAttribute("mensagemStatus", "Usuario apagado com sucesso!");
 		
 		return "redirect:/usuarios";
