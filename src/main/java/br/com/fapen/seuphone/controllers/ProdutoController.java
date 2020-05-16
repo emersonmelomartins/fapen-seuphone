@@ -49,7 +49,7 @@ public class ProdutoController {
 		
 		Page<Produto> listaProdutos;
 		if(busca.equals("")) {
-			listaProdutos = produtoRep.findAllByOrderByIdProdutoAsc(Paginacao.getPaginacao(pagina));
+			listaProdutos = produtoRep.findByInativoFalse(Paginacao.getPaginacao(pagina));
 		} else {
 			listaProdutos = produtoRep.findByDescricaoContainingIgnoreCase(busca, Paginacao.getPaginacao(pagina));
 		}
@@ -95,7 +95,7 @@ public class ProdutoController {
 	}
 	
 	@PostMapping(value = "/{id}/apagar", name = "apagarProduto")
-	public String apagar(@PathVariable Long id, RedirectAttributes atributos) {
+	public String inativar(@PathVariable Long id, RedirectAttributes atributos) {
 		Produto produto = produtoRep.getOne(id);
 		produtoRep.delete(produto);
 		
@@ -105,7 +105,12 @@ public class ProdutoController {
 	
 	@GetMapping(value = "/{id}", name = "visualizarProduto")
 	public ModelAndView viewProduct(@PathVariable Long id) {
-		Produto produto = produtoRep.getOne(id);
+		Produto produto = produtoRep.findOneByIdProduto(id);
+	
+		produto.setInativo(true);
+
+		produtoRep.save(produto);
+		
 		
 		ModelAndView mav = new ModelAndView("produto/visualizar");
 		mav.addObject("produto", produto);

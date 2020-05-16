@@ -30,6 +30,10 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
 	public Usuario findByPessoaCpf(String cpf);
 	
 	public boolean existsByLogin(String login);
+
+	Usuario findOneByIdLogin(Long id);
+
+	public Page<Usuario> findByInativoFalse(Pageable paginacao);
 	
 	public Usuario findByHash(String hash);
 	

@@ -68,6 +68,4 @@ public class UsuarioService implements UserDetailsService {
 		usuarioRep.alterarSenha(senhaCripto, id);
 		usuarioRep.alterarHash(null, id);
 	}
-	
-	
 }

@@ -91,7 +91,7 @@
 												</c:forEach>
 											</f:select>
 											<f:errors path="fornecedor" cssClass="helper-text red-text" />
-											<label for="fornecedor">Descrição</label>
+											<label for="fornecedor">Fornecedor</label>
 										</div>
 									</div>
 

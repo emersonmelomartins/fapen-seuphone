@@ -87,10 +87,11 @@ public class PerfilController {
 	}
 	
 	@PostMapping(value = "/{id}/apagar", name = "apagarPerfil")
-	public String deleteProfile(@PathVariable String id, RedirectAttributes atributos) {
+	public String inativarProfile(@PathVariable String id, RedirectAttributes atributos) {
 		
 		Perfil perfil = perfilRep.getOne(id);
 		perfilRep.delete(perfil);
+		
 		
 		atributos.addFlashAttribute("mensagemStatus", "Perfil apagado com sucesso!");
 		

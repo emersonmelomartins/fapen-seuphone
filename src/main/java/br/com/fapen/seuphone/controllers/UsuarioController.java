@@ -64,7 +64,7 @@ public class UsuarioController {
 
 		Page<Usuario> listaUsuarios;
 		if (busca.equals("")) {
-			listaUsuarios = usuarioRep.findAllByOrderByIdLoginAsc(Paginacao.getPaginacao(pagina));
+			listaUsuarios = usuarioRep.findByInativoFalse(Paginacao.getPaginacao(pagina));
 		} else {
 			listaUsuarios = usuarioRep.findByLoginContainingIgnoreCase(busca, Paginacao.getPaginacao(pagina));
 		}
@@ -113,11 +113,12 @@ public class UsuarioController {
 	}
 	
 	@PostMapping(value = "/{id}/apagar", name = "apagarUsuario")
-	public String deleteUser(@PathVariable Long id, RedirectAttributes atributos) {
-		
-		Usuario usuario = usuarioRep.getOne(id);
-		usuarioRep.delete(usuario);
-		
+	public String inativar(@PathVariable Long id, RedirectAttributes atributos) {
+		Usuario usuario = usuarioRep.findOneByIdLogin(id);
+	
+		usuario.setInativo(true);
+
+		usuarioRep.save(usuario);
 		atributos.addFlashAttribute("mensagemStatus", "Usuario apagado com sucesso!");
 		
 		return "redirect:/usuarios";
