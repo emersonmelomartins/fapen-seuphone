@@ -1,9 +1,14 @@
 package br.com.fapen.seuphone.controllers;
 
+import java.io.ByteArrayInputStream;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
 import org.springframework.data.domain.Page;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,6 +25,7 @@ import br.com.fapen.seuphone.enums.CondicaoPagtoEnum;
 import br.com.fapen.seuphone.forms.PedidoCompraForm;
 import br.com.fapen.seuphone.models.DescricaoPedido;
 import br.com.fapen.seuphone.models.PedidoCompra;
+import br.com.fapen.seuphone.reports.ModeloReport;
 import br.com.fapen.seuphone.repositories.FornecedorRepository;
 import br.com.fapen.seuphone.repositories.Paginacao;
 import br.com.fapen.seuphone.repositories.PedidoCompraRepository;
@@ -41,6 +47,9 @@ public class PedidoCompraController {
 
 	@Autowired
 	private PedidoCompraService pedidoService;
+	
+	@Autowired
+	private ModeloReport modeloImpressao;
 
 	@GetMapping(name = "listarPedidos")
 	public ModelAndView listOrders(@RequestParam(defaultValue = "1") Integer pagina,
@@ -127,5 +136,15 @@ public class PedidoCompraController {
 		
 		atributos.addFlashAttribute("mensagemStatus", "Pedido deletado com sucesso!");
 		return "redirect:/pedidos";
+	}
+	
+	@RequestMapping(value = "/pdfTeste", method = RequestMethod.GET, produces = MediaType.APPLICATION_PDF_VALUE)
+	public ResponseEntity<InputStreamResource> testaPDF() {
+		ByteArrayInputStream pdfEmMemoria = modeloImpressao.helloWorld();
+		// Conversão
+		InputStreamResource retorno = new InputStreamResource(pdfEmMemoria);
+		// Pode ser feito direto dentro do body()
+		// MediaType -> está dizendo que o retorno será um PDF
+		return ResponseEntity.ok().contentType(MediaType.APPLICATION_PDF).body(retorno);
 	}
 }

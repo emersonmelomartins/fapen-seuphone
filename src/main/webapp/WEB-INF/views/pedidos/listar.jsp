@@ -114,7 +114,13 @@
 												action="${s:mvcUrl('apagarPedido').arg(0, pedido.idPedido).build() }"
 												method="POST">
 											</f:form>
-										</button></td>
+										</button>
+										<a
+										class="waves-effect waves-light btn-small purple"
+										href="#gerarPDF"
+										title="Gerar PDF"><i
+											class="material-icons purple-text text-darken-3">print</i></a>
+										</td>
 								</tr>
 							</c:forEach>
 						</tbody>
