@@ -51,6 +51,7 @@
 						<li><a class="black-seuphone white-text waves-effect" href="${s:mvcUrl('listarPerfis').build() }">Perfis</a></li>
 						<li><a class="black-seuphone white-text waves-effect" href="${s:mvcUrl('listarProdutos').build() }">Produtos</a></li>
 						<li><a class="black-seuphone white-text waves-effect" href="${s:mvcUrl('listarFornecedores').build() }">Fornecedores</a></li>
+						<li><a class="black-seuphone white-text waves-effect" href="${s:mvcUrl('listarPedidos').build() }">Pedido de Compra</a></li>
 						<li><a class="black-seuphone white-text waves-effect" href="/logout">Sair</a></li>
 					</ul>
 				</sec:authorize>
@@ -94,6 +95,7 @@
 						<li><a class="black-seuphone white-text waves-effect" href="${s:mvcUrl('listarPerfis').build() }">Perfis</a></li>
 						<li><a class="black-seuphone white-text waves-effect" href="${s:mvcUrl('listarProdutos').build() }">Produtos</a></li>
 						<li><a class="black-seuphone white-text waves-effect" href="${s:mvcUrl('listarFornecedores').build() }">Fornecedores</a></li>
+						<li><a class="black-seuphone white-text waves-effect" href="${s:mvcUrl('listarPedidos').build() }">Pedido de Compra</a></li>
 		<li><a class="white-text waves-effect" href="/logout">Sair</a></li>
 	</sec:authorize>
 	<li>
