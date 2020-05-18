@@ -19,6 +19,7 @@ import javax.persistence.OneToMany;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
 
+import br.com.fapen.seuphone.enums.CondicaoPagtoEnum;
 import br.com.fapen.seuphone.enums.StatusPedidoEnum;
 
 @Entity(name = "tb_pedido_compra")
@@ -36,9 +37,17 @@ public class PedidoCompra {
 	@Column(name = "dt_pedido")
 	private LocalDate dtPedido;
 	
+	@DateTimeFormat(iso = ISO.DATE)
+	@Column(name = "dt_entrega")
+	private LocalDate dtEntrega;
+	
 	@Enumerated(EnumType.STRING)
 	@Column(name = "situacao_pedido")
 	private StatusPedidoEnum situacaoPedido;
+	
+	@Enumerated(EnumType.STRING)
+	@Column(name = "condicao_pagamento")
+	private CondicaoPagtoEnum condicaoPagamento;
 	
 	@Column(name = "valor_final")
 	private BigDecimal valorFinal;
@@ -52,6 +61,7 @@ public class PedidoCompra {
 	public PedidoCompra() {
 		this.situacaoPedido = StatusPedidoEnum.EM_DIGITACAO;
 		this.valorFinal = BigDecimal.ZERO;
+		this.dtEntrega = LocalDate.now().plusDays(10);
 	}
 
 	public Long getIdPedido() {
@@ -101,6 +111,32 @@ public class PedidoCompra {
 	public void setItens(List<DescricaoPedido> itens) {
 		this.itens = itens;
 	}
+
+	public LocalDate getDtEntrega() {
+		return dtEntrega;
+	}
+
+	public void setDtEntrega(LocalDate dtEntrega) {
+		this.dtEntrega = dtEntrega;
+	}
+
+	public CondicaoPagtoEnum getCondicaoPagamento() {
+		return condicaoPagamento;
+	}
+
+	public void setCondicaoPagamento(CondicaoPagtoEnum condicaoPagamento) {
+		this.condicaoPagamento = condicaoPagamento;
+	}
+
+	public boolean isInativo() {
+		return inativo;
+	}
+
+	public void setInativo(boolean inativo) {
+		this.inativo = inativo;
+	}
+	
+	
 	
 	
 }

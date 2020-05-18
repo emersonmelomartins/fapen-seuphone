@@ -19,6 +19,7 @@ public class PedidoCompraService {
 	@Autowired
 	private PedidoCompraRepository pedidoRep;
 	
+	
 	public Page<PedidoCompra> listar(String busca, Pageable paginacao) {
 		if (busca.equals("")) {
 			return pedidoRep.findAllByOrderByIdPedidoAsc(paginacao);
@@ -30,7 +31,7 @@ public class PedidoCompraService {
 		BigDecimal total = BigDecimal.ZERO;
 		for (DescricaoPedido item : pedido.getItens()) {
 			BigDecimal qtde = new BigDecimal(item.getQuantidade());
-			BigDecimal totalItem = item.getPrecoUnitario().multiply(qtde);
+			BigDecimal totalItem = item.getValor().multiply(qtde);
 			total = total.add(totalItem);
 		}
 		pedido.setValorFinal(total);
@@ -45,4 +46,5 @@ public class PedidoCompraService {
 		this.calcularTotal(pedidoCompraForm.getPedidoCompra());
 		pedidoRep.save(pedidoCompraForm.getPedidoCompra());
 	}
+	
 }

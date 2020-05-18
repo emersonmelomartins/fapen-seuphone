@@ -38,7 +38,7 @@ public class Produto {
 	@Column(name = "quantidade_estoque")
 	private int quantidadeEstoque;
 	
-	@OneToOne(fetch = FetchType.LAZY)
+	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_fornecedor")
 	private Fornecedor fornecedor;
 	

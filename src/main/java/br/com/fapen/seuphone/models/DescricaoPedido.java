@@ -25,8 +25,7 @@ public class DescricaoPedido {
 	
 	private Double quantidade;
 	
-	@Column(name = "preco_unitario")
-	private BigDecimal precoUnitario;
+	private BigDecimal valor;
 
 	public Long getIdDescricao() {
 		return idDescricao;
@@ -60,13 +59,15 @@ public class DescricaoPedido {
 		this.quantidade = quantidade;
 	}
 
-	public BigDecimal getPrecoUnitario() {
-		return precoUnitario;
+	public BigDecimal getValor() {
+		return valor;
 	}
 
-	public void setPrecoUnitario(BigDecimal precoUnitario) {
-		this.precoUnitario = precoUnitario;
+	public void setValor(BigDecimal valor) {
+		this.valor = valor;
 	}
+
+
 	
 	
 }
