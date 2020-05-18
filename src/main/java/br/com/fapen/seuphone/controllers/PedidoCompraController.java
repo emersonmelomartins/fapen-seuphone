@@ -25,7 +25,7 @@ import br.com.fapen.seuphone.enums.CondicaoPagtoEnum;
 import br.com.fapen.seuphone.forms.PedidoCompraForm;
 import br.com.fapen.seuphone.models.DescricaoPedido;
 import br.com.fapen.seuphone.models.PedidoCompra;
-import br.com.fapen.seuphone.reports.ModeloReport;
+import br.com.fapen.seuphone.reports.PedidoCompraReport;
 import br.com.fapen.seuphone.repositories.FornecedorRepository;
 import br.com.fapen.seuphone.repositories.Paginacao;
 import br.com.fapen.seuphone.repositories.PedidoCompraRepository;
@@ -49,7 +49,7 @@ public class PedidoCompraController {
 	private PedidoCompraService pedidoService;
 	
 	@Autowired
-	private ModeloReport modeloImpressao;
+	private PedidoCompraReport pedidoCompraReport;
 
 	@GetMapping(name = "listarPedidos")
 	public ModelAndView listOrders(@RequestParam(defaultValue = "1") Integer pagina,
@@ -138,13 +138,13 @@ public class PedidoCompraController {
 		return "redirect:/pedidos";
 	}
 	
-	@RequestMapping(value = "/pdfTeste", method = RequestMethod.GET, produces = MediaType.APPLICATION_PDF_VALUE)
-	public ResponseEntity<InputStreamResource> testaPDF() {
-		ByteArrayInputStream pdfEmMemoria = modeloImpressao.helloWorld();
-		// Conversão
+	@GetMapping(value = "/{id}/pdf", name = "gerarPdfPedido", produces = MediaType.APPLICATION_PDF_VALUE)
+	public ResponseEntity<InputStreamResource> gerarPdf(@PathVariable Long id) {
+		PedidoCompra pedido = pedidoRep.getOne(id);
+		ByteArrayInputStream pdfEmMemoria = pedidoCompraReport.gerarPdf(pedido);
 		InputStreamResource retorno = new InputStreamResource(pdfEmMemoria);
-		// Pode ser feito direto dentro do body()
-		// MediaType -> está dizendo que o retorno será um PDF
 		return ResponseEntity.ok().contentType(MediaType.APPLICATION_PDF).body(retorno);
 	}
+	
+
 }

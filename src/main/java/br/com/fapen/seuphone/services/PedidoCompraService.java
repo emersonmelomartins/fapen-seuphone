@@ -19,6 +19,7 @@ public class PedidoCompraService {
 	@Autowired
 	private PedidoCompraRepository pedidoRep;
 	
+	
 	public Page<PedidoCompra> listar(String busca, Pageable paginacao) {
 		if (busca.equals("")) {
 			return pedidoRep.findAllByOrderByIdPedidoAsc(paginacao);
@@ -45,4 +46,5 @@ public class PedidoCompraService {
 		this.calcularTotal(pedidoCompraForm.getPedidoCompra());
 		pedidoRep.save(pedidoCompraForm.getPedidoCompra());
 	}
+	
 }
