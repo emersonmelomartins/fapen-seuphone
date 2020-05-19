@@ -2,6 +2,7 @@ package br.com.fapen.seuphone.controllers;
 
 import java.io.ByteArrayInputStream;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -145,10 +146,14 @@ public class PedidoCompraController {
 	}
 	
 	@GetMapping(value = "/{id}/pdf", name = "gerarPdfPedido", produces = MediaType.APPLICATION_PDF_VALUE)
-	public ResponseEntity<InputStreamResource> gerarPdf(@PathVariable Long id) {
+	public ResponseEntity<InputStreamResource> gerarPdf(@PathVariable Long id, HttpServletResponse response) {
 		PedidoCompra pedido = pedidoRep.getOne(id);
 		ByteArrayInputStream pdfEmMemoria = pedidoCompraReport.gerarPdf(pedido);
 		InputStreamResource retorno = new InputStreamResource(pdfEmMemoria);
+		
+		response.setContentType("application/pdf");
+	    response.setHeader("Content-disposition","attachment;filename=pedido_" + pedido.getIdPedido() + ".pdf");
+	    
 		return ResponseEntity.ok().contentType(MediaType.APPLICATION_PDF).body(retorno);
 	}
 	
