@@ -15,7 +15,7 @@ import br.com.fapen.seuphone.models.Produto;
 import br.com.fapen.seuphone.repositories.ProdutoRepository;
 
 @RestController
-@RequestMapping("/api/produto")
+@RequestMapping("/api/produtos")
 public class ProdutoApiController {
 
 	

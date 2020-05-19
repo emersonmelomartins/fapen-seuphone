@@ -3,6 +3,7 @@ package br.com.fapen.seuphone.reports;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.time.format.DateTimeFormatter;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ResourceLoader;
@@ -48,6 +49,8 @@ public class PedidoCompraReport {
 		PdfDocument pdfDoc = new PdfDocument(writer);
 		// A4 por padrão
 		Document documento = new Document(pdfDoc, PageSize.A4);
+		
+		
 
 		try {
 			// Cabeçalho
@@ -60,11 +63,23 @@ public class PedidoCompraReport {
 			tabelaDadosPedido.setBorder(Border.NO_BORDER);
 			
 			Cell cell1 = new Cell().setBorder(Border.NO_BORDER);
-			cell1.add(new Paragraph("Data de Entrega").setBold()); 
+			cell1.add(new Paragraph("Data do Pedido").setBold()); 
 			tabelaDadosPedido.addCell(cell1);
 			
 			Cell cell2 = new Cell().setBorder(Border.NO_BORDER);
-			cell2.add(new Paragraph(pedidoImpresso.getDtEntrega().toString())); 
+			cell2.add(new Paragraph(pedidoImpresso.getDtPedido()
+					.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))
+					.toString())); 
+			tabelaDadosPedido.addCell(cell2);
+			
+			cell1 = new Cell().setBorder(Border.NO_BORDER);
+			cell1.add(new Paragraph("Data de Entrega").setBold()); 
+			tabelaDadosPedido.addCell(cell1);
+			
+			cell2 = new Cell().setBorder(Border.NO_BORDER);
+			cell2.add(new Paragraph(pedidoImpresso.getDtEntrega()
+					.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))
+					.toString())); 
 			tabelaDadosPedido.addCell(cell2);
 
 			cell1 = new Cell().setBorder(Border.NO_BORDER);
@@ -72,7 +87,7 @@ public class PedidoCompraReport {
 			tabelaDadosPedido.addCell(cell1);
 			
 			cell2 = new Cell().setBorder(Border.NO_BORDER);
-			cell2.add(new Paragraph("Algum fornecedor")); 
+			cell2.add(new Paragraph(pedidoImpresso.getFornecedor().getRazaoSocial().toString())); 
 			tabelaDadosPedido.addCell(cell2);
 			
 			cell1 = new Cell().setBorder(Border.NO_BORDER);
@@ -126,8 +141,8 @@ public class PedidoCompraReport {
 			
 			tabelaItens.addCell(
 					new Cell(1, 4).add(new Paragraph("Valor Final").setTextAlignment(TextAlignment.RIGHT)));
-			tabelaItens.addCell(new Cell(1, 1).add(new Paragraph("valor final aqui").setBold()
-					.setTextAlignment(TextAlignment.RIGHT)));
+			tabelaItens.addCell(new Cell(1, 1).add(new Paragraph(pedidoImpresso.getValorFinal().toString()).setBold()
+					.setTextAlignment(TextAlignment.CENTER)));
 			
 			documento.add(tabelaLayout);
 			documento.add(tabelaItens);

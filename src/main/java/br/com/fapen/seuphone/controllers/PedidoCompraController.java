@@ -22,6 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.com.fapen.seuphone.enums.CondicaoPagtoEnum;
+import br.com.fapen.seuphone.enums.StatusPedidoEnum;
 import br.com.fapen.seuphone.forms.PedidoCompraForm;
 import br.com.fapen.seuphone.models.DescricaoPedido;
 import br.com.fapen.seuphone.models.PedidoCompra;
@@ -68,6 +69,7 @@ public class PedidoCompraController {
 		ModelAndView mav = new ModelAndView("/pedidos/novo");
 
 		mav.addObject("listaFornecedores", fornecedorRep.findAll());
+		mav.addObject("listaStatusPedido", StatusPedidoEnum.values());
 		mav.addObject("listaCondicaoPagto", CondicaoPagtoEnum.values());
 		mav.addObject("listaProdutos", produtoRep.findAll());
 
@@ -123,6 +125,10 @@ public class PedidoCompraController {
 		PedidoCompraForm pedidoCompraForm = new PedidoCompraForm(pedidoCompra);
 
 		ModelAndView mav = new ModelAndView("/pedidos/novo");
+		mav.addObject("listaFornecedores", fornecedorRep.findAll());
+		mav.addObject("listaCondicaoPagto", CondicaoPagtoEnum.values());
+		mav.addObject("listaStatusPedido", StatusPedidoEnum.values());
+		mav.addObject("listaProdutos", produtoRep.findAll());
 		mav.addObject("pedidoCompraForm", pedidoCompraForm);
 		
 		return mav;
