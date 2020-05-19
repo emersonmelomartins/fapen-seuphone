@@ -2,6 +2,7 @@ package br.com.fapen.seuphone.controllers;
 
 import java.io.ByteArrayInputStream;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.com.fapen.seuphone.enums.CondicaoPagtoEnum;
+import br.com.fapen.seuphone.enums.StatusPedidoEnum;
 import br.com.fapen.seuphone.forms.PedidoCompraForm;
 import br.com.fapen.seuphone.models.DescricaoPedido;
 import br.com.fapen.seuphone.models.PedidoCompra;
@@ -68,6 +70,7 @@ public class PedidoCompraController {
 		ModelAndView mav = new ModelAndView("/pedidos/novo");
 
 		mav.addObject("listaFornecedores", fornecedorRep.findAll());
+		mav.addObject("listaStatusPedido", StatusPedidoEnum.values());
 		mav.addObject("listaCondicaoPagto", CondicaoPagtoEnum.values());
 		mav.addObject("listaProdutos", produtoRep.findAll());
 
@@ -123,6 +126,10 @@ public class PedidoCompraController {
 		PedidoCompraForm pedidoCompraForm = new PedidoCompraForm(pedidoCompra);
 
 		ModelAndView mav = new ModelAndView("/pedidos/novo");
+		mav.addObject("listaFornecedores", fornecedorRep.findAll());
+		mav.addObject("listaCondicaoPagto", CondicaoPagtoEnum.values());
+		mav.addObject("listaStatusPedido", StatusPedidoEnum.values());
+		mav.addObject("listaProdutos", produtoRep.findAll());
 		mav.addObject("pedidoCompraForm", pedidoCompraForm);
 		
 		return mav;
@@ -139,10 +146,14 @@ public class PedidoCompraController {
 	}
 	
 	@GetMapping(value = "/{id}/pdf", name = "gerarPdfPedido", produces = MediaType.APPLICATION_PDF_VALUE)
-	public ResponseEntity<InputStreamResource> gerarPdf(@PathVariable Long id) {
+	public ResponseEntity<InputStreamResource> gerarPdf(@PathVariable Long id, HttpServletResponse response) {
 		PedidoCompra pedido = pedidoRep.getOne(id);
 		ByteArrayInputStream pdfEmMemoria = pedidoCompraReport.gerarPdf(pedido);
 		InputStreamResource retorno = new InputStreamResource(pdfEmMemoria);
+		
+		response.setContentType("application/pdf");
+	    response.setHeader("Content-disposition","attachment;filename=pedido_" + pedido.getIdPedido() + ".pdf");
+	    
 		return ResponseEntity.ok().contentType(MediaType.APPLICATION_PDF).body(retorno);
 	}
 	

@@ -26,6 +26,7 @@ public class DescricaoPedido {
 	private Double quantidade;
 	
 	private BigDecimal valor;
+	
 
 	public Long getIdDescricao() {
 		return idDescricao;

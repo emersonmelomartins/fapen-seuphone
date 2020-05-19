@@ -61,8 +61,10 @@ public class PedidoCompra {
 	public PedidoCompra() {
 		this.situacaoPedido = StatusPedidoEnum.EM_DIGITACAO;
 		this.valorFinal = BigDecimal.ZERO;
+		this.dtPedido = LocalDate.now();
 		this.dtEntrega = LocalDate.now().plusDays(10);
 	}
+	
 
 	public Long getIdPedido() {
 		return idPedido;

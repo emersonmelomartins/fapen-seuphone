@@ -52,9 +52,22 @@
 
 					<div class="card">
 						<div class="card-content">
-							<span class="card-title center-align">Dados do Pedido -
-								Nº: ${pedidoCompraForm.pedidoCompra.idPedido}</span>
+							<span class="card-title center-align titulo">Dados do
+								Pedido - Nº: ${pedidoCompraForm.pedidoCompra.idPedido}</span>
 
+							<div class="row">
+								<div class="input-field col s3">
+									<f:select path="pedidoCompra.situacaoPedido"
+										cssClass="validate">
+										<f:option value="">Selecione</f:option>
+										<f:options items="${listaStatusPedido}"
+											itemLabel="displayValue" />
+									</f:select>
+									<label for="pedidoCompra.situacaoPedido">Situação Pedido</label>
+									<f:errors path="pedidoCompra.situacaoPedido"
+										cssClass="helper-text" />
+								</div>
+							</div>
 							<div class="row">
 								<div class="input-field col s12">
 									<f:select path="pedidoCompra.fornecedor" cssClass="validate">
@@ -71,8 +84,7 @@
 									<f:input path="pedidoCompra.dtEntrega"
 										cssClass="validate datepicker" />
 									<label for="pedidoCompra.dtEntrega">Entrega</label>
-									<f:errors path="pedidoCompra.dtEntrega"
-										cssClass="helper-text" />
+									<f:errors path="pedidoCompra.dtEntrega" cssClass="helper-text" />
 								</div>
 								<div class="input-field col s9">
 									<f:select path="pedidoCompra.condicaoPagamento"
@@ -88,13 +100,13 @@
 								</div>
 							</div>
 
-							<span class="card-title center-align"> Descrição Pedido
+							<span class="card-title center-align titulo center"><p>Descrição
+									do Pedido</p>
 								<button id="btnNovoItem" type="button"
-									class="btn-floating btn-small waves-effect waves-light right"
+									class="waves-effect waves-light btn-small green white-text right"
 									title="Novo Item">
-									<i class="material-icons">add</i>
-								</button>
-							</span>
+									<i class="material-icons left">add</i> Novo Item
+								</button> </span>
 							<div class="row">
 								<div class="col s12">
 									<f:errors path="itensPedidoCompra" />
@@ -104,7 +116,8 @@
 
 											<div class="card">
 												<div class="card-content">
-													<f:hidden path="itensPedidoCompra[${status.index}].idDescricao" />
+													<f:hidden
+														path="itensPedidoCompra[${status.index}].idDescricao" />
 													<f:hidden path="itensPedidoCompra[${status.index}].pedido" />
 													<div class="row">
 														<div class="input-field col s4">
@@ -112,8 +125,8 @@
 																path="itensPedidoCompra[${status.index}].produto"
 																cssClass="validate">
 																<f:option value="">Selecione</f:option>
-																<f:options items="${listaProdutos}" itemValue="idProduto"
-																	itemLabel="descricao" />
+																<f:options items="${listaProdutos}"
+																	itemValue="idProduto" itemLabel="descricao" />
 															</f:select>
 															<label class="active"
 																for="itensPedidoCompra[${status.index}].produto">Produto</label>
@@ -140,8 +153,7 @@
 															<label class="active"
 																for="itensPedidoCompra[${status.index}].valor">Valor
 																Unitário</label>
-															<f:errors
-																path="itensPedidoCompra[${status.index}].valor"
+															<f:errors path="itensPedidoCompra[${status.index}].valor"
 																cssClass="helper-text" />
 														</div>
 
@@ -161,9 +173,20 @@
 							</div>
 						</div>
 						<div class="card-action">
-							<input class="btn-small green" type="submit" value="Salvar">
-							<a href="${s:mvcUrl('listarPedidos').build()}"
-								class="btn-small orange">voltar</a>
+							<div class="row">
+								<div class="col s2">
+									<a href="${s:mvcUrl('listarPedidos').build() }"
+										class="waves-effect waves-light btn red"><i
+										class="material-icons left">arrow_back</i>Voltar</a>
+								</div>
+
+								<div class="col s2">
+									<button type="submit"
+										class="waves-effect waves-light btn green white-text">
+										<i class="material-icons left">add</i>Salvar
+									</button>
+								</div>
+							</div>
 						</div>
 					</div>
 
