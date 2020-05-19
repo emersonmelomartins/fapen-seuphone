@@ -106,12 +106,8 @@ public class ProdutoController {
 	@GetMapping(value = "/{id}", name = "visualizarProduto")
 	public ModelAndView viewProduct(@PathVariable Long id) {
 		Produto produto = produtoRep.findOneByIdProduto(id);
-	
-		produto.setInativo(true);
 
 		produtoRep.save(produto);
-		
-		
 		ModelAndView mav = new ModelAndView("produto/visualizar");
 		mav.addObject("produto", produto);
 		
