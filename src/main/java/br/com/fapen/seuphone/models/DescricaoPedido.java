@@ -27,7 +27,6 @@ public class DescricaoPedido {
 	
 	private BigDecimal valor;
 	
-	
 
 	public Long getIdDescricao() {
 		return idDescricao;
@@ -62,9 +61,7 @@ public class DescricaoPedido {
 	}
 
 	public BigDecimal getValor() {
-		BigDecimal qtd = new BigDecimal(this.quantidade);
-		BigDecimal calcula = this.valor.multiply(qtd);
-		return calcula;
+		return valor;
 	}
 
 	public void setValor(BigDecimal valor) {

@@ -76,19 +76,23 @@
 								<th>Fornecedor</th>
 								<th>Valor</th>
 								<th>Situação</th>
+								<th>Data Entrega</th>
 								<th>Status</th>
 								<th class="center-align">Ações</th>
 							</tr>
 						</thead>
 						<tbody>
 							<c:forEach items="${listaPaginada.content}" var="pedido">
+							<fmt:parseDate value="${pedido.dtEntrega }"
+								pattern="yyyy-MM-dd" var="parsedDate" type="date" />
 								<tr>
 									<td>${pedido.idPedido}</td>
 									<td>${pedido.fornecedor.razaoSocial}</td>
 									<td><fmt:formatNumber value="${pedido.valorFinal}"
 											type="currency" /></td>
 									<td>${pedido.situacaoPedido.displayValue}</td>
-									
+									<td><fmt:formatDate value="${parsedDate }"
+										pattern="dd/MM/yyyy" /></td>
 									<td><c:if test="${!pedido.inativo }">
 											<div class="chip green-text">Ativo</div>
 										</c:if> <c:if test="${pedido.inativo }">

@@ -47,4 +47,12 @@ public class PedidoCompraService {
 		pedidoRep.save(pedidoCompraForm.getPedidoCompra());
 	}
 	
+	public BigDecimal calculaQtdTotal(DescricaoPedido descricaoPed) {
+		BigDecimal qtd = new BigDecimal(descricaoPed.getQuantidade());
+		BigDecimal valor = descricaoPed.getValor();
+		
+		BigDecimal total = valor.multiply(qtd);
+		return total;
+	}
+	
 }

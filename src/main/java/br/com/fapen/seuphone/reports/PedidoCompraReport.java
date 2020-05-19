@@ -24,12 +24,16 @@ import com.itextpdf.layout.property.UnitValue;
 
 import br.com.fapen.seuphone.models.DescricaoPedido;
 import br.com.fapen.seuphone.models.PedidoCompra;
+import br.com.fapen.seuphone.services.PedidoCompraService;
 
 @Component
 public class PedidoCompraReport {
 
 	@Autowired
 	private ResourceLoader resourceLoader;
+	
+	@Autowired
+	private PedidoCompraService pedidoService;
 
 	public void adicionaTitulo(Document documento, String titulo) {
 		documento.add(new Paragraph(titulo).setBold().setTextAlignment(TextAlignment.CENTER).setFontSize(24));
@@ -135,7 +139,7 @@ public class PedidoCompraReport {
 						.setTextAlignment(TextAlignment.CENTER));
 				tabelaItens.addCell(new Paragraph(itemPed.getProduto().getValor().toString())
 						.setTextAlignment(TextAlignment.CENTER));
-				tabelaItens.addCell(new Paragraph(itemPed.getValor().toString())
+				tabelaItens.addCell(new Paragraph(pedidoService.calculaQtdTotal(itemPed).toString())
 						.setTextAlignment(TextAlignment.CENTER));
 			}
 			
