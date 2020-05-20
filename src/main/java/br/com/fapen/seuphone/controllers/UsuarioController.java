@@ -64,7 +64,7 @@ public class UsuarioController {
 
 		Page<Usuario> listaUsuarios;
 		if (busca.equals("")) {
-			listaUsuarios = usuarioRep.findByInativoFalse(Paginacao.getPaginacao(pagina));
+			listaUsuarios = usuarioRep.findByInativoFalseOrderByIdLoginAsc(Paginacao.getPaginacao(pagina));
 		} else {
 			listaUsuarios = usuarioRep.findByLoginContainingIgnoreCase(busca, Paginacao.getPaginacao(pagina));
 		}
