@@ -127,9 +127,10 @@ public class UsuarioController {
 	@GetMapping(value = "/{id}", name = "visualizarUsuario")
 	public ModelAndView viewUser(@PathVariable Long id) {
 		Usuario usuario = usuarioRep.getOne(id);
+		UsuarioForm usuarioForm = new UsuarioForm(usuario);
 		
 		ModelAndView mav = new ModelAndView("/usuario/visualizar");
-		mav.addObject("usuario", usuario);
+		mav.addObject("usuarioForm", usuarioForm);
 		
 		return mav;
 	}
