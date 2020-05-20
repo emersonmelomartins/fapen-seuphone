@@ -21,7 +21,7 @@ public class PedidoCompraFormValidator implements Validator {
 	@Override
 	public void validate(Object target, Errors errors) {
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "pedidoCompra.fornecedor", "campo.obrigatorio");
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "pedidoCompra.dataEntrega", "campo.obrigatorio");
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "pedidoCompra.dtEntrega", "campo.obrigatorio");
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "pedidoCompra.condicaoPagamento", "campo.obrigatorio");
 
 		PedidoCompraForm formulario = (PedidoCompraForm) target;

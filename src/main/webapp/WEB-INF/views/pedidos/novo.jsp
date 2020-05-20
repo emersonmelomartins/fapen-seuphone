@@ -65,7 +65,7 @@
 									</f:select>
 									<label for="pedidoCompra.situacaoPedido">Situação Pedido</label>
 									<f:errors path="pedidoCompra.situacaoPedido"
-										cssClass="helper-text" />
+										cssClass="helper-text red-text" />
 								</div>
 							</div>
 							<div class="row">
@@ -76,7 +76,7 @@
 											itemLabel="razaoSocial" />
 									</f:select>
 									<label for="pedidoCompra.fornecedor">Fornecedor</label>
-									<f:errors path="pedidoCompra.fornecedor" cssClass="helper-text" />
+									<f:errors path="pedidoCompra.fornecedor" cssClass="helper-text red-text" />
 								</div>
 							</div>
 							<div class="row">
@@ -84,7 +84,7 @@
 									<f:input path="pedidoCompra.dtEntrega"
 										cssClass="validate datepicker" />
 									<label for="pedidoCompra.dtEntrega">Entrega</label>
-									<f:errors path="pedidoCompra.dtEntrega" cssClass="helper-text" />
+									<f:errors path="pedidoCompra.dtEntrega" cssClass="helper-text red-text" />
 								</div>
 								<div class="input-field col s9">
 									<f:select path="pedidoCompra.condicaoPagamento"
@@ -96,7 +96,7 @@
 									<label for="pedidoCompra.condicaoPagamento">Condição de
 										Pagamento</label>
 									<f:errors path="pedidoCompra.condicaoPagamento"
-										cssClass="helper-text" />
+										cssClass="helper-text red-text" />
 								</div>
 							</div>
 
@@ -109,7 +109,7 @@
 								</button> </span>
 							<div class="row">
 								<div class="col s12">
-									<f:errors path="itensPedidoCompra" />
+									<f:errors path="itensPedidoCompra" cssClass="red-text" />
 									<div id="dadosItens">
 										<c:forEach items="${pedidoCompraForm.itensPedidoCompra}"
 											var="itemPedido" varStatus="status">
@@ -132,7 +132,7 @@
 																for="itensPedidoCompra[${status.index}].produto">Produto</label>
 															<f:errors
 																path="itensPedidoCompra[${status.index}].produto"
-																cssClass="helper-text" />
+																cssClass="helper-text red-text" />
 														</div>
 
 														<div class="input-field col s3">
@@ -143,7 +143,7 @@
 																for="itensPedidoCompra[${status.index}].quantidade">Quantidade</label>
 															<f:errors
 																path="itensPedidoCompra[${status.index}].quantidade"
-																cssClass="helper-text" />
+																cssClass="helper-text red-text" />
 														</div>
 
 														<div class="input-field col s3">
@@ -154,7 +154,7 @@
 																for="itensPedidoCompra[${status.index}].valor">Valor
 																Unitário</label>
 															<f:errors path="itensPedidoCompra[${status.index}].valor"
-																cssClass="helper-text" />
+																cssClass="helper-text red-text" />
 														</div>
 
 														<div class="input-field col s2">
