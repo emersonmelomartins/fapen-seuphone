@@ -54,7 +54,7 @@ public class UsuarioFormValidator implements Validator {
 		Period idade = Period.between(dataAniversario, dataAtual);
 		
 		if(idade.getYears() < 18) {
-			System.out.println("Você tem menos de 18 anos, SEM PERMISSÃO!");
+			errors.rejectValue("usuario.pessoa.dtNascimento", "idade.invalido");
 		}
 
 		// Verifica se login existe
