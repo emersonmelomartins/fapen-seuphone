@@ -33,7 +33,7 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
 
 	Usuario findOneByIdLogin(Long id);
 
-	public Page<Usuario> findByInativoFalse(Pageable paginacao);
+	public Page<Usuario> findByInativoFalseOrderByIdLoginAsc(Pageable paginacao);
 	
 	public Usuario findByHash(String hash);
 	

@@ -68,15 +68,15 @@
 	<li><a href="${s:mvcUrl('paginaHome').build() }"
 		class="white-text waves-effect">Home</a></li>
 
-	<li><a href="#produtos" class="white-text waves-effect">Produtos</a></li>
+	<li><a href="../home#produtos" class="white-text waves-effect">Produtos</a></li>
 
-	<li><a href="#sobre-nos" class="white-text waves-effect">Sobre
+	<li><a href="../home#sobre-nos" class="white-text waves-effect">Sobre
 			nós</a></li>
 
-	<li><a href="#como-funciona" class="white-text waves-effect">Como
+	<li><a href="../home#como-funciona" class="white-text waves-effect">Como
 			Funciona</a></li>
 
-	<li><a href="#fale-conosco" class="white-text waves-effect">Fale
+	<li><a href="../home#fale-conosco" class="white-text waves-effect">Fale
 			Conosco</a></li>
 	<li>
 		<div class="divider"></div>

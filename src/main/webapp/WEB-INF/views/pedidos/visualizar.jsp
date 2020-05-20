@@ -24,7 +24,7 @@
 
 <style>
 /*Configuração Temporária*/
-.profile-avatar {
+.product-image {
 	max-width: 150px;
 	margin: 0 auto;
 }
@@ -39,13 +39,13 @@
 
 		<div class="row">
 			<br> <br>
-			<h1 class="titulo">Usuário</h1>
+			<h1 class="titulo">Pedido de Compra</h1>
 
 			<br> <br>
 
-			<c:forEach items="usuario">
-				<fmt:parseDate value="${usuarioForm.usuario.pessoa.dtNascimento }"
-					pattern="yyyy-MM-dd" type="date" var="parsedDate" />
+			<c:forEach items="pedidoCompraForm">
+			<fmt:parseDate value="${pedidoCompraForm.pedidoCompra.dtPedido }" pattern="yyyy-MM-dd" type="date" var="parsedDtPedido"/>
+			<fmt:parseDate value="${pedidoCompraForm.pedidoCompra.dtEntrega }" pattern="yyyy-MM-dd" type="date" var="parsedDtEntrega"/>
 
 				<div class="row">
 
@@ -53,67 +53,76 @@
 					<div class="col s6">
 						<div class="card">
 							<br>
-							<div class="card-image">
-								<c:if test="${usuarioForm.usuario.getCaminhoFoto() == null }">
-									<img class="profile-avatar" src="/img/default_avatar.png"
-										alt="Avatar do Usuário">
-								</c:if>
-								<c:if test="${usuarioForm.usuario.getCaminhoFoto() != null}">
-									<img class="profile-avatar" src="/${usuarioForm.usuario.getCaminhoFoto() }"
-										alt="Avatar do Usuário">
-								</c:if>
-							</div>
 							<div class="card-content">
 								<h5 style="text-transform: uppercase;" class="black-text">
-									${usuarioForm.usuario.pessoa.nome }</h5>
+									Pedido Nº: ${pedidoCompraForm.pedidoCompra.idPedido}</h5>
 								<hr />
 
 								<table class="striped">
 									<tbody>
 										<tr>
-											<td>ID:</td>
-											<td>${usuarioForm.usuario.idLogin}</td>
+											<td>Fornecedor:</td>
+											<td>${pedidoCompraForm.pedidoCompra.fornecedor.razaoSocial }</td>
 										</tr>
 										<tr>
-											<td>Login:</td>
-											<td>${usuarioForm.usuario.login}</td>
+											<td>Data do Pedido:</td>
+											<td><fmt:formatDate value="${parsedDtPedido }" pattern="dd/MM/yyyy" /></td>
 										</tr>
 										<tr>
-											<td>Email:</td>
-											<td>${usuarioForm.usuario.email}</td>
+											<td>Data de Entrega:</td>
+											<td><fmt:formatDate value="${parsedDtEntrega }" pattern="dd/MM/yyyy" /></td>
 										</tr>
 										<tr>
-											<td>CPF:</td>
-											<td class="fmt-cpf">${usuarioForm.usuario.pessoa.cpf}</td>
+											<td>Método de Pagamento:</td>
+											<td>${pedidoCompraForm.pedidoCompra.condicaoPagamento.displayValue}</td>
 										</tr>
 										<tr>
-											<td>Data Nascimento:</td>
-											<td><fmt:formatDate value="${parsedDate }"
-													pattern="dd/MM/yyyy" /></td>
+											<td>Situação do Pedido:</td>
+											<td>${pedidoCompraForm.pedidoCompra.situacaoPedido.displayValue }</td>
 										</tr>
 										<tr>
-											<td>Sexo:</td>
-											<td>${usuarioForm.usuario.pessoa.sexo}</td>
-										</tr>
-										<tr>
-											<td>Telefone:</td>
-											<td class="fmt-tel">${usuarioForm.usuario.pessoa.telefone}</td>
+											<td>Valor:</td>
+											<td><fmt:formatNumber value=""
+													type="currency" /></td>
 										</tr>
 										<tr>
 											<td>Status:</td>
-											<td><c:if test="${!usuarioForm.usuario.inativo }">
+											<td><c:if test="${!pedido.inativo }">
 													<span class="chip green-text">Ativo</span>
-												</c:if> <c:if test="${usuarioForm.usuario.inativo }">
+												</c:if> <c:if test="${pedido.inativo }">
 													<span class="chip red-text">Inativo</span>
 												</c:if></td>
 										</tr>
 									</tbody>
 								</table>
-
-								<h5>Permissões</h5>
-								<c:forEach items="${usuarioForm.listaPerfil }" var="authority">
-									<div class="chip">${authority.getAuthority() }</div>
-								</c:forEach>
+								<h5 style="text-transform: uppercase;" class="black-text">
+									Detalhe do Pedido</h5>
+								<hr />
+								<table>
+									<thead>
+										<th>Cód.</th>
+										<th>Descrição</th>
+										<th>Qtde</th>
+										<th>Val. Unitário</th>
+										<th>Total</th>
+									</thead>
+									<tbody>
+										<c:forEach items="${pedidoCompraForm.itensPedidoCompra}" var="item">
+											<tr>
+												<td>${item.produto.idProduto }</td>
+												<td>${item.produto.descricao }</td>
+												<td>${item.quantidade }</td>
+												<td>${item.produto.valor }</td>
+												<!-- Temporário -->
+												<td>${item.produto.valor*item.quantidade }</td>
+											</tr>
+										</c:forEach>
+										<tr>
+											<td colspan="4" style="text-align: right; font-weight: bold;">Total</td>
+											<td colspan="1"><b>${pedidoCompraForm.pedidoCompra.valorFinal }</b></td>
+										</tr>
+									</tbody>
+								</table>
 			</c:forEach>
 		</div>
 	</div>
@@ -129,7 +138,7 @@
 	<div class="row">
 		<div class="col s3"></div>
 		<div class="col s6">
-			<a href="${s:mvcUrl('listarUsuarios').build() }"
+			<a href="${s:mvcUrl('listarPedidos').build() }"
 				class="waves-effect waves-light btn red"><i
 				class="material-icons left">arrow_back</i>Voltar</a>
 		</div>

@@ -30,7 +30,6 @@ public class EmailService  {
 			helper.addInline("logo-seuphone", logo);
 			
 			sender.send(htmlMessage);
-			System.out.println("Email enviado com sucesso!");
 		} catch(Exception e) {
 			System.out.println("Erro no email --> " + e.getMessage());
 		}

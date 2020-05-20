@@ -23,6 +23,7 @@ import br.com.fapen.seuphone.repositories.Paginacao;
 import br.com.fapen.seuphone.repositories.ProdutoRepository;
 import br.com.fapen.seuphone.validations.ProdutoValidator;
 
+
 @Controller
 @RequestMapping("/produtos")
 public class ProdutoController {
@@ -72,14 +73,11 @@ public class ProdutoController {
 	public ModelAndView createProduct(@Valid Produto produto, BindingResult resultadoValidacao, RedirectAttributes atributos) {
 		
 		if(resultadoValidacao.hasErrors()) {
-
-			
 			return newProduct(produto);
 		}
 		
 		produtoRep.save(produto);
 		atributos.addFlashAttribute("mensagemStatus", "Produto salvo com sucesso!");
-		
 		return new ModelAndView("redirect:/produtos");
 	}
 	
@@ -87,27 +85,23 @@ public class ProdutoController {
 	public ModelAndView editProduct(@PathVariable Long id, Model model) {
 		
 		Produto produto = produtoRep.getOne(id);
-		
-		
 		model.addAttribute(produto);
-		
 		return newProduct(produto);
 	}
 	
 	@PostMapping(value = "/{id}/apagar", name = "apagarProduto")
 	public String inativar(@PathVariable Long id, RedirectAttributes atributos) {
+		
 		Produto produto = produtoRep.getOne(id);
 		produtoRep.delete(produto);
-		
 		atributos.addFlashAttribute("mensagemStatus", "Produto apagado com sucesso!");
 		return "redirect:/produtos";
 	}
 	
 	@GetMapping(value = "/{id}", name = "visualizarProduto")
 	public ModelAndView viewProduct(@PathVariable Long id) {
+		
 		Produto produto = produtoRep.findOneByIdProduto(id);
-
-		produtoRep.save(produto);
 		ModelAndView mav = new ModelAndView("produto/visualizar");
 		mav.addObject("produto", produto);
 		
