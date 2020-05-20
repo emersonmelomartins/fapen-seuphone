@@ -1,31 +1,33 @@
  <!--Fale Conosco-->
+ <%@ taglib prefix="f" uri="http://www.springframework.org/tags/form"%>
  <div class="fale-conosco" id="fale-conosco">
   <div class="container center">
     <h1 class="titulo">Fale Conosco</h1>
     <br><br>
     <div class="row">
       <div class="col s6 formulario">
-        <form class="col s12">
+        <f:form class="col s12" method="POST"
+					action="${s:mvcUrl('contatoViaSite').build() }" modelAttribute="contatoSiteForm">
           <div class="row">
 
             <div class="input-field col s12">
-              <input id="name" type="text" class="validate">
-              <label for="name">Nome</label>
+              <input id="nome" name="nome" type="text" class="validate">
+              <label for="nome">Nome</label>
             </div>
 
             <div class="input-field col s12">
-              <input id="email" type="text" class="validate">
+              <input id="email" name="email" type="text" class="validate">
               <label for="email">E-mail</label>
             </div>
 
             <div class="input-field col s12">
-              <input id="assunto" type="text" class="validate">
+              <input id="assunto" name="assunto" type="text" class="validate">
               <label for="assunto">Assunto</label>
             </div>
 
 
               <div class="input-field col s12">
-                <textarea id="mensagem" class="materialize-textarea"></textarea>
+                <textarea id="mensagem" name="mensagem" class="materialize-textarea"></textarea>
                 <label for="mensagem">Mensagem</label>
               </div>
 
@@ -34,7 +36,7 @@
                 <input type="submit" value="Enviar" class="left btn botao">
               </div>
           </div>
-        </form>
+        </f:form>
       </div>
 
       <div class="col s6">

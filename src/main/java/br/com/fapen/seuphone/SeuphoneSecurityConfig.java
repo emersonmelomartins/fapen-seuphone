@@ -33,6 +33,7 @@ public class SeuphoneSecurityConfig extends WebSecurityConfigurerAdapter{
 		.antMatchers("/esqueci-senha/**").permitAll()
 		.antMatchers("/recuperar-senha").permitAll()
 		.antMatchers("/recuperar-senha/**").permitAll()
+		.antMatchers(HttpMethod.POST, "/enviar-email").permitAll()
 		.antMatchers(HttpMethod.POST, "/trocar-senha").permitAll()
 		.antMatchers("/usuarios/**").hasRole("ADMIN")
 		.antMatchers("/perfis/**").hasRole("ADMIN")
