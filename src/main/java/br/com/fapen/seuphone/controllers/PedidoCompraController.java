@@ -12,7 +12,9 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -33,6 +35,7 @@ import br.com.fapen.seuphone.repositories.Paginacao;
 import br.com.fapen.seuphone.repositories.PedidoCompraRepository;
 import br.com.fapen.seuphone.repositories.ProdutoRepository;
 import br.com.fapen.seuphone.services.PedidoCompraService;
+import br.com.fapen.seuphone.validations.PedidoCompraFormValidator;
 
 @Controller
 @RequestMapping("/pedidos")
@@ -52,6 +55,14 @@ public class PedidoCompraController {
 	
 	@Autowired
 	private PedidoCompraReport pedidoCompraReport;
+	
+	@Autowired
+	private PedidoCompraFormValidator pedidoCompraFormValidator;
+	
+	@InitBinder("pedidoCompraForm")
+	protected void init(WebDataBinder binder) {
+		binder.setValidator(pedidoCompraFormValidator);
+	}
 
 	@GetMapping(name = "listarPedidos")
 	public ModelAndView listOrders(@RequestParam(defaultValue = "1") Integer pagina,
