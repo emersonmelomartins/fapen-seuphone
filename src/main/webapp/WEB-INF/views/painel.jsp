@@ -86,7 +86,7 @@
 							<div class="col s1">&nbsp;</div>
 							<div class="col s1">&nbsp;</div>
 
-							<a href="#pedidos">
+							<a href="${s:mvcUrl('listarPedidos').build() }">
 								<div style="padding: 30px; border-radius: 10px;"
 									class="col s5 waves-effect black-seuphone">
 									<i class="white-text large material-icons">assignment</i>
