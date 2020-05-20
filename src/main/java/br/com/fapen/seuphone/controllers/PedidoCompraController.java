@@ -122,10 +122,12 @@ public class PedidoCompraController {
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET, name = "visualizarPedido")
 	public ModelAndView visualizarPedido(@PathVariable Long id) {
+		
 		PedidoCompra pedidoCompra = pedidoRep.getOne(id);
+		PedidoCompraForm pedidoCompraForm = new PedidoCompraForm(pedidoCompra);
 		
 		ModelAndView mav = new ModelAndView("/pedidos/visualizar");
-		mav.addObject("pedidoCompra", pedidoCompra);
+		mav.addObject("pedidoCompraForm", pedidoCompraForm);
 		
 		return mav;
 	}
