@@ -82,7 +82,14 @@
 							<c:forEach items="${listaPaginada.content}" var="produto">
 								<tr>
 									<td>${produto.idProduto}</td>
-									<td><img src="/img/default_product.png" width=30 alt="Imagem de iPhone"></td>
+									<td>
+										<c:if test="${produto.getCaminhoFoto() == null }">
+											<img src="/img/default_product.png" class="product-image" width=30 alt="Imagem do Produto">
+										</c:if> 
+										<c:if test="${produto.getCaminhoFoto() != null}">
+											<img src="/${produto.getCaminhoFoto() }" class="product-image" width=30 alt="Imagem do Produto">
+										</c:if>
+									</td>
 									<td>${produto.descricao}</td>
 									<td>${produto.fornecedor.razaoSocial }</td>
 									<td>${produto.tipoProduto}</td>

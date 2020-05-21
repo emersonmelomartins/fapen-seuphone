@@ -38,6 +38,9 @@ public class Produto {
 	@Column(name = "quantidade_estoque")
 	private int quantidadeEstoque;
 	
+	@Column(name = "caminho_foto")
+	private String caminhoFoto;
+	
 	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_fornecedor")
 	private Fornecedor fornecedor;
@@ -126,8 +129,12 @@ public class Produto {
 		this.fornecedor = fornecedor;
 	}
 
-	
-	
-	
+	public String getCaminhoFoto() {
+		return caminhoFoto;
+	}
+
+	public void setCaminhoFoto(String caminhoFoto) {
+		this.caminhoFoto = caminhoFoto;
+	}
 	
 }

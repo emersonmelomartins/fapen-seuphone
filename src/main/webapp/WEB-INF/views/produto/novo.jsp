@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="pt-BR">
 
@@ -8,28 +8,31 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Seuphone - Última geração em suas mãos.</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Seuphone - Última geração em suas mãos.</title>
 
-	<!-- Materialize CSS -->
-	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
-	<link type="text/css" rel="stylesheet" href="/css/materialize.min.css" media="screen,projection" />
+<!-- Materialize CSS -->
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+	rel="stylesheet" />
+<link type="text/css" rel="stylesheet" href="/css/materialize.min.css"
+	media="screen,projection" />
 
-	<link rel="stylesheet" href="/css/style.css" />
-	<link rel="stylesheet" href="/css/animate.css" />
+<link rel="stylesheet" href="/css/style.css" />
+<link rel="stylesheet" href="/css/animate.css" />
 
-	<style>
-		/*Configuração Temporária*/
-		.helper-text {
-			font-family: Arial, sans-serif;
-			text-align: left;
-		}
-		.product-image {
-			max-width: 150px;
-			margin: 0 auto;
-		}
-	</style>
+<style>
+/*Configuração Temporária*/
+.helper-text {
+	font-family: Arial, sans-serif;
+	text-align: left;
+}
+
+.product-image {
+	max-width: 150px;
+	margin: 0 auto;
+}
+</style>
 
 </head>
 
@@ -44,39 +47,55 @@
 			<div class="row">
 				<div class="col s12">
 					<div class="card ">
-						
+
 						<div class="card-content">
 							<span class="card-title"><h1 class="titulo">Produto</h1></span>
 
 							<div class="row">
-								<f:form method="POST" action="${s:mvcUrl('salvarProduto').build() }" modelAttribute="produto"
-									class="col s12">
+
+
+
+								<div class="card-image col s6">
+									<c:if test="${produto.getCaminhoFoto() == null }">
+										<img class="product-image" src="/img/default_product.png"
+											alt="Imagem do Produto">
+									</c:if>
+									<c:if test="${produto.getCaminhoFoto() != null}">
+										<img class="product-image" src="/${produto.getCaminhoFoto() }"
+											alt="Imagem do Produto">
+									</c:if>
+								</div>
+
+								<f:form action="${s:mvcUrl('alterarFotoProduto').build() }"
+									method="POST" enctype="multipart/form-data"
+									modelAttribute="produto">
+									<f:hidden path="idProduto" />
+									<div class="file-field input-field">
+										<div class="btn indigo">
+											<span><i class="material-icons">attach_file</i></span> <input
+												type="file" name="foto" multiple>
+										</div>
+										<div class="file-path-wrapper">
+											<input class="file-path validate" type="text"
+												placeholder="Selecione uma imagem">
+										</div>
+										<button class="btn-small indigo" type="submit">Salvar</button>
+									</div>
+								</f:form>
+								<f:form method="POST"
+									action="${s:mvcUrl('salvarProduto').build() }"
+									modelAttribute="produto" class="col s12">
 									<f:hidden path="idProduto" />
 
-									
 
-										<div class="card-image col s6">
-											<img class="product-image" src="/img/default_product.png" alt="Imagem do Produto">
-										</div>
-										
-											<div class="file-field input-field col s6">
-												<div class="btn indigo">
-													<span><i class="material-icons">attach_file</i></span>
-													<input type="file" multiple>
-												</div>
-												<div class="file-path-wrapper">
-													<input class="file-path validate" type="text" placeholder="Selecione uma imagem">
-												</div>
-												<button class="btn-small indigo"type="submit">Enviar</button>
-											</div>
-										
 									<div class="row">
 
-										
+
 
 										<div class="input-field col s12">
 											<i class="material-icons prefix">description</i>
-											<f:input path="descricao" cssClass="validate" placeholder="iPhone 11 - 128GB - Dourado" />
+											<f:input path="descricao" cssClass="validate"
+												placeholder="iPhone 11 - 128GB - Dourado" />
 											<f:errors path="descricao" cssClass="helper-text red-text" />
 											<label for="descricao">Descrição</label>
 										</div>
@@ -98,14 +117,16 @@
 									<div class="row">
 										<div class="input-field col s6">
 											<i class="material-icons prefix">smartphone</i>
-											<f:input path="tipoProduto" cssClass="validate" placeholder="Smartphone" />
+											<f:input path="tipoProduto" cssClass="validate"
+												placeholder="Smartphone" />
 											<f:errors path="tipoProduto" cssClass="helper-text red-text" />
 											<label for="tipoProduto">Tipo de Produto</label>
 										</div>
 
 										<div class="input-field col s6">
 											<i class="material-icons prefix">phonelink_setup</i>
-											<f:input path="modelo" cssClass="validate" placeholder="iPhone 11" />
+											<f:input path="modelo" cssClass="validate"
+												placeholder="iPhone 11" />
 											<f:errors path="modelo" cssClass="helper-text red-text" />
 											<label for="modelo">Modelo</label>
 										</div>
@@ -130,7 +151,8 @@
 									<div class="row">
 										<div class="input-field col s6">
 											<i class="material-icons prefix">attach_money</i>
-											<f:input path="valor" cssClass="validate" type="number" step="0.01" placeholder="1999,99" />
+											<f:input path="valor" cssClass="validate" type="number"
+												step="0.01" placeholder="1999,99" />
 											<f:errors path="valor" cssClass="helper-text red-text" />
 											<label for="valor">Valor</label>
 										</div>
@@ -141,13 +163,16 @@
 						<div class="card-action">
 							<div class="row">
 								<div class="col s2">
-									<a href="${s:mvcUrl('listarProdutos').build() }" class="waves-effect waves-light btn red"><i
-											class="material-icons left">arrow_back</i>Voltar</a>
+									<a href="${s:mvcUrl('listarProdutos').build() }"
+										class="waves-effect waves-light btn red"><i
+										class="material-icons left">arrow_back</i>Voltar</a>
 								</div>
 
 								<div class="col s2">
-									<button type="submit" class="waves-effect waves-light btn green white-text"><i
-											class="material-icons left">add</i>Salvar</button>
+									<button type="submit"
+										class="waves-effect waves-light btn green white-text">
+										<i class="material-icons left">add</i>Salvar
+									</button>
 								</div>
 							</div>
 						</div>
