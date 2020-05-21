@@ -1,5 +1,7 @@
 package br.com.fapen.seuphone.validations;
 
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -43,6 +45,16 @@ public class UsuarioFormValidator implements Validator {
 		// Verifica se senha é necessário (inclusão)
 		if (usuarioForm.isInclusao()) {
 			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "usuario.senha", "campo.obrigatorio");
+		}
+
+		// Verifica a idade do usuario
+		LocalDate dataAniversario = usuarioForm.getUsuario().getPessoa().getDtNascimento();
+		LocalDate dataAtual = LocalDate.now();
+		
+		Period idade = Period.between(dataAniversario, dataAtual);
+		
+		if(idade.getYears() < 18) {
+			errors.rejectValue("usuario.pessoa.dtNascimento", "idade.invalido");
 		}
 
 		// Verifica se login existe

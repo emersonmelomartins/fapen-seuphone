@@ -91,9 +91,11 @@ public class ProdutoController {
 	
 	@PostMapping(value = "/{id}/apagar", name = "apagarProduto")
 	public String inativar(@PathVariable Long id, RedirectAttributes atributos) {
-		
-		Produto produto = produtoRep.getOne(id);
-		produtoRep.delete(produto);
+		Produto produto = produtoRep.findOneByIdProduto(id);
+	
+		produto.setInativo(true);
+
+		produtoRep.save(produto);
 		atributos.addFlashAttribute("mensagemStatus", "Produto apagado com sucesso!");
 		return "redirect:/produtos";
 	}
