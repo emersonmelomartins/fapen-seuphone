@@ -2,6 +2,7 @@ package br.com.fapen.seuphone.models;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -136,6 +137,13 @@ public class PedidoCompra {
 
 	public void setInativo(boolean inativo) {
 		this.inativo = inativo;
+	}
+	
+	// Puxa dados do pedido
+	public String getInfoPedido() {
+		// String dtPedido = this.dtEntrega.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+		
+		return String.format("Pedido %d - %s", this.idPedido, this.getFornecedor().getRazaoSocial() );
 	}
 	
 	
