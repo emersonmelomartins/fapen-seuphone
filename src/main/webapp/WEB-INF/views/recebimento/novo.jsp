@@ -42,7 +42,8 @@
 
 	<div class="container">
 		<br>
-		<f:form action="#" method="post" modelAttribute="recebimentoForm">
+		<f:form action="${s:mvcUrl('salvarRecebimento').build() }"
+			method="post" modelAttribute="recebimentoForm">
 
 			<f:hidden path="idRecebimento" />
 
@@ -55,13 +56,15 @@
 
 							<div class="row">
 								<div class="input-field col s3">
-									<f:input path="serieNotaFiscal" type="number" cssClass="validator" />
+									<f:input path="serieNotaFiscal" type="number"
+										cssClass="validator" />
 									<label for="serieNotaFiscal">Série NF</label>
 									<f:errors path="serieNotaFiscal"
 										cssClass="helper-text red-text" />
 								</div>
 								<div class="input-field col s3">
-									<f:input path="numeroNotaFiscal" type="number" cssClass="validator" />
+									<f:input path="numeroNotaFiscal" type="number"
+										cssClass="validator" />
 									<label for="numeroNotaFiscal">Número NF</label>
 									<f:errors path="numeroNotaFiscal"
 										cssClass="helper-text red-text" />
@@ -82,7 +85,7 @@
 								<div class="input-field col s12">
 									<f:select path="pedido" cssClass="validate">
 										<f:option value="">Selecione</f:option>
-										<f:options items="${listaPedidos}" itemLabel="infoPedido"/>
+										<f:options items="${listaPedidos}" itemLabel="infoPedido" />
 									</f:select>
 									<label for="pedido">Pedido de Compra</label>
 									<f:errors path="pedido" cssClass="helper-text red-text" />
@@ -93,7 +96,7 @@
 							<span class="card-title center-align titulo center"><p>Descrição
 									do Pedido</p></span>
 							<!-- descrição pedido vai aqui -->
-							
+
 							<div class="row">
 								<div class="col s12">
 									<div id="dadosTabela">
@@ -108,23 +111,38 @@
 												</tr>
 											</thead>
 											<tbody>
-												<c:forEach items="${recebimentoForm.itens }" var="itemReceb" varStatus="status">
-												<tr>
-													<f:hidden path="itens[${status.index }].produto" />
-													<f:hidden path="itens[${status.index }].valorTotal" />
-													<td>${itemReceb.produto.descricao }</td>
-													<td>${itemReceb.quantidade }</td>
-													<td>${itemReceb.precoUnitario }</td>
-													<td>${itemReceb.valorTotal }</td>
-												</tr>
+												<c:forEach items="${recebimentoForm.itens }" var="itemReceb"
+													varStatus="status">
+													<tr>
+														
+														<f:hidden path="itens[${status.index }].quantidade" />
+														<f:hidden path="itens[${status.index }].produto" />
+														<f:hidden path="itens[${status.index }].precoUnitario" />
+														<f:hidden path="itens[${status.index }].valorTotal" />
+														<td>
+															<p>
+																<label> <input type="checkbox"
+																	name="itens[${status.index }].verificado"
+																	id="itens[${status.index }].verificado"
+																	class="filled-in" /> <span>OK</span>
+																</label>
+
+															</p> <f:errors path="itens[${status.index }].verificado"
+																cssClass="helper-text red-text" />
+														</td>
+														<td>${itemReceb.produto.descricao }</td>
+														<td>${itemReceb.quantidade }</td>
+														<td>${itemReceb.precoUnitario }</td>
+														<td>${itemReceb.valorTotal }</td>
+													</tr>
 												</c:forEach>
 											</tbody>
 										</table>
 									</div>
 								</div>
 							</div>
-							
-							
+
+
 						</div>
 						<div class="card-action">
 							<div class="row">
@@ -164,18 +182,18 @@
 			$("#dadosTabela").html(cHtml);
 			$("select").formSelect();
 		}
-		
+
 		function erroAjax(err) {
 			console.log("Ocorreu um erro --> " + err);
 		}
-		
+
 		$("body").on("change", "#pedido", function(event) {
 			$.ajax({
-				type: "POST",
-				data: $("form").serialize(),
-				url: "${s:mvcUrl('carregaItensRecebimento').build()}",
-				success: atualizaTabela,
-				error: erroAjax
+				type : "POST",
+				data : $("form").serialize(),
+				url : "${s:mvcUrl('carregaItensRecebimento').build()}",
+				success : atualizaTabela,
+				error : erroAjax
 			});
 			console.log(atualizaTabela);
 		});

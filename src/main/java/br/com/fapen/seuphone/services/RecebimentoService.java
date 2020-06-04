@@ -5,13 +5,20 @@ import org.springframework.stereotype.Service;
 
 import br.com.fapen.seuphone.forms.DescricaoRecebimentoForm;
 import br.com.fapen.seuphone.forms.RecebimentoForm;
+import br.com.fapen.seuphone.models.DescricaoNotaFiscal;
 import br.com.fapen.seuphone.models.DescricaoPedido;
+import br.com.fapen.seuphone.models.NotaFiscal;
+import br.com.fapen.seuphone.models.Produto;
+import br.com.fapen.seuphone.repositories.NotaFiscalRepository;
 
 @Service
 public class RecebimentoService {
 	
 	@Autowired
 	private PedidoCompraService pedidoService;
+	
+	@Autowired
+	private NotaFiscalRepository notaFiscalRep;
 
 	public void carregarItensRecebimento(RecebimentoForm recebimentoForm) {
 		
@@ -28,5 +35,39 @@ public class RecebimentoService {
 				
 			}
 		}
+	}
+	
+	public void salvarRecebimento(RecebimentoForm recebimentoForm) {
+		NotaFiscal notaFiscal = new NotaFiscal();
+		
+		notaFiscal.setIdNotaFiscal(recebimentoForm.getIdRecebimento());
+		notaFiscal.setSerieNotaFiscal(recebimentoForm.getSerieNotaFiscal());
+		notaFiscal.setNumeroNotaFiscal(recebimentoForm.getNumeroNotaFiscal());
+		notaFiscal.setDtNotaFiscal(recebimentoForm.getDtNotaFiscal());
+		notaFiscal.setDtRecebimento(recebimentoForm.getDtRecebimento());
+		notaFiscal.setPedido(recebimentoForm.getPedido());
+		
+		for(DescricaoRecebimentoForm itemReceb: recebimentoForm.getItens()) {
+			DescricaoNotaFiscal itemNotaFiscal = new DescricaoNotaFiscal();
+			
+			itemNotaFiscal.setNotaFiscal(notaFiscal);
+			itemNotaFiscal.setProduto(itemReceb.getProduto());
+			itemNotaFiscal.setQuantidade(itemReceb.getQuantidade());
+			itemNotaFiscal.setPrecoUnitario(itemReceb.getPrecoUnitario());
+			itemNotaFiscal.setValorTotal(itemReceb.getValorTotal());
+			
+			notaFiscal.getItensNotaFiscal().add(itemNotaFiscal);
+		}
+		
+		notaFiscalRep.save(notaFiscal);
+		
+		// Alterar pedido para recebido?
+		
+		for(DescricaoNotaFiscal itemNF: notaFiscal.getItensNotaFiscal()) {
+			Produto produto = itemNF.getProduto();
+			
+			produto.setQuantidadeEstoque(produto.getQuantidadeEstoque()+itemNF.getQuantidade().intValue());
+		}
+		
 	}
 }
