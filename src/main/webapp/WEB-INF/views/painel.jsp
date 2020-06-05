@@ -136,7 +136,7 @@
 						</div>
 
 						<div class="row">
-							<a href="#nota-fiscal">
+							<a href="${s:mvcUrl('listarNotasFiscais').build() }">
 								<div style="padding: 30px; border-radius: 10px;"
 									class="col s5 waves-effect black-seuphone">
 									<i class="white-text large material-icons">description</i>

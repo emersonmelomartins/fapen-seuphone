@@ -69,7 +69,7 @@ public class ProdutoController {
 	public ModelAndView newProduct(Produto produto) {
 		
 		ModelAndView mav = new ModelAndView("/produto/novo");
-		mav.addObject("listaFornecedores", fornecedorRep.findAll());
+		mav.addObject("listaFornecedores", fornecedorRep.findAllByInativoFalse());
 		return mav;
 	}
 	
@@ -81,7 +81,7 @@ public class ProdutoController {
 		}
 		
 		produtoRep.save(produto);
-		atributos.addFlashAttribute("mensagemStatus", "Produto salvo com sucesso!");
+		atributos.addFlashAttribute("mensagemSucesso", "Produto salvo com sucesso!");
 		return new ModelAndView("redirect:/produtos");
 	}
 	
@@ -100,14 +100,18 @@ public class ProdutoController {
 		produto.setInativo(true);
 
 		produtoRep.save(produto);
-		atributos.addFlashAttribute("mensagemStatus", "Produto apagado com sucesso!");
+		atributos.addFlashAttribute("mensagemSucesso", "Produto apagado com sucesso!");
 		return "redirect:/produtos";
 	}
 	
 	@GetMapping(value = "/{id}", name = "visualizarProduto")
-	public ModelAndView viewProduct(@PathVariable Long id) {
+	public ModelAndView viewProduct(@PathVariable Long id, RedirectAttributes atributos) {
 		
 		Produto produto = produtoRep.findOneByIdProduto(id);
+		if(produto == null || produto.isInativo() == true) {
+			atributos.addFlashAttribute("mensagemErro", "Produto não foi encontrado.");
+			return new ModelAndView("redirect:/produtos");
+		}
 		ModelAndView mav = new ModelAndView("produto/visualizar");
 		mav.addObject("produto", produto);
 		
@@ -122,7 +126,7 @@ public class ProdutoController {
 		prod.setCaminhoFoto(caminhoDaFoto);
 		produtoRep.save(prod);
 		
-		atributos.addFlashAttribute("mensagemStatus", "Imagem do produto alterada com sucesso!");
+		atributos.addFlashAttribute("mensagemSucesso", "Imagem do produto alterada com sucesso!");
 		return "redirect:/produtos";
 	}
 }

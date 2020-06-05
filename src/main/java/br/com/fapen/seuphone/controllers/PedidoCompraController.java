@@ -80,10 +80,10 @@ public class PedidoCompraController {
 	public ModelAndView newOrder(PedidoCompraForm pedidoCompraForm) {
 		ModelAndView mav = new ModelAndView("/pedidos/novo");
 
-		mav.addObject("listaFornecedores", fornecedorRep.findAll());
+		mav.addObject("listaFornecedores", fornecedorRep.findAllByInativoFalse());
 		mav.addObject("listaStatusPedido", StatusPedidoEnum.values());
 		mav.addObject("listaCondicaoPagto", CondicaoPagtoEnum.values());
-		mav.addObject("listaProdutos", produtoRep.findAll());
+		mav.addObject("listaProdutos", produtoRep.findAllByInativoFalse());
 
 		return mav;
 	}
@@ -106,7 +106,7 @@ public class PedidoCompraController {
 	public ModelAndView formularioItem(@ModelAttribute("pedidoCompraForm") PedidoCompraForm pedidoCompraForm) {
 		pedidoCompraForm.getItensPedidoCompra().add(new DescricaoPedido());
 		ModelAndView mav = new ModelAndView("/pedidos/form-item");
-		mav.addObject("listaProdutos", produtoRep.findAll());
+		mav.addObject("listaProdutos", produtoRep.findAllByInativoFalse());
 		
 		return mav;
 	}
@@ -115,7 +115,7 @@ public class PedidoCompraController {
 	public ModelAndView deletaItem(@PathVariable int linha, PedidoCompraForm pedidoCompraForm) {
 		pedidoCompraForm.getItensPedidoCompra().remove(linha);
 		ModelAndView mav = new ModelAndView("/pedidos/form-item");
-		mav.addObject("listaProdutos", produtoRep.findAll());
+		mav.addObject("listaProdutos", produtoRep.findAllByInativoFalse());
 		
 		return mav;
 	}
@@ -139,10 +139,10 @@ public class PedidoCompraController {
 		PedidoCompraForm pedidoCompraForm = new PedidoCompraForm(pedidoCompra);
 
 		ModelAndView mav = new ModelAndView("/pedidos/novo");
-		mav.addObject("listaFornecedores", fornecedorRep.findAll());
+		mav.addObject("listaFornecedores", fornecedorRep.findAllByInativoFalse());
 		mav.addObject("listaCondicaoPagto", CondicaoPagtoEnum.values());
 		mav.addObject("listaStatusPedido", StatusPedidoEnum.values());
-		mav.addObject("listaProdutos", produtoRep.findAll());
+		mav.addObject("listaProdutos", produtoRep.findAllByInativoFalse());
 		mav.addObject("pedidoCompraForm", pedidoCompraForm);
 		
 		return mav;
