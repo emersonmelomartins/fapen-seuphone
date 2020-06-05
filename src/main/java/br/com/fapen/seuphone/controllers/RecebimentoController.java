@@ -62,6 +62,6 @@ public class RecebimentoController {
 		}
 		
 		recebimentoService.salvarRecebimento(recebimentoForm);
-		return new ModelAndView("/recebimento/novo");
+		return new ModelAndView("/pedidos/listar");
 	}
 }

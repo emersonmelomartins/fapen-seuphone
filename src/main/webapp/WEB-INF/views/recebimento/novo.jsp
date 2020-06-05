@@ -147,7 +147,7 @@
 						<div class="card-action">
 							<div class="row">
 								<div class="col s2">
-									<a href="#" class="waves-effect waves-light btn red"><i
+									<a href="${s:mvcUrl('listarPedidos').build() }" class="waves-effect waves-light btn red"><i
 										class="material-icons left">arrow_back</i>Voltar</a>
 								</div>
 

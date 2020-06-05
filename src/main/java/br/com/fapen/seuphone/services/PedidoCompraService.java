@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import br.com.fapen.seuphone.forms.PedidoCompraForm;
 import br.com.fapen.seuphone.models.DescricaoPedido;
+import br.com.fapen.seuphone.models.NotaFiscal;
 import br.com.fapen.seuphone.models.PedidoCompra;
 import br.com.fapen.seuphone.repositories.PedidoCompraRepository;
 
@@ -53,6 +54,11 @@ public class PedidoCompraService {
 		
 		BigDecimal total = valor.multiply(qtd);
 		return total;
+	}
+	
+	public NotaFiscal findNotaFiscal() {
+		// busca nota fiscal do pedido
+		return new NotaFiscal();
 	}
 	
 }

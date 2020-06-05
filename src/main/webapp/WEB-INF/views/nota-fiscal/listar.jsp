@@ -41,14 +41,14 @@
 
 		<div class="row center">
 			<br> <br>
-			<h1 class="titulo">Pedido de Compra</h1>
+			<h1 class="titulo">Notas Fiscais</h1>
 			<br> <br>
 
 			<div class="row center">
 				<f:form method="GET">
 					<div class="input-field col s11">
 						<input id="busca" name="busca" id="search" type="text"
-							placeholder="Pesquisar por Número Pedido..." value="${busca}"
+							placeholder="Pesquisar por Numero do Pedido..." value="${busca}"
 							autofocus>
 					</div>
 					<div class="input-field col s1">
@@ -63,8 +63,7 @@
 
 			<div class="input-field left">
 				<a class="waves-effect waves-light btn green white-text"
-					title="novo" href="${s:mvcUrl('novoPedido').build() }"><i
-					class="material-icons left">add</i>adicionar</a>
+					title="novo" href="#"><i class="material-icons left">add</i>adicionar</a>
 			</div>
 
 			<div class="row">
@@ -72,76 +71,47 @@
 					<table class="responsive-table striped">
 						<thead>
 							<tr>
-								<th>Nº</th>
-								<th>Fornecedor</th>
-								<th>Valor</th>
-								<th>Situação</th>
-								<th>Data Entrega</th>
-								<th>Status</th>
-								<th class="center-align">Ações</th>
+								<th>ID</th>
+								<th>Número Pedido</th>
+								<th>Série NF</th>
+								<th>Número NF</th>
+								<th>Data NF</th>
+								<th>Data Recebimento</th>
+								<th class="center-align">Ação</th>
 							</tr>
 						</thead>
 						<tbody>
-							<c:forEach items="${listaPaginada.content}" var="pedido">
-							<fmt:parseDate value="${pedido.dtEntrega }"
-								pattern="yyyy-MM-dd" var="parsedDate" type="date" />
+							<c:forEach items="${listaPaginada.content}" var="notaFiscal">
+								<fmt:parseDate value="${notaFiscal.dtNotaFiscal }"
+									pattern="yyyy-MM-dd" var="parsedDateNotaFiscal" type="date" />
+								<fmt:parseDate value="${notaFiscal.dtRecebimento }"
+									pattern="yyyy-MM-dd" var="parsedDateRecebimento" type="date" />
 								<tr>
-									<td>${pedido.idPedido}</td>
-									<td>${pedido.fornecedor.razaoSocial}</td>
-									<td><fmt:formatNumber value="${pedido.valorFinal}"
-											type="currency" /></td>
-									<td>${pedido.situacaoPedido.displayValue}</td>
-									<td><fmt:formatDate value="${parsedDate }"
+									<td>${notaFiscal.idNotaFiscal}</td>
+									<td>${notaFiscal.pedido.idPedido}</td>
+									<td>${notaFiscal.serieNotaFiscal}</td>
+									<td>${notaFiscal.numeroNotaFiscal}</td>
+									<td><fmt:formatDate value="${parsedDateNotaFiscal }"
 										pattern="dd/MM/yyyy" /></td>
-									<td><c:if test="${!pedido.inativo }">
-											<div class="chip green-text">Ativo</div>
-										</c:if> <c:if test="${pedido.inativo }">
-											<div class="chip red-text">Inativo</div>
-										</c:if></td>
-									<td class="center-align">
-									<c:if test="${pedido.situacaoPedido.displayValue == 'Em Digitação' }">
-										<a
-										class="waves-effect waves-light btn-small orange"
-										href="${s:mvcUrl('novoRecebimento').build() }"
-										title="Novo Recebimento"><i
-											class="material-icons orange-text text-darken-3">local_shipping</i></a>
-									</c:if>
-									<c:if test="${pedido.situacaoPedido.displayValue == 'Recebido' }">
-										<a
-										class="waves-effect waves-light btn-small green"
-										href="${s:mvcUrl('novoRecebimento').build() }"
-										title="Nota Fiscal"><i
-											class="material-icons green-text text-darken-3">receipt</i></a>
-									</c:if>
-									
-									<a
-										class="waves-effect waves-light btn-small yellow"
-										href="${s:mvcUrl('visualizarPedido').arg(0, pedido.idPedido).build() }"
+										<td><fmt:formatDate value="${parsedDateRecebimento }"
+										pattern="dd/MM/yyyy" /></td>
+									<td class="center-align"><a
+										class="waves-effect waves-light btn-small yellow" href="#"
 										title="Visualizar"><i
 											class="material-icons yellow-text text-darken-3">remove_red_eye</i></a>
-										<a class="waves-effect waves-light btn-small blue"
-										href="${s:mvcUrl('editarPedido').arg(0, pedido.idPedido).build() }"
+										<a class="waves-effect waves-light btn-small blue" href="#"
 										title="Editar"><i
 											class="material-icons blue-text text-darken-3">edit</i></a>
 
 
 										<button href="#modalExcluir"
 											class="modal-excluir modal-trigger waves-effect waves-light btn-small red"
-											data-descr="${pedido.idPedido }" data-tabela="pedidos"
-											data-id="${pedido.idPedido }" title="Excluir">
+											data-descr="#" data-tabela="fornecedores" data-id="#"
+											title="Excluir">
 											<i class="material-icons red-text text-darken-3">delete</i>
-											<f:form
-												action="${s:mvcUrl('apagarPedido').arg(0, pedido.idPedido).build() }"
-												method="POST">
+											<f:form action="#" method="POST">
 											</f:form>
-										</button>
-										<a
-										class="waves-effect waves-light btn-small purple"
-										href="${s:mvcUrl('gerarPdfPedido').arg(0, pedido.idPedido).build() }"
-										target="_blank"
-										title="Gerar PDF"><i
-											class="material-icons purple-text text-darken-3">print</i></a>
-										</td>
+										</button></td>
 								</tr>
 							</c:forEach>
 						</tbody>
