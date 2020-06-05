@@ -1,6 +1,8 @@
 package br.com.fapen.seuphone.repositories;
 
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -23,9 +25,10 @@ public interface FornecedorRepository extends JpaRepository<Fornecedor, Long> {
 	
 	public Fornecedor findByEmail(String email);
 	
-	Fornecedor findOneById(Long id);
+	public Fornecedor findOneById(Long id);
 
 	public Page<Fornecedor> findByInativoFalse(Pageable paginacao);
 
+	public List<Fornecedor> findAllByInativoFalse();
 	
 }

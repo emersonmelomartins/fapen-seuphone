@@ -40,7 +40,7 @@ public class RecebimentoController {
 	public ModelAndView newReceivement(RecebimentoForm recebimentoForm) {
 		ModelAndView mav = new ModelAndView("/recebimento/novo");
 		mav.addObject(recebimentoForm);
-		mav.addObject("listaPedidos", pedidoRep.findAll());
+		mav.addObject("listaPedidos", pedidoRep.findAllBySituacaoPedidoEmDigitacaoAndInativoFalse());
 		
 		return mav;
 	}

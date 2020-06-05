@@ -80,7 +80,7 @@ public class PedidoCompraController {
 	public ModelAndView newOrder(PedidoCompraForm pedidoCompraForm) {
 		ModelAndView mav = new ModelAndView("/pedidos/novo");
 
-		mav.addObject("listaFornecedores", fornecedorRep.findAll());
+		mav.addObject("listaFornecedores", fornecedorRep.findAllByInativoFalse());
 		mav.addObject("listaStatusPedido", StatusPedidoEnum.values());
 		mav.addObject("listaCondicaoPagto", CondicaoPagtoEnum.values());
 		mav.addObject("listaProdutos", produtoRep.findAllByInativoFalse());
@@ -139,7 +139,7 @@ public class PedidoCompraController {
 		PedidoCompraForm pedidoCompraForm = new PedidoCompraForm(pedidoCompra);
 
 		ModelAndView mav = new ModelAndView("/pedidos/novo");
-		mav.addObject("listaFornecedores", fornecedorRep.findAll());
+		mav.addObject("listaFornecedores", fornecedorRep.findAllByInativoFalse());
 		mav.addObject("listaCondicaoPagto", CondicaoPagtoEnum.values());
 		mav.addObject("listaStatusPedido", StatusPedidoEnum.values());
 		mav.addObject("listaProdutos", produtoRep.findAllByInativoFalse());

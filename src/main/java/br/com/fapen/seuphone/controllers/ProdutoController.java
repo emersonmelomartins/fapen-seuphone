@@ -69,7 +69,7 @@ public class ProdutoController {
 	public ModelAndView newProduct(Produto produto) {
 		
 		ModelAndView mav = new ModelAndView("/produto/novo");
-		mav.addObject("listaFornecedores", fornecedorRep.findAll());
+		mav.addObject("listaFornecedores", fornecedorRep.findAllByInativoFalse());
 		return mav;
 	}
 	
