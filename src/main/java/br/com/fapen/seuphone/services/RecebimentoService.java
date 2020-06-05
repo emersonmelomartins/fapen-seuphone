@@ -10,12 +10,16 @@ import br.com.fapen.seuphone.models.DescricaoPedido;
 import br.com.fapen.seuphone.models.NotaFiscal;
 import br.com.fapen.seuphone.models.Produto;
 import br.com.fapen.seuphone.repositories.NotaFiscalRepository;
+import br.com.fapen.seuphone.repositories.ProdutoRepository;
 
 @Service
 public class RecebimentoService {
 	
 	@Autowired
 	private PedidoCompraService pedidoService;
+	
+	@Autowired
+	private ProdutoRepository produtoRep;
 	
 	@Autowired
 	private NotaFiscalRepository notaFiscalRep;
@@ -67,6 +71,9 @@ public class RecebimentoService {
 			Produto produto = itemNF.getProduto();
 			
 			produto.setQuantidadeEstoque(produto.getQuantidadeEstoque()+itemNF.getQuantidade().intValue());
+			
+			produtoRep.save(produto);
+			
 		}
 		
 	}
