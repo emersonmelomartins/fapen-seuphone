@@ -98,6 +98,10 @@
 													type="currency" /></td>
 										</tr>
 										<tr>
+											<td>Quantidade Estoque:</td>
+											<td>${produto.quantidadeEstoque}</td>
+										</tr>
+										<tr>
 											<td>Status:</td>
 											<td><c:if test="${!produto.inativo }">
 													<span class="chip green-text">Ativo</span>
