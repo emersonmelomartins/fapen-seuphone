@@ -29,7 +29,6 @@ public class HomeController {
 	
 	@PostMapping(value = "/enviar-email", name = "contatoViaSite")
 	public String contatoViaSite(ContatoSiteForm contatoSiteForm, RedirectAttributes atributos) {
-		String nome = contatoSiteForm.getNome();
 		
 		emailService.enviarEmailHtml("seuphone.apple@gmail.com", "Contato via Site", HtmlTemplate.contatoViaSite(contatoSiteForm));
 		

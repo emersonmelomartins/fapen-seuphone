@@ -30,10 +30,17 @@
 
 	<div class="container">
 
-		<c:if test="${mensagemStatus != null }">
+		<c:if test="${mensagemSucesso != null }">
 			<div class="status-message row">
 				<div class="center col s4 green white-text animated bounceInLeft">
-					<p>${mensagemStatus }</p>
+					<p>${mensagemSucesso }</p>
+				</div>
+			</div>
+		</c:if>
+		<c:if test="${mensagemErro != null }">
+			<div class="status-message row">
+				<div class="center col s4 red white-text animated bounceInLeft">
+					<p>${mensagemErro }</p>
 				</div>
 			</div>
 		</c:if>
@@ -83,8 +90,8 @@
 						</thead>
 						<tbody>
 							<c:forEach items="${listaPaginada.content}" var="pedido">
-							<fmt:parseDate value="${pedido.dtEntrega }"
-								pattern="yyyy-MM-dd" var="parsedDate" type="date" />
+								<fmt:parseDate value="${pedido.dtEntrega }" pattern="yyyy-MM-dd"
+									var="parsedDate" type="date" />
 								<tr>
 									<td>${pedido.idPedido}</td>
 									<td>${pedido.fornecedor.razaoSocial}</td>
@@ -92,30 +99,25 @@
 											type="currency" /></td>
 									<td>${pedido.situacaoPedido.displayValue}</td>
 									<td><fmt:formatDate value="${parsedDate }"
-										pattern="dd/MM/yyyy" /></td>
+											pattern="dd/MM/yyyy" /></td>
 									<td><c:if test="${!pedido.inativo }">
 											<div class="chip green-text">Ativo</div>
 										</c:if> <c:if test="${pedido.inativo }">
 											<div class="chip red-text">Inativo</div>
 										</c:if></td>
-									<td class="center-align">
-									<c:if test="${pedido.situacaoPedido.displayValue == 'Em Digitação' }">
-										<a
-										class="waves-effect waves-light btn-small orange"
-										href="${s:mvcUrl('novoRecebimento').build() }"
-										title="Novo Recebimento"><i
-											class="material-icons orange-text text-darken-3">local_shipping</i></a>
-									</c:if>
-									<c:if test="${pedido.situacaoPedido.displayValue == 'Recebido' }">
-										<a
-										class="waves-effect waves-light btn-small green"
-										href="${s:mvcUrl('novoRecebimento').build() }"
-										title="Nota Fiscal"><i
-											class="material-icons green-text text-darken-3">receipt</i></a>
-									</c:if>
-									
-									<a
-										class="waves-effect waves-light btn-small yellow"
+									<td class="center-align"><c:if
+											test="${pedido.situacaoPedido.displayValue == 'Em Digitação' }">
+											<a class="waves-effect waves-light btn-small orange"
+												href="${s:mvcUrl('novoRecebimento').build() }"
+												title="Novo Recebimento"><i
+												class="material-icons orange-text text-darken-3">local_shipping</i></a>
+										</c:if> <c:if
+											test="${pedido.situacaoPedido.displayValue == 'Recebido' }">
+											<a class="waves-effect waves-light btn-small green"
+												href="${s:mvcUrl('visualizarNotaFiscalPedido').arg(0, pedido.idPedido).build() }"
+												title="Nota Fiscal"><i
+												class="material-icons green-text text-darken-3">receipt</i></a>
+										</c:if> <a class="waves-effect waves-light btn-small yellow"
 										href="${s:mvcUrl('visualizarPedido').arg(0, pedido.idPedido).build() }"
 										title="Visualizar"><i
 											class="material-icons yellow-text text-darken-3">remove_red_eye</i></a>
@@ -134,14 +136,10 @@
 												action="${s:mvcUrl('apagarPedido').arg(0, pedido.idPedido).build() }"
 												method="POST">
 											</f:form>
-										</button>
-										<a
-										class="waves-effect waves-light btn-small purple"
+										</button> <a class="waves-effect waves-light btn-small purple"
 										href="${s:mvcUrl('gerarPdfPedido').arg(0, pedido.idPedido).build() }"
-										target="_blank"
-										title="Gerar PDF"><i
-											class="material-icons purple-text text-darken-3">print</i></a>
-										</td>
+										target="_blank" title="Gerar PDF"><i
+											class="material-icons purple-text text-darken-3">print</i></a></td>
 								</tr>
 							</c:forEach>
 						</tbody>

@@ -3,8 +3,10 @@ package br.com.fapen.seuphone.services;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.security.Principal;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -14,6 +16,7 @@ import org.springframework.stereotype.Service;
 import br.com.fapen.seuphone.forms.UsuarioForm;
 import br.com.fapen.seuphone.models.Perfil;
 import br.com.fapen.seuphone.models.Usuario;
+import br.com.fapen.seuphone.repositories.Paginacao;
 import br.com.fapen.seuphone.repositories.UsuarioRepository;
 
 @Service
@@ -27,6 +30,34 @@ public class UsuarioService implements UserDetailsService {
 		Usuario usuarioEncontrado = usuarioRep.findByLogin(login);
 		
 		return usuarioEncontrado;
+	}
+	
+	public Page<Usuario> listarUsuarios(String busca, Integer pagina, Principal principal) {
+		
+		Page<Usuario> listaUsuarios;
+		boolean isAdmin = false;
+		
+		for(Perfil p: usuarioRep.findByLogin(principal.getName()).getAuthorities()) {
+			if(p.getAuthority().equals("ROLE_ADMIN")) {
+				isAdmin = true;
+			}
+		}
+		
+		if(isAdmin) {
+			if (busca.equals("")) {
+				return listaUsuarios = usuarioRep.findAllByOrderByIdLoginAsc(Paginacao.getPaginacao(pagina));
+			} else {
+				return listaUsuarios = usuarioRep.findByLoginContainingIgnoreCase(busca, Paginacao.getPaginacao(pagina));
+			}
+		}
+		
+		if (busca.equals("")) {
+			return listaUsuarios = usuarioRep.findByInativoFalseOrderByIdLoginAsc(Paginacao.getPaginacao(pagina));
+		} else {
+			return listaUsuarios = usuarioRep.findByLoginContainingIgnoreCaseAndInativoFalse(busca, Paginacao.getPaginacao(pagina));
+		}
+
+		
 	}
 	
 	public void salvar(UsuarioForm usuarioForm) {

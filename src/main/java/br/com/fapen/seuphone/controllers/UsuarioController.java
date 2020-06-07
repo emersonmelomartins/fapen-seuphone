@@ -25,7 +25,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.com.fapen.seuphone.forms.UsuarioForm;
 import br.com.fapen.seuphone.models.Usuario;
-import br.com.fapen.seuphone.repositories.Paginacao;
 import br.com.fapen.seuphone.repositories.PerfilRepository;
 import br.com.fapen.seuphone.repositories.UsuarioRepository;
 import br.com.fapen.seuphone.services.ArquivoService;
@@ -60,14 +59,9 @@ public class UsuarioController {
 
 	@GetMapping(name = "listarUsuarios")
 	public ModelAndView listUser(@RequestParam(defaultValue = "1") Integer pagina,
-			@RequestParam(defaultValue = "") String busca) {
-
-		Page<Usuario> listaUsuarios;
-		if (busca.equals("")) {
-			listaUsuarios = usuarioRep.findByInativoFalseOrderByIdLoginAsc(Paginacao.getPaginacao(pagina));
-		} else {
-			listaUsuarios = usuarioRep.findByLoginContainingIgnoreCase(busca, Paginacao.getPaginacao(pagina));
-		}
+			@RequestParam(defaultValue = "") String busca, Principal principal) {
+		
+		Page<Usuario> listaUsuarios = usuarioService.listarUsuarios(busca, pagina, principal);
 
 		ModelAndView mav = new ModelAndView("usuario/listar");
 		mav.addObject("listaPaginada", listaUsuarios);

@@ -9,4 +9,6 @@ import br.com.fapen.seuphone.models.NotaFiscal;
 public interface NotaFiscalRepository extends JpaRepository<NotaFiscal, Long>{
 
 	public Page<NotaFiscal> findByPedidoIdPedidoContainingIgnoreCase(String busca, Pageable paginacao);
+	
+	public NotaFiscal findByPedidoIdPedido(Long id);
 }

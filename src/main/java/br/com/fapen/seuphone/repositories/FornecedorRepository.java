@@ -27,7 +27,9 @@ public interface FornecedorRepository extends JpaRepository<Fornecedor, Long> {
 	
 	public Fornecedor findOneById(Long id);
 
-	public Page<Fornecedor> findByInativoFalse(Pageable paginacao);
+	public Page<Fornecedor> findByInativoFalseOrderByIdAsc(Pageable paginacao);
+	
+	public Page<Fornecedor> findByRazaoSocialContainingIgnoreCaseAndInativoFalse(String busca, Pageable paginacao);
 
 	public List<Fornecedor> findAllByInativoFalse();
 	

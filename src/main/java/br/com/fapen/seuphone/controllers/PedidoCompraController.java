@@ -28,6 +28,7 @@ import br.com.fapen.seuphone.enums.CondicaoPagtoEnum;
 import br.com.fapen.seuphone.enums.StatusPedidoEnum;
 import br.com.fapen.seuphone.forms.PedidoCompraForm;
 import br.com.fapen.seuphone.models.DescricaoPedido;
+import br.com.fapen.seuphone.models.NotaFiscal;
 import br.com.fapen.seuphone.models.PedidoCompra;
 import br.com.fapen.seuphone.reports.PedidoCompraReport;
 import br.com.fapen.seuphone.repositories.FornecedorRepository;
@@ -97,8 +98,13 @@ public class PedidoCompraController {
 			return newOrder(pedidoCompraForm);
 		}
 		
+		if(pedidoCompraForm.getPedidoCompra().getSituacaoPedido().equals(StatusPedidoEnum.RECEBIDO)) {
+			atributos.addFlashAttribute("mensagemErro", "Pedidos com status 'Recebido' não podem ser alterados.");
+			return new ModelAndView("redirect:/pedidos");
+		}
+		
 		pedidoService.salvar(pedidoCompraForm);
-		atributos.addFlashAttribute("mensagemStatus", "Pedido foi salvo com sucesso!");
+		atributos.addFlashAttribute("mensagemSucesso", "Pedido foi salvo com sucesso!");
 		return new ModelAndView("redirect:/pedidos");
 	}
 	
@@ -154,8 +160,19 @@ public class PedidoCompraController {
 		
 		pedidoRep.delete(pedidoCompra);
 		
-		atributos.addFlashAttribute("mensagemStatus", "Pedido deletado com sucesso!");
+		atributos.addFlashAttribute("mensagemSucesso", "Pedido deletado com sucesso!");
 		return "redirect:/pedidos";
+	}
+	
+	@GetMapping(value = "/{id}/nf", name = "visualizarNotaFiscalPedido")
+	public ModelAndView viewInvoice(@PathVariable Long id) {
+		
+		NotaFiscal notaFiscal = pedidoService.findNotaFiscal(id);
+		
+		ModelAndView mav = new ModelAndView("/nota-fiscal/visualizar");
+		mav.addObject("notaFiscal", notaFiscal);
+		
+		return mav;
 	}
 	
 	@GetMapping(value = "/{id}/pdf", name = "gerarPdfPedido", produces = MediaType.APPLICATION_PDF_VALUE)

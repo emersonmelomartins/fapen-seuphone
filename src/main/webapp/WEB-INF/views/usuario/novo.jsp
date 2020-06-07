@@ -63,15 +63,15 @@
 											<label for="usuario.login">Login</label>
 										</div>
 
-									<c:if test="${usuarioForm.inclusao }">
-										<div class="input-field col s6">
-											<i class="material-icons prefix">lock</i>
-											<f:input path="usuario.senha" type="password"
-												cssClass="validate" placeholder="******" />
-											<f:errors path="usuario.senha"
-												cssClass="helper-text red-text" />
-											<label for="usuario.senha">Senha</label>
-										</div>
+										<c:if test="${usuarioForm.inclusao }">
+											<div class="input-field col s6">
+												<i class="material-icons prefix">lock</i>
+												<f:input path="usuario.senha" type="password"
+													cssClass="validate" placeholder="******" />
+												<f:errors path="usuario.senha"
+													cssClass="helper-text red-text" />
+												<label for="usuario.senha">Senha</label>
+											</div>
 										</c:if>
 									</div>
 
@@ -150,6 +150,21 @@
 											<label for="usuario.pessoa.celular">Celular</label>
 										</div>
 									</div>
+									
+									
+									
+									<div class="row">
+										<div class="input-field col s6">
+											<i class="material-icons prefix">description</i>
+											<f:select path="usuario.inativo" id="usuario.inativo"
+												cssClass="validate">
+												<f:option value="false">Ativo</f:option>
+												<f:option value="true">Inativo</f:option>
+											</f:select>
+											<f:errors path="usuario.inativo" cssClass="helper-text red-text" />
+											<label for="usuario.inativo">Status do Usuário</label>
+										</div>
+									</div>
 
 									<br />
 									<label for="perfil">Perfil</label>
@@ -162,8 +177,7 @@
 													<option value="${perfil.authority }">${perfil.descricao }</option>
 												</c:forEach>
 											</select>
-											<f:errors path="listaPerfil"
-												cssClass="helper-text red-text" />
+											<f:errors path="listaPerfil" cssClass="helper-text red-text" />
 										</div>
 										<div class="col s2">
 											<a class="btn" id="btnAddPerfil">Adicionar</a>
@@ -228,31 +242,61 @@
 	<script src="/js/jquery.mask.min.js"></script>
 	<script src="/js/materialize.min.js"></script>
 	<script src="/js/main.js"></script>
-	
+
 	<script>
-$(document).ready(function() {
-	$("#btnAddPerfil").click(function() {
-		var count = $("#tablePerfis tbody tr").length;
-		var table = $("#tablePerfis tbody");
-		var cHtml = "";
-		
-		
-		cHtml += '<tr>';
-		cHtml += '<input type="hidden" id="listaPerfil[' + count + '].authority" name="listaPerfil[' + count + '].authority" value="' + $("#perfilSel").val() + '" />';
-		cHtml += "<input type='hidden' id='listaPerfil[" + count + "].descricao' name='listaPerfil[" + count + "].descricao' value='" + $("#perfilSel option:selected").text() + "' />";
-		cHtml += "<td>" + $("#perfilSel").val() + "</td>";
-		cHtml += "<td>" + $("#perfilSel option:selected").text() + "</td>";
-		cHtml += "<td class='center-align'><a class='btn-small red btnDeletePerfil' title='excluir'><i class='material-icons'>delete</i></a></td>";
-		
-		cHtml += "</tr>";
-		table.append("chtml" + cHtml);
-	});
-	
-	$("#tablePerfis tbody").on("click", "a.btnDeletePerfil", function(botao) {
-		$(this).closest("tr").remove();
-	})
-});
-</script>
+		$(document)
+				.ready(
+						function() {
+							$("#btnAddPerfil")
+									.click(
+											function() {
+												var count = $("#tablePerfis tbody tr").length;
+												var table = $("#tablePerfis tbody");
+												var cHtml = "";
+
+												cHtml += '<tr>';
+												cHtml += '<input type="hidden" id="listaPerfil['
+														+ count
+														+ '].authority" name="listaPerfil['
+														+ count
+														+ '].authority" value="'
+														+ $("#perfilSel").val()
+														+ '" />';
+												cHtml += "<input type='hidden' id='listaPerfil["
+														+ count
+														+ "].descricao' name='listaPerfil["
+														+ count
+														+ "].descricao' value='"
+														+ $(
+																"#perfilSel option:selected")
+																.text()
+														+ "' />";
+												cHtml += "<td>"
+														+ $("#perfilSel").val()
+														+ "</td>";
+												cHtml += "<td>"
+														+ $(
+																"#perfilSel option:selected")
+																.text()
+														+ "</td>";
+												cHtml += "<td class='center-align'><a class='btn-small red btnDeletePerfil' title='excluir'><i class='material-icons'>delete</i></a></td>";
+
+												cHtml += "</tr>";
+												
+												var perfilSelecionado = $("#perfilSel option:selected").val();
+												if(!perfilSelecionado) {
+													alert("É necessário selecionar um perfil válido!");
+												} else {
+													table.append("chtml" + cHtml);													
+												}
+											});
+
+							$("#tablePerfis tbody").on("click",
+									"a.btnDeletePerfil", function(botao) {
+										$(this).closest("tr").remove();
+									})
+						});
+	</script>
 </body>
 
 </html>

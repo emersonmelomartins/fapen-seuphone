@@ -11,6 +11,7 @@ import br.com.fapen.seuphone.forms.PedidoCompraForm;
 import br.com.fapen.seuphone.models.DescricaoPedido;
 import br.com.fapen.seuphone.models.NotaFiscal;
 import br.com.fapen.seuphone.models.PedidoCompra;
+import br.com.fapen.seuphone.repositories.NotaFiscalRepository;
 import br.com.fapen.seuphone.repositories.PedidoCompraRepository;
 
 @Service
@@ -19,6 +20,9 @@ public class PedidoCompraService {
 	
 	@Autowired
 	private PedidoCompraRepository pedidoRep;
+	
+	@Autowired
+	private NotaFiscalRepository notaFiscalRep;
 	
 	
 	public Page<PedidoCompra> listar(String busca, Pageable paginacao) {
@@ -56,9 +60,9 @@ public class PedidoCompraService {
 		return total;
 	}
 	
-	public NotaFiscal findNotaFiscal() {
-		// busca nota fiscal do pedido
-		return new NotaFiscal();
+	public NotaFiscal findNotaFiscal(Long idPedido) {
+		NotaFiscal notaFiscal = notaFiscalRep.findByPedidoIdPedido(idPedido);
+		return notaFiscal;
 	}
 	
 }
