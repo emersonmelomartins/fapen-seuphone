@@ -48,14 +48,17 @@ public class UsuarioFormValidator implements Validator {
 		}
 
 		// Verifica a idade do usuario
-		LocalDate dataAniversario = usuarioForm.getUsuario().getPessoa().getDtNascimento();
-		LocalDate dataAtual = LocalDate.now();
-		
-		Period idade = Period.between(dataAniversario, dataAtual);
-		
-		if(idade.getYears() < 18) {
-			errors.rejectValue("usuario.pessoa.dtNascimento", "idade.invalido");
+		if(usuarioForm.getUsuario().getPessoa().getDtNascimento() != null) {
+			LocalDate dataAniversario = usuarioForm.getUsuario().getPessoa().getDtNascimento();
+			LocalDate dataAtual = LocalDate.now();
+			
+			Period idade = Period.between(dataAniversario, dataAtual);
+			
+			if(idade.getYears() < 18) {
+				errors.rejectValue("usuario.pessoa.dtNascimento", "idade.invalido");
+			}
 		}
+		
 
 		// Verifica se login existe
 		if (usuarioRep.existsByLogin(usuarioForm.getUsuario().getLogin())

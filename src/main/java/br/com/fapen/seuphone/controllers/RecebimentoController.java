@@ -62,6 +62,8 @@ public class RecebimentoController {
 		}
 		
 		recebimentoService.salvarRecebimento(recebimentoForm);
-		return new ModelAndView("/pedidos/listar");
+		
+		// Adicionar mensagem de sucesso
+		return new ModelAndView("redirect:/pedidos");
 	}
 }

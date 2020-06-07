@@ -39,13 +39,15 @@
 
 		<div class="row">
 			<br> <br>
-			<h1 class="titulo">Pedido de Compra</h1>
+			<h1 class="titulo">Nota Fiscal</h1>
 
 			<br> <br>
 
-			<c:forEach items="pedidoCompraForm">
-			<fmt:parseDate value="${pedidoCompraForm.pedidoCompra.dtPedido }" pattern="yyyy-MM-dd" type="date" var="parsedDtPedido"/>
-			<fmt:parseDate value="${pedidoCompraForm.pedidoCompra.dtEntrega }" pattern="yyyy-MM-dd" type="date" var="parsedDtEntrega"/>
+			<c:forEach items="notaFiscal">
+				<fmt:parseDate value="${notaFiscal.dtNotaFiscal }"
+					pattern="yyyy-MM-dd" type="date" var="parsedDateNF" />
+				<fmt:parseDate value="${notaFiscal.dtRecebimento}"
+					pattern="yyyy-MM-dd" type="date" var="parsedDateRecebimento" />
 
 				<div class="row">
 
@@ -55,33 +57,44 @@
 							<br>
 							<div class="card-content">
 								<h5 style="text-transform: uppercase;" class="black-text">
-									Pedido Nº: ${pedidoCompraForm.pedidoCompra.idPedido}</h5>
+									NF Nº ${notaFiscal.numeroNotaFiscal} - Série
+									${notaFiscal.serieNotaFiscal }</h5>
 								<hr />
 
 								<table class="striped">
 									<tbody>
 										<tr>
-											<td>Fornecedor:</td>
-											<td>${pedidoCompraForm.pedidoCompra.fornecedor.razaoSocial }</td>
+											<td>ID Nota Fiscal:</td>
+											<td>${notaFiscal.idNotaFiscal }</td>
 										</tr>
 										<tr>
-											<td>Data do Pedido:</td>
-											<td><fmt:formatDate value="${parsedDtPedido }" pattern="dd/MM/yyyy" /></td>
+											<td>Série Nota Fiscal:</td>
+											<td>${notaFiscal.serieNotaFiscal }</td>
 										</tr>
 										<tr>
-											<td>Data de Entrega:</td>
-											<td><fmt:formatDate value="${parsedDtEntrega }" pattern="dd/MM/yyyy" /></td>
+											<td>Número Nota Fiscal:</td>
+											<td>${notaFiscal.serieNotaFiscal }</td>
 										</tr>
 										<tr>
-											<td>Método de Pagamento:</td>
-											<td>${pedidoCompraForm.pedidoCompra.condicaoPagamento.displayValue}</td>
+											<td>Data da Nota Fiscal:</td>
+											<td><fmt:formatDate value="${parsedDateNF }"
+													pattern="dd/MM/yyyy" /></td>
+										</tr>
+										<tr>
+											<td>Data do Recebimento:</td>
+											<td><fmt:formatDate value="${parsedDateRecebimento }"
+													pattern="dd/MM/yyyy" /></td>
+										</tr>
+										<tr>
+											<td>Número do Pedido:</td>
+											<td>${notaFiscal.pedido.idPedido}</td>
 										</tr>
 										<tr>
 											<td>Situação do Pedido:</td>
-											<td>${pedidoCompraForm.pedidoCompra.situacaoPedido.displayValue }</td>
+											<td>${notaFiscal.pedido.situacaoPedido.displayValue }</td>
 										</tr>
 										<tr>
-											<td>Status:</td>
+											<td>Status do Pedido:</td>
 											<td><c:if test="${!pedido.inativo }">
 													<span class="chip green-text">Ativo</span>
 												</c:if> <c:if test="${pedido.inativo }">
@@ -102,19 +115,23 @@
 										<th>Total</th>
 									</thead>
 									<tbody>
-										<c:forEach items="${pedidoCompraForm.itensPedidoCompra}" var="item">
+										<c:forEach items="${notaFiscal.pedido.itens}" var="item">
 											<tr>
 												<td>${item.produto.idProduto }</td>
 												<td>${item.produto.descricao }</td>
 												<td>${item.quantidade }</td>
-												<td>${item.produto.valor }</td>
+												<td><fmt:formatNumber value="${item.produto.valor }"
+														type="currency" /></td>
 												<!-- Temporário -->
-												<td>${item.produto.valor*item.quantidade }</td>
+												<td><fmt:formatNumber
+														value="${item.produto.valor*item.quantidade }"
+														type="currency" /></td>
 											</tr>
 										</c:forEach>
 										<tr>
 											<td colspan="4" style="text-align: right; font-weight: bold;">Total</td>
-											<td colspan="1"><b>${pedidoCompraForm.pedidoCompra.valorFinal }</b></td>
+											<td colspan="1"><b><fmt:formatNumber
+														value="${notaFiscal.pedido.valorFinal }" type="currency" /></b></td>
 										</tr>
 									</tbody>
 								</table>
@@ -133,7 +150,7 @@
 	<div class="row">
 		<div class="col s3"></div>
 		<div class="col s6">
-			<a href="${s:mvcUrl('listarPedidos').build() }"
+			<a href="${s:mvcUrl('listarNotasFiscais').build() }"
 				class="waves-effect waves-light btn red"><i
 				class="material-icons left">arrow_back</i>Voltar</a>
 		</div>

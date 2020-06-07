@@ -35,6 +35,8 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
 
 	public Page<Usuario> findByInativoFalseOrderByIdLoginAsc(Pageable paginacao);
 	
+	public Page<Usuario> findByLoginContainingIgnoreCaseAndInativoFalse(String busca, Pageable paginacao);
+	
 	public Usuario findByHash(String hash);
 	
 	public boolean existsByHash(String hash);

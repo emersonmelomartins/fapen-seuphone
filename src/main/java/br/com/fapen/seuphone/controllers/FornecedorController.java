@@ -1,5 +1,7 @@
 package br.com.fapen.seuphone.controllers;
 
+import java.security.Principal;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +21,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.com.fapen.seuphone.models.Fornecedor;
 import br.com.fapen.seuphone.repositories.FornecedorRepository;
-import br.com.fapen.seuphone.repositories.Paginacao;
+import br.com.fapen.seuphone.services.FornecedorService;
 import br.com.fapen.seuphone.validations.FornecedorValidator;
 
 @Controller
@@ -30,6 +32,9 @@ public class FornecedorController {
     private FornecedorRepository fornecedorRepository;
     
     @Autowired
+    private FornecedorService fornecedorService;
+    
+    @Autowired
     private FornecedorValidator fornecedorValidator;
     
     @InitBinder("fornecedor")
@@ -38,17 +43,12 @@ public class FornecedorController {
     }
 
     @GetMapping(name = "listarFornecedores")
-	public ModelAndView listProviders(@RequestParam(defaultValue = "1") Integer pagina, @RequestParam(defaultValue = "") String busca) {
+	public ModelAndView listProviders(@RequestParam(defaultValue = "1") Integer pagina, @RequestParam(defaultValue = "") String busca, Principal principal) {
 		
-		Page<Fornecedor> fornecedoresCadastrados;
-		if(busca.equals("")) {
-			fornecedoresCadastrados = fornecedorRepository.findByInativoFalse(Paginacao.getPaginacao(pagina));
-		} else {
-			fornecedoresCadastrados = fornecedorRepository.findByRazaoSocialContainingIgnoreCase(busca, Paginacao.getPaginacao(pagina));
-		}
+    	Page<Fornecedor> listaFornecedores = fornecedorService.listarFornecedores(busca, pagina, principal);
 
 		ModelAndView mav = new ModelAndView("fornecedor/listar");
-		mav.addObject("listaPaginada", fornecedoresCadastrados);
+		mav.addObject("listaPaginada", listaFornecedores);
 
 		return mav;
 	}
@@ -103,7 +103,7 @@ public class FornecedorController {
 
 		fornecedorRepository.save(fornecedor);
 		
-		atributos.addFlashAttribute("mensagemStatus", "fornecedor " + id + " apagado com sucesso!");
+		atributos.addFlashAttribute("mensagemStatus", "Fornecedor foi apagado com sucesso!");
 		return "redirect:/fornecedores";
 	}
 }

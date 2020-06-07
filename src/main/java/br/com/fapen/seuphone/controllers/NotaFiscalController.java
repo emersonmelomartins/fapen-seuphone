@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
@@ -17,7 +18,7 @@ import br.com.fapen.seuphone.repositories.Paginacao;
 public class NotaFiscalController {
 	
 	@Autowired
-	private NotaFiscalRepository notaFiscalRepository;
+	private NotaFiscalRepository notaFiscalRep;
 
 	
 	 @GetMapping(name = "listarNotasFiscais")
@@ -25,14 +26,25 @@ public class NotaFiscalController {
 			
 			Page<NotaFiscal> notasFiscaisCadastradas;
 			if(busca.equals("")) {
-				notasFiscaisCadastradas = notaFiscalRepository.findAll(Paginacao.getPaginacao(pagina));
+				notasFiscaisCadastradas = notaFiscalRep.findAll(Paginacao.getPaginacao(pagina));
 			} else {
-				notasFiscaisCadastradas = notaFiscalRepository.findByPedidoIdPedidoContainingIgnoreCase(busca, Paginacao.getPaginacao(pagina));
+				notasFiscaisCadastradas = notaFiscalRep.findByPedidoIdPedidoContainingIgnoreCase(busca, Paginacao.getPaginacao(pagina));
 			}
 
 			ModelAndView mav = new ModelAndView("nota-fiscal/listar");
 			mav.addObject("listaPaginada", notasFiscaisCadastradas);
 
+			return mav;
+		}
+	 
+	 @GetMapping(value = "/{id}", name = "visualizarNotaFiscal")
+		public ModelAndView viewInvoice(@PathVariable Long id) {
+			
+			NotaFiscal notaFiscal = notaFiscalRep.getOne(id);
+			
+			ModelAndView mav = new ModelAndView("/nota-fiscal/visualizar");
+			mav.addObject("notaFiscal", notaFiscal);
+			
 			return mav;
 		}
 }

@@ -96,7 +96,7 @@
 										<td><fmt:formatDate value="${parsedDateRecebimento }"
 										pattern="dd/MM/yyyy" /></td>
 									<td class="center-align"><a
-										class="waves-effect waves-light btn-small yellow" href="#"
+										class="waves-effect waves-light btn-small yellow" href="${s:mvcUrl('visualizarNotaFiscal').arg(0, notaFiscal.idNotaFiscal).build() }"
 										title="Visualizar"><i
 											class="material-icons yellow-text text-darken-3">remove_red_eye</i></a>
 										<a class="waves-effect waves-light btn-small blue" href="#"
