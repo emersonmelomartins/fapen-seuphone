@@ -20,19 +20,18 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.com.fapen.seuphone.enums.CondicaoPagtoEnum;
 import br.com.fapen.seuphone.enums.StatusPedidoEnum;
 import br.com.fapen.seuphone.forms.PedidoCompraForm;
+import br.com.fapen.seuphone.forms.PedidoFiltroForm;
 import br.com.fapen.seuphone.models.DescricaoPedido;
 import br.com.fapen.seuphone.models.NotaFiscal;
 import br.com.fapen.seuphone.models.PedidoCompra;
 import br.com.fapen.seuphone.reports.PedidoCompraReport;
 import br.com.fapen.seuphone.repositories.FornecedorRepository;
-import br.com.fapen.seuphone.repositories.Paginacao;
 import br.com.fapen.seuphone.repositories.PedidoCompraRepository;
 import br.com.fapen.seuphone.repositories.ProdutoRepository;
 import br.com.fapen.seuphone.services.PedidoCompraService;
@@ -66,14 +65,14 @@ public class PedidoCompraController {
 	}
 
 	@GetMapping(name = "listarPedidos")
-	public ModelAndView listOrders(@RequestParam(defaultValue = "1") Integer pagina,
-			@RequestParam(defaultValue = "") String busca) {
+	public ModelAndView listOrders(PedidoFiltroForm pedidoFiltroForm) {
 
-		Page<PedidoCompra> pedidos = pedidoService.listar(busca, Paginacao.getPaginacao(pagina));
+		Page<PedidoCompra> pedidos = pedidoService.listar(pedidoFiltroForm);
 
 		ModelAndView mav = new ModelAndView("/pedidos/listar");
-
+		mav.addObject("pedidoFiltroForm", pedidoFiltroForm);
 		mav.addObject("listaPaginada", pedidos);
+		mav.addObject("listaStatus",StatusPedidoEnum.values());
 		return mav;
 	}
 

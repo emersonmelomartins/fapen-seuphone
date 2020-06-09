@@ -52,18 +52,67 @@
 			<br> <br>
 
 			<div class="row center">
-				<f:form method="GET">
-					<div class="input-field col s11">
-						<input id="busca" name="busca" id="search" type="text"
-							placeholder="Pesquisar por Número Pedido..." value="${busca}"
-							autofocus>
+				<f:form method="GET" modelAttribute="pedidoFiltroForm"
+					id="pedidoFiltroForm">
+
+					<f:hidden path="pagina" />
+					<f:hidden path="novoFiltro" />
+
+					<div class="input-field col s3">
+						<f:select path="tipoFiltro">
+							<option value="NP">Número do Pedido</option>
+							<option value="ST">Situação</option>
+							<option value="DT">Data</option>
+						</f:select>
+						<label>Buscar por</label>
 					</div>
-					<div class="input-field col s1">
-						<button class="btn black-seuphone" type="submit">
-							<i class="material-icons">search</i>
-						</button>
+
+					<div id="filtro-np">
+						<div class="input-field col s8">
+							<f:input path="numeroPedido" cssClass="validate"
+								placeholder="Busca por número do pedido..." />
+						</div>
+						<div class="input-field col s1">
+							<button class="btn black-seuphone" id="btn-np" type="button">
+								<i class="material-icons">search</i>
+							</button>
+						</div>
 					</div>
+
+
+
+					<div style="display: none;" id="filtro-st">
+						<div class="input-field col s8">
+							<f:select path="status">
+								<f:options items="${listaStatus}" itemLabel="displayValue" />
+							</f:select>
+						</div>
+						<div class="input-field col s1">
+							<button class="btn black-seuphone" id="btn-st" type="button">
+								<i class="material-icons">search</i>
+							</button>
+						</div>
+					</div>
+
+					<div style="display: none;" id="filtro-dt">
+						<div class="input-field col s4">
+							<label class="active" for="entregaInicial">Entrega
+								(Inicial)</label>
+							<f:input path="entregaInicial" cssClass="validate datepicker" />
+						</div>
+						<div class="input-field col s4">
+							<label class="active" for="entregaFinal">Entrega (Final)</label>
+							<f:input path="entregaFinal" cssClass="validate datepicker" />
+						</div>
+						<div class="input-field col s1">
+							<button class="btn black-seuphone" id="btn-dt" type="button">
+								<i class="material-icons">search</i>
+							</button>
+						</div>
+					</div>
+
 				</f:form>
+
 
 
 			</div>
@@ -171,6 +220,54 @@
 		setTimeout(function() {
 			$('.status-message').fadeOut('slow');
 		}, 4000);
+	</script>
+
+	<script>
+		$(document).ready(function() {
+
+			$("#tipoFiltro").change(function() {
+				var filtro = $('#tipoFiltro').val();
+
+				if (filtro == 'NP') {
+					$('#filtro-np').show();
+					$('#filtro-st').hide();
+					$('#filtro-dt').hide();
+				} else if (filtro == 'ST') {
+					$('#filtro-st').show();
+					$('#filtro-np').hide();
+					$('#filtro-dt').hide();
+				} else if (filtro == 'DT') {
+					$('#filtro-dt').show();
+					$('#filtro-np').hide();
+					$('#filtro-st').hide();
+				}
+			});
+
+			$(".paginacao").on("click", function(e) {
+				e.preventDefault();
+				var pagina = $(this).data("pagina");
+
+				//Muda o valor da pagina no formulario
+				$("#pagina").val(pagina);
+				$("#novoFiltro").val("false");
+				$("#formFiltro").submit();
+			});
+
+			$("#btn-np, #btn-st, #btn-dt"/*"#filtro-np, #filtro-st, #filtro-dt"*/).on("click", function(e) {
+				//if (event.which == 13 || event.keyCode == 13) {
+					e.preventDefault();
+					$("#novoFiltro").val("true");
+					$("#pedidoFiltroForm").submit();
+			    //}
+				
+			});
+		});
+	</script>
+
+	<script type="text/javascript">
+		$(document).ready(function() {
+
+		});
 	</script>
 </body>
 
