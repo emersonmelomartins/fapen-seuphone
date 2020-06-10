@@ -162,18 +162,18 @@
 						</div>
 						<div class="card-action">
 							<div class="row">
-								<div class="col s2">
-									<a href="${s:mvcUrl('listarProdutos').build() }"
-										class="waves-effect waves-light btn red"><i
-										class="material-icons left">arrow_back</i>Voltar</a>
-								</div>
 
-								<div class="col s2">
-									<button type="submit"
-										class="waves-effect waves-light btn green white-text">
-										<i class="material-icons left">add</i>Salvar
-									</button>
-								</div>
+								<a href="${s:mvcUrl('listarProdutos').build() }"
+									class="waves-effect waves-light btn red"><i
+									class="material-icons left">arrow_back</i>Voltar</a>
+
+
+
+								<button type="submit"
+									class="waves-effect waves-light btn green white-text">
+									<i class="material-icons left">add</i>Salvar
+								</button>
+
 							</div>
 						</div>
 					</div>

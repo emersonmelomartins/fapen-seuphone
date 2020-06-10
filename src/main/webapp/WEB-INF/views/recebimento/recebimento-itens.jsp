@@ -29,9 +29,8 @@
 						<f:hidden path="itens[${status.index }].valorTotal" />
 						<td>
 							<p>
-								<label> <input type="checkbox" name="itens[${status.index }].verificado" 
-								id="itens[${status.index }].verificado" class="filled-in"
-									/> <span>OK</span>
+								<label> 
+									<f:checkbox path="itens[${status.index }].verificado" />
 								</label>
 							</p>
 						</td>
