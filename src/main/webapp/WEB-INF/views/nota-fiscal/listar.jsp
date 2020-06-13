@@ -46,16 +46,28 @@
 
 			<div class="row center">
 				<f:form method="GET">
-					<div class="input-field col s11">
-						<input id="busca" name="busca" id="search" type="text"
-							placeholder="Pesquisar por Numero do Pedido..." value="${busca}"
-							autofocus>
+					<div class="input-field col s3">
+						<select>
+							<option value="NP">Numero NF</option>
+							<option value="ST">Data NF</option>
+							<option value="DT">Data Recebimento</option>
+							<option value="FN">Numero Pedido</option>
+						</select>
+						<label>Buscar por</label>
 					</div>
-					<div class="input-field col s1">
-						<button class="btn black-seuphone" type="submit">
-							<i class="material-icons">search</i>
-						</button>
+
+					<div id="filtro-np">
+						<div class="input-field col s8">
+							<input type="number" cssClass="validate"
+								placeholder="Busca por número do pedido..." />
+						</div>
+						<div class="input-field col s1">
+							<button class="btn black-seuphone" id="btn-np" type="button">
+								<i class="material-icons">search</i>
+							</button>
+						</div>
 					</div>
+
 				</f:form>
 
 
@@ -99,19 +111,7 @@
 										class="waves-effect waves-light btn-small yellow" href="${s:mvcUrl('visualizarNotaFiscal').arg(0, notaFiscal.idNotaFiscal).build() }"
 										title="Visualizar"><i
 											class="material-icons yellow-text text-darken-3">remove_red_eye</i></a>
-										<a class="waves-effect waves-light btn-small blue" href="#"
-										title="Editar"><i
-											class="material-icons blue-text text-darken-3">edit</i></a>
-
-
-										<button href="#modalExcluir"
-											class="modal-excluir modal-trigger waves-effect waves-light btn-small red"
-											data-descr="#" data-tabela="fornecedores" data-id="#"
-											title="Excluir">
-											<i class="material-icons red-text text-darken-3">delete</i>
-											<f:form action="#" method="POST">
-											</f:form>
-										</button></td>
+</td>
 								</tr>
 							</c:forEach>
 						</tbody>

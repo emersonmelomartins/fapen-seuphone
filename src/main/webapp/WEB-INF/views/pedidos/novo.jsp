@@ -55,20 +55,7 @@
 							<span class="card-title center-align titulo">Dados do
 								Pedido - Nº: ${pedidoCompraForm.pedidoCompra.idPedido}</span>
 
-							<div class="row">
-								<div class="input-field col s3">
-									<f:select path="pedidoCompra.situacaoPedido"
-										cssClass="validate">
-										<f:option value="">Selecione</f:option>
-										<f:options items="${listaStatusPedido}"
-											itemLabel="displayValue" />
-									</f:select>
-									<label for="pedidoCompra.situacaoPedido">Situação
-										Pedido</label>
-									<f:errors path="pedidoCompra.situacaoPedido"
-										cssClass="helper-text red-text" />
-								</div>
-							</div>
+							
 							<div class="row">
 								<div class="input-field col s12">
 									<f:select path="pedidoCompra.fornecedor" cssClass="validate">

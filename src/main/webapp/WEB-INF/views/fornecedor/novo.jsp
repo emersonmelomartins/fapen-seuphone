@@ -209,7 +209,7 @@
 													<f:option value="true">Inativo</f:option>
 												</f:select>
 												<f:errors path="inativo" cssClass="helper-text red-text" />
-												<label for="inativo">Status do Usuário</label>
+												<label for="inativo">Status do Fornecedor</label>
 											</div>
 										</div>
 									</sec:authorize>

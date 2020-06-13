@@ -40,10 +40,10 @@ public class PedidoCompraFormValidator implements Validator {
 					"campo.obrigatorio");
 
 			if (itemPedido.getQuantidade() != null && itemPedido.getQuantidade().compareTo(0d) == 0) {
-				errors.rejectValue("itensPedido[" + i + "].quantidade", "campo.obrigatorio");
+				errors.rejectValue("itensPedidoCompra[" + i + "].quantidade", "campo.obrigatorio");
 			}
 			if (itemPedido.getValor() != null && itemPedido.getValor().compareTo(BigDecimal.ZERO) == 0) {
-				errors.rejectValue("itensPedido[" + i + "].precoUnitario", "campo.obrigatorio");
+				errors.rejectValue("itensPedidoCompra[" + i + "].precoUnitario", "campo.obrigatorio");
 			}
 		}
 

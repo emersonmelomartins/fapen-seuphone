@@ -77,6 +77,7 @@ public class PedidoCompraController {
 		mav.addObject("pedidoFiltroForm", pedidoFiltroForm);
 		mav.addObject("listaPaginada", pedidos);
 		mav.addObject("listaStatus",StatusPedidoEnum.values());
+		mav.addObject("listaFornecedores", fornecedorRep.findAllByInativoFalse());
 		return mav;
 	}
 
@@ -169,8 +170,9 @@ public class PedidoCompraController {
 		return "redirect:/pedidos";
 	}
 	
-	@RequestMapping(value = "/{id}/extornar", method = RequestMethod.POST, name = "estornarPedido")
+	@RequestMapping(value = "/{id}/estornar", method = RequestMethod.POST, name = "estornarPedido")
 	public String estornarPedido(@PathVariable Long id, RedirectAttributes atributos) {
+		
 		try {
 			recebimentoService.estornar(id);
 		} catch (Exception e) {

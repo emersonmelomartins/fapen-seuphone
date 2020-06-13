@@ -23,6 +23,8 @@ public interface PedidoCompraRepository extends JpaRepository<PedidoCompra, Long
 	
 	public Page<PedidoCompra> findAllByInativoFalse(Pageable paginacao);
 	
+	public Page<PedidoCompra> findAllByFornecedorRazaoSocialContainingIgnoreCase(String busca, Pageable paginacao);
+	
 	
 	// Precisa arrumar
 	@Query(value = "select * from tb_pedido_compra where situacao_pedido = 'EM_DIGITACAO' and inativo = false",

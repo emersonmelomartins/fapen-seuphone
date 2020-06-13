@@ -70,7 +70,7 @@ public class PerfilController {
 		
 		perfilRep.save(perfil);
 		
-		atributos.addFlashAttribute("mensagemStatus", "Perfil salvo com sucesso!");
+		atributos.addFlashAttribute("mensagemSucesso", "Perfil salvo com sucesso!");
 		
 		return "redirect:/perfis";
 	}
@@ -90,11 +90,16 @@ public class PerfilController {
 	public String inativarProfile(@PathVariable String id, RedirectAttributes atributos) {
 		
 		Perfil perfil = perfilRep.getOne(id);
+		
+		try {
 		perfilRep.delete(perfil);
+		}
+		catch(Exception e) {
+			atributos.addFlashAttribute("mensagemErro", "Falha ao apagar perfil " + e.getMessage());
+			return "redirect:/perfis";
+		}
 		
-		
-		atributos.addFlashAttribute("mensagemStatus", "Perfil apagado com sucesso!");
-		
+		atributos.addFlashAttribute("mensagemSucesso", "Perfil apagado com sucesso!");
 		return "redirect:/perfis";
 	}
 	
