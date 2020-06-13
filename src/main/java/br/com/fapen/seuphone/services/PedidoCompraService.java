@@ -39,8 +39,6 @@ public class PedidoCompraService {
 		}
 		Pageable paginacao = Paginacao.getPaginacao(pedidoFiltroForm.getPagina());
 		
-		System.out.println(pedidoFiltroForm);
-		
 		if(pedidoFiltroForm.getTipoFiltro().equals("NP")) {
 			if(pedidoFiltroForm.getNumeroPedido() != null) {
 			return pedidoRep.findAllByIdPedido(pedidoFiltroForm.getNumeroPedido(), paginacao);

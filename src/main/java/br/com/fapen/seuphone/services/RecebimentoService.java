@@ -89,4 +89,22 @@ public class RecebimentoService {
 		pedidoRep.save(pedido);
 
 	}
+	
+	@Transactional
+	public void estornar(Long id) {
+		NotaFiscal nfe = notaFiscalRep.findById(id).get();
+		PedidoCompra pedido = nfe.getPedido();
+
+		for (DescricaoNotaFiscal itemNfe : nfe.getItensNotaFiscal()) {
+			Produto produto = itemNfe.getProduto();
+			produto.setQuantidadeEstoque(produto.getQuantidadeEstoque() - itemNfe.getQuantidade().intValue());
+			
+			produtoRep.save(produto);
+		}
+
+		pedido.setSituacaoPedido(StatusPedidoEnum.CANCELADO);
+		notaFiscalRep.delete(nfe);
+	}
+	
+	
 }

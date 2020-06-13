@@ -154,19 +154,25 @@
 										</c:if> <c:if test="${pedido.inativo }">
 											<div class="chip red-text">Inativo</div>
 										</c:if></td>
-									<td class="center-align"><c:if
+									<td class="center-align">
+									
+									<c:if
 											test="${pedido.situacaoPedido.displayValue == 'Em Digitação' }">
 											<a class="waves-effect waves-light btn-small orange"
 												href="${s:mvcUrl('novoRecebimento').build() }"
 												title="Novo Recebimento"><i
 												class="material-icons orange-text text-darken-3">local_shipping</i></a>
-										</c:if> <c:if
+										</c:if> 
+										
+										<c:if
 											test="${pedido.situacaoPedido.displayValue == 'Recebido' }">
 											<a class="waves-effect waves-light btn-small green"
 												href="${s:mvcUrl('visualizarNotaFiscalPedido').arg(0, pedido.idPedido).build() }"
 												title="Nota Fiscal"><i
 												class="material-icons green-text text-darken-3">receipt</i></a>
-										</c:if> <a class="waves-effect waves-light btn-small yellow"
+										</c:if>
+										
+										 <a class="waves-effect waves-light btn-small yellow"
 										href="${s:mvcUrl('visualizarPedido').arg(0, pedido.idPedido).build() }"
 										title="Visualizar"><i
 											class="material-icons yellow-text text-darken-3">remove_red_eye</i></a>
@@ -178,11 +184,11 @@
 
 										<button href="#modalExcluir"
 											class="modal-excluir modal-trigger waves-effect waves-light btn-small red"
-											data-descr="${pedido.idPedido }" data-tabela="pedidos"
+											data-descr="estorno" data-tabela="pedidos"
 											data-id="${pedido.idPedido }" title="Excluir">
 											<i class="material-icons red-text text-darken-3">delete</i>
 											<f:form
-												action="${s:mvcUrl('apagarPedido').arg(0, pedido.idPedido).build() }"
+												action="${s:mvcUrl('estornarPedido').arg(0, pedido.idPedido).build() }"
 												method="POST">
 											</f:form>
 										</button> <a class="waves-effect waves-light btn-small purple"
