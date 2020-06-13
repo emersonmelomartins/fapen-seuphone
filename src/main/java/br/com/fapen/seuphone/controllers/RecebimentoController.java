@@ -63,7 +63,7 @@ public class RecebimentoController {
 		
 		recebimentoService.salvarRecebimento(recebimentoForm);
 		
-		// Adicionar mensagem de sucesso
+		atributos.addFlashAttribute("mensagemSucesso", "Recebimento realizado com sucesso!");
 		return new ModelAndView("redirect:/pedidos");
 	}
 }

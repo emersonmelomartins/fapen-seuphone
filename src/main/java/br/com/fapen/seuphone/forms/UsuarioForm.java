@@ -9,6 +9,7 @@ import br.com.fapen.seuphone.models.Usuario;
 public class UsuarioForm {
 	
 	private Usuario usuario;
+	private String confirmaSenha;
 	private boolean inclusao;
 	private List<Perfil> listaPerfil = new ArrayList<Perfil>();
 
@@ -23,6 +24,16 @@ public class UsuarioForm {
 		for(Perfil perfil: usuario.getAuthorities()) {
 			this.listaPerfil.add(perfil);
 		}
+	}
+	
+	
+
+	public String getConfirmaSenha() {
+		return confirmaSenha;
+	}
+
+	public void setConfirmaSenha(String confirmaSenha) {
+		this.confirmaSenha = confirmaSenha;
 	}
 
 	public Usuario getUsuario() {

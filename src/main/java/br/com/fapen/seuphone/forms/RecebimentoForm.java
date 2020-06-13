@@ -23,6 +23,7 @@ public class RecebimentoForm {
 	
 	private PedidoCompra pedido;
 	
+	
 	private List<DescricaoRecebimentoForm> itens = new ArrayList<DescricaoRecebimentoForm>();
 	
 	public RecebimentoForm() {

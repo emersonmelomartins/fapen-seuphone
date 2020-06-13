@@ -28,10 +28,17 @@
 
 	<div class="container">
 
-		<c:if test="${mensagemStatus != null }">
+		<c:if test="${mensagemSucesso != null }">
 			<div class="status-message row">
 				<div class="center col s4 green white-text animated bounceInLeft">
-					<p>${mensagemStatus }</p>
+					<p>${mensagemSucesso }</p>
+				</div>
+			</div>
+		</c:if>
+		<c:if test="${mensagemErro != null }">
+			<div class="status-message row">
+				<div class="center col s4 red white-text animated bounceInLeft">
+					<p>${mensagemErro }</p>
 				</div>
 			</div>
 		</c:if>

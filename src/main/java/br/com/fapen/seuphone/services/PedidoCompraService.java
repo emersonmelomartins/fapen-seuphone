@@ -20,44 +20,46 @@ import br.com.fapen.seuphone.repositories.PedidoCompraRepository;
 @Service
 public class PedidoCompraService {
 
-	
 	@Autowired
 	private PedidoCompraRepository pedidoRep;
-	
+
 	@Autowired
 	private NotaFiscalRepository notaFiscalRep;
-	
-	
+
 	public Page<PedidoCompra> listar(PageRequest paginacao) {
 		return pedidoRep.findAll(paginacao);
 	}
-	
+
 	public Page<PedidoCompra> listar(PedidoFiltroForm pedidoFiltroForm) {
-		
-		if(pedidoFiltroForm.isNovoFiltro()) {
+
+		if (pedidoFiltroForm.isNovoFiltro()) {
 			pedidoFiltroForm.setPagina(1);
 		}
 		Pageable paginacao = Paginacao.getPaginacao(pedidoFiltroForm.getPagina());
-		
-		System.out.println(pedidoFiltroForm);
-		
-		if(pedidoFiltroForm.getTipoFiltro().equals("NP")) {
-			if(pedidoFiltroForm.getNumeroPedido() != null) {
-			return pedidoRep.findAllByIdPedido(pedidoFiltroForm.getNumeroPedido(), paginacao);
+
+		if (pedidoFiltroForm.getTipoFiltro().equals("NP")) {
+			if (pedidoFiltroForm.getNumeroPedido() != null) {
+				return pedidoRep.findAllByIdPedido(pedidoFiltroForm.getNumeroPedido(), paginacao);
 			} else {
-				return pedidoRep.findAllByOrderByIdPedidoAsc(paginacao);
+				return pedidoRep.findAllByInativoFalse(paginacao);
 			}
-		} else if(pedidoFiltroForm.getTipoFiltro().equals("ST")) {
+		} else if (pedidoFiltroForm.getTipoFiltro().equals("ST")) {
 			return pedidoRep.findAllBySituacaoPedidoAndInativoFalse(pedidoFiltroForm.getStatus(), paginacao);
-		} else if(pedidoFiltroForm.getTipoFiltro().equals("DT")) {
-			return pedidoRep.findAllByDtEntregaBetween(pedidoFiltroForm.getEntregaInicial(), pedidoFiltroForm.getEntregaFinal(), paginacao);
+		} else if (pedidoFiltroForm.getTipoFiltro().equals("DT")) {
+			return pedidoRep.findAllByDtEntregaBetween(pedidoFiltroForm.getEntregaInicial(),
+					pedidoFiltroForm.getEntregaFinal(), paginacao);
+		} else if (pedidoFiltroForm.getTipoFiltro().equals("FN")) {
+			if(pedidoFiltroForm.getFornecedor() != null) {
+			return pedidoRep.findAllByFornecedorRazaoSocialContainingIgnoreCase(pedidoFiltroForm.getFornecedor(),
+					paginacao);
+			}
+			return pedidoRep.findAllByInativoFalse(paginacao);
 		} else {
 			return pedidoRep.findAllByInativoFalse(paginacao);
 		}
-		
-	
+
 	}
-	
+
 	public void calcularTotal(PedidoCompra pedido) {
 		BigDecimal total = BigDecimal.ZERO;
 		for (DescricaoPedido item : pedido.getItens()) {
@@ -67,28 +69,28 @@ public class PedidoCompraService {
 		}
 		pedido.setValorFinal(total);
 	}
-	
+
 	public void salvar(PedidoCompraForm pedidoCompraForm) {
 		pedidoCompraForm.getPedidoCompra().getItens().clear();
-		for(DescricaoPedido item : pedidoCompraForm.getItensPedidoCompra()) {
+		for (DescricaoPedido item : pedidoCompraForm.getItensPedidoCompra()) {
 			item.setPedido(pedidoCompraForm.getPedidoCompra());
 			pedidoCompraForm.getPedidoCompra().getItens().add(item);
 		}
 		this.calcularTotal(pedidoCompraForm.getPedidoCompra());
 		pedidoRep.save(pedidoCompraForm.getPedidoCompra());
 	}
-	
+
 	public BigDecimal calculaQtdTotal(DescricaoPedido descricaoPed) {
 		BigDecimal qtd = new BigDecimal(descricaoPed.getQuantidade());
 		BigDecimal valor = descricaoPed.getValor();
-		
+
 		BigDecimal total = valor.multiply(qtd);
 		return total;
 	}
-	
+
 	public NotaFiscal findNotaFiscal(Long idPedido) {
 		NotaFiscal notaFiscal = notaFiscalRep.findByPedidoIdPedido(idPedido);
 		return notaFiscal;
 	}
-	
+
 }

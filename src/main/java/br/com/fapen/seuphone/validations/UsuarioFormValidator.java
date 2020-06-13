@@ -45,6 +45,11 @@ public class UsuarioFormValidator implements Validator {
 		// Verifica se senha é necessário (inclusão)
 		if (usuarioForm.isInclusao()) {
 			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "usuario.senha", "campo.obrigatorio");
+			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "confirmaSenha", "campo.obrigatorio");
+			
+			if(!usuarioForm.getUsuario().getSenha().equals(usuarioForm.getConfirmaSenha())) {
+				errors.rejectValue("usuario.senha", "senha.diferente");
+			}
 		}
 
 		// Verifica a idade do usuario

@@ -52,6 +52,7 @@
 									modelAttribute="usuarioForm" class="col s12">
 									<f:hidden path="usuario.idLogin" />
 									<f:hidden path="inclusao" />
+									<f:hidden path="usuario.caminhoFoto" />
 
 									<div class="row">
 										<div class="input-field col s6">
@@ -63,7 +64,11 @@
 											<label for="usuario.login">Login</label>
 										</div>
 
-										<c:if test="${usuarioForm.inclusao }">
+
+									</div>
+
+									<c:if test="${usuarioForm.inclusao }">
+										<div class="row">
 											<div class="input-field col s6">
 												<i class="material-icons prefix">lock</i>
 												<f:input path="usuario.senha" type="password"
@@ -72,9 +77,17 @@
 													cssClass="helper-text red-text" />
 												<label for="usuario.senha">Senha</label>
 											</div>
-										</c:if>
-									</div>
 
+											<div class="input-field col s6">
+												<i class="material-icons prefix">lock</i>
+												<f:input path="confirmaSenha" type="password"
+													cssClass="validate" placeholder="******" />
+												<f:errors path="confirmaSenha"
+													cssClass="helper-text red-text" />
+												<label for="confirmaSenha">Confirmar Senha</label>
+											</div>
+										</div>
+									</c:if>
 
 									<div class="row">
 										<div class="input-field col s6">
@@ -150,9 +163,9 @@
 											<label for="usuario.pessoa.celular">Celular</label>
 										</div>
 									</div>
-									
-									
-									
+
+
+
 									<div class="row">
 										<div class="input-field col s6">
 											<i class="material-icons prefix">description</i>
@@ -161,7 +174,8 @@
 												<f:option value="false">Ativo</f:option>
 												<f:option value="true">Inativo</f:option>
 											</f:select>
-											<f:errors path="usuario.inativo" cssClass="helper-text red-text" />
+											<f:errors path="usuario.inativo"
+												cssClass="helper-text red-text" />
 											<label for="usuario.inativo">Status do Usuário</label>
 										</div>
 									</div>
@@ -212,18 +226,16 @@
 						</div>
 						<div class="card-action">
 							<div class="row">
-								<div class="col s2">
-									<a href="${s:mvcUrl('listarUsuarios').build() }"
-										class="waves-effect waves-light btn red"><i
-										class="material-icons left">arrow_back</i>Voltar</a>
-								</div>
 
-								<div class="col s2">
-									<button type="submit"
-										class="waves-effect waves-light btn green white-text">
-										<i class="material-icons left">add</i>Salvar
-									</button>
-								</div>
+								<a href="${s:mvcUrl('listarUsuarios').build() }"
+									class="waves-effect waves-light btn red"><i
+									class="material-icons left">arrow_back</i>Voltar</a>
+
+								<button type="submit"
+									class="waves-effect waves-light btn green white-text">
+									<i class="material-icons left">add</i>Salvar
+								</button>
+
 							</div>
 						</div>
 					</div>
@@ -282,12 +294,15 @@
 												cHtml += "<td class='center-align'><a class='btn-small red btnDeletePerfil' title='excluir'><i class='material-icons'>delete</i></a></td>";
 
 												cHtml += "</tr>";
-												
-												var perfilSelecionado = $("#perfilSel option:selected").val();
-												if(!perfilSelecionado) {
+
+												var perfilSelecionado = $(
+														"#perfilSel option:selected")
+														.val();
+												if (!perfilSelecionado) {
 													alert("É necessário selecionar um perfil válido!");
 												} else {
-													table.append("chtml" + cHtml);													
+													table.append("chtml"
+															+ cHtml);
 												}
 											});
 

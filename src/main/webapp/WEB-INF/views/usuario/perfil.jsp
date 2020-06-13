@@ -6,6 +6,7 @@
 <%@ taglib prefix="f" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <head>
 <meta charset="UTF-8">
@@ -78,56 +79,45 @@
 							</f:form>
 						</div>
 						<div class="card-content">
-							<h5 style="text-transform: uppercase;" class="black-text">
-
-							</h5>
 							<hr />
 
 							<f:form method="POST" action="#" modelAttribute="perfil"
 								class="col s12">
 							<table class="striped">
 									<f:hidden path="idLogin" />
+									<fmt:parseDate value="${perfil.pessoa.dtNascimento }"
+									pattern="yyyy-MM-dd" var="parsedDate" type="date" />
 								<tbody>
 									<tr>
 										<td>Login:</td>
-										<td><f:input path="login" cssClass="validate"/>
-											<f:errors path="login" cssClass="helper-text red-text" /></td>
+										<td>${perfil.login }</td>
 									</tr>
 									<tr>
 										<td>Email:</td>
-										<td><f:input path="email" cssClass="validate" />
-											<f:errors path="email" cssClass="helper-text red-text" /></td>
+										<td>${perfil.email }</td>
 									</tr>
 									<tr>
 										<td>CPF:</td>
-										<td><f:input path="pessoa.cpf" cssClass="validate fmt-cpf"/>
-											<f:errors path="pessoa.cpf" cssClass="helper-text red-text" /></td>
+										<td class="fmt-cpf">${perfil.pessoa.cpf }</td>
 									</tr>
 									<tr>
 										<td>Data Nascimento: </td>
 										<td>
-											<f:input path="pessoa.dtNascimento" cssClass="validate datepicker" placeholder="01/02/1990" />
-											<f:errors path="pessoa.dtNascimento" cssClass="helper-text red-text" />
+											<fmt:formatDate value="${parsedDate}"
+										pattern="dd/MM/yyyy" />
 										</td>
 									</tr>
 									<tr>
 										<td>Sexo: </td>
-										<td><f:select path="pessoa.sexo" id="pessoa.sexo" cssClass="validate">
-											<f:option value="">Selecione o Sexo</f:option>
-											<f:option value="M">Masculino</f:option>
-											<f:option value="F">Feminino</f:option>
-										</f:select>
-										<f:errors path="pessoa.sexo" cssClass="helper-text red-text" /></td>
+										<td>${perfil.pessoa.sexo }</td>
 									</tr>
 									<tr>
 										<td>Telefone: </td>
-										<td><f:input path="pessoa.telefone" cssClass="validate fmt-tel"/>
-											<f:errors path="pessoa.telefone" cssClass="helper-text red-text" /></td>
+										<td class="fmt-tel">${perfil.pessoa.telefone }</td>
 									</tr>
 									<tr>
 										<td>Celular: </td>
-										<td><f:input path="pessoa.celular" cssClass="validate fmt-cel"/>
-											<f:errors path="pessoa.celular" cssClass="helper-text red-text" /></td>
+										<td class="fmt-cel">${perfil.pessoa.celular }</td>
 									</tr>
 									<tr>
 										<td>Status:</td>

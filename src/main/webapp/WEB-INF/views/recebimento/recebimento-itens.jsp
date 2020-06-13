@@ -22,19 +22,14 @@
 					varStatus="status">
 
 					<tr>
-						<f:hidden path="itens[${status.index }].verificado" />
 						<f:hidden path="itens[${status.index }].quantidade" />
 						<f:hidden path="itens[${status.index }].produto" />
 						<f:hidden path="itens[${status.index }].precoUnitario" />
 						<f:hidden path="itens[${status.index }].valorTotal" />
-						<td>
-							<p>
-								<label> <input type="checkbox" name="itens[${status.index }].verificado" 
-								id="itens[${status.index }].verificado" class="filled-in"
-									/> <span>OK</span>
-								</label>
-							</p>
-						</td>
+						<td><p><label> <input type="checkbox" class="filled-in"
+								name="itens[${status.index }].verificado" /> <span>OK</span>
+						</label></p> <f:errors path="itens[${status.index }].verificado"
+								cssClass="helper-text red-text" /></td>
 						<td>${itemReceb.produto.descricao }</td>
 						<td>${itemReceb.quantidade }</td>
 						<td>${itemReceb.precoUnitario }</td>

@@ -62,14 +62,15 @@
 						<f:select path="tipoFiltro">
 							<option value="NP">Número do Pedido</option>
 							<option value="ST">Situação</option>
-							<option value="DT">Data</option>
+							<option value="DT">Data Entrega</option>
+							<option value="FN">Fornecedor</option>
 						</f:select>
 						<label>Buscar por</label>
 					</div>
 
 					<div id="filtro-np">
 						<div class="input-field col s8">
-							<f:input path="numeroPedido" cssClass="validate"
+							<f:input path="numeroPedido" type="number" cssClass="validate"
 								placeholder="Busca por número do pedido..." />
 						</div>
 						<div class="input-field col s1">
@@ -106,6 +107,18 @@
 						</div>
 						<div class="input-field col s1">
 							<button class="btn black-seuphone" id="btn-dt" type="button">
+								<i class="material-icons">search</i>
+							</button>
+						</div>
+					</div>
+					
+					<div style="display: none;" id="filtro-fn">
+						<div class="input-field col s8">
+							<f:input path="fornecedor" cssClass="validate"
+								placeholder="Busca por fornecedor..." />
+						</div>
+						<div class="input-field col s1">
+							<button class="btn black-seuphone" id="btn-fn" type="button">
 								<i class="material-icons">search</i>
 							</button>
 						</div>
@@ -154,19 +167,25 @@
 										</c:if> <c:if test="${pedido.inativo }">
 											<div class="chip red-text">Inativo</div>
 										</c:if></td>
-									<td class="center-align"><c:if
+									<td class="center-align">
+									
+									<c:if
 											test="${pedido.situacaoPedido.displayValue == 'Em Digitação' }">
 											<a class="waves-effect waves-light btn-small orange"
 												href="${s:mvcUrl('novoRecebimento').build() }"
 												title="Novo Recebimento"><i
 												class="material-icons orange-text text-darken-3">local_shipping</i></a>
-										</c:if> <c:if
+										</c:if> 
+										
+										<c:if
 											test="${pedido.situacaoPedido.displayValue == 'Recebido' }">
 											<a class="waves-effect waves-light btn-small green"
 												href="${s:mvcUrl('visualizarNotaFiscalPedido').arg(0, pedido.idPedido).build() }"
 												title="Nota Fiscal"><i
 												class="material-icons green-text text-darken-3">receipt</i></a>
-										</c:if> <a class="waves-effect waves-light btn-small yellow"
+										</c:if>
+										
+										 <a class="waves-effect waves-light btn-small yellow"
 										href="${s:mvcUrl('visualizarPedido').arg(0, pedido.idPedido).build() }"
 										title="Visualizar"><i
 											class="material-icons yellow-text text-darken-3">remove_red_eye</i></a>
@@ -178,11 +197,11 @@
 
 										<button href="#modalExcluir"
 											class="modal-excluir modal-trigger waves-effect waves-light btn-small red"
-											data-descr="${pedido.idPedido }" data-tabela="pedidos"
+											data-descr="estorno" data-tabela="pedidos"
 											data-id="${pedido.idPedido }" title="Excluir">
 											<i class="material-icons red-text text-darken-3">delete</i>
 											<f:form
-												action="${s:mvcUrl('apagarPedido').arg(0, pedido.idPedido).build() }"
+												action="${s:mvcUrl('estornarPedido').arg(0, pedido.idPedido).build() }"
 												method="POST">
 											</f:form>
 										</button> <a class="waves-effect waves-light btn-small purple"
@@ -232,15 +251,24 @@
 					$('#filtro-np').show();
 					$('#filtro-st').hide();
 					$('#filtro-dt').hide();
+					$('#filtro-fn').hide();
 				} else if (filtro == 'ST') {
 					$('#filtro-st').show();
 					$('#filtro-np').hide();
 					$('#filtro-dt').hide();
+					$('#filtro-fn').hide();
 				} else if (filtro == 'DT') {
 					$('#filtro-dt').show();
 					$('#filtro-np').hide();
 					$('#filtro-st').hide();
+					$('#filtro-fn').hide();
 				}
+				 else if (filtro == 'FN') {
+					 	$('#filtro-fn').show();
+						$('#filtro-dt').hide();
+						$('#filtro-np').hide();
+						$('#filtro-st').hide();
+					}
 			});
 
 			$(".paginacao").on("click", function(e) {
@@ -253,7 +281,7 @@
 				$("#formFiltro").submit();
 			});
 
-			$("#btn-np, #btn-st, #btn-dt"/*"#filtro-np, #filtro-st, #filtro-dt"*/).on("click", function(e) {
+			$("#btn-np, #btn-st, #btn-dt, #btn-fn"/*"#filtro-np, #filtro-st, #filtro-dt"*/).on("click", function(e) {
 				//if (event.which == 13 || event.keyCode == 13) {
 					e.preventDefault();
 					$("#novoFiltro").val("true");

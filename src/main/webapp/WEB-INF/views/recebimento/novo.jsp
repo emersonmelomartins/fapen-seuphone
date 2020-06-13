@@ -114,22 +114,16 @@
 												<c:forEach items="${recebimentoForm.itens }" var="itemReceb"
 													varStatus="status">
 													<tr>
-														
+
 														<f:hidden path="itens[${status.index }].quantidade" />
 														<f:hidden path="itens[${status.index }].produto" />
 														<f:hidden path="itens[${status.index }].precoUnitario" />
 														<f:hidden path="itens[${status.index }].valorTotal" />
-														<td>
-															<p>
-																<label> <input type="checkbox"
-																	name="itens[${status.index }].verificado"
-																	id="itens[${status.index }].verificado"
-																	class="filled-in" /> <span>OK</span>
-																</label>
-
-															</p> <f:errors path="itens[${status.index }].verificado"
-																cssClass="helper-text red-text" />
-														</td>
+														<td><p><label> <input type="checkbox"
+																class="filled-in"
+																name="itens[${status.index }].verificado" /> <span>OK</span>
+														</label></p> <f:errors path="itens[${status.index }].verificado"
+																cssClass="helper-text red-text" /></td>
 														<td>${itemReceb.produto.descricao }</td>
 														<td>${itemReceb.quantidade }</td>
 														<td>${itemReceb.precoUnitario }</td>
@@ -147,7 +141,8 @@
 						<div class="card-action">
 							<div class="row">
 								<div class="col s2">
-									<a href="${s:mvcUrl('listarPedidos').build() }" class="waves-effect waves-light btn red"><i
+									<a href="${s:mvcUrl('listarPedidos').build() }"
+										class="waves-effect waves-light btn red"><i
 										class="material-icons left">arrow_back</i>Voltar</a>
 								</div>
 

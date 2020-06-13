@@ -12,17 +12,20 @@
 				<li class="col s4 menu-btn"><a href="#" data-target="slide-out"
 					class="sidenav-trigger show-on-large waves-effect"><i
 						class="material-icons">menu</i></a></li>
-				<li class="col s4"><a href="${s:mvcUrl('paginaHome').build() }"><img
-						class="logo responsive-img" src="/img/menu-logo.png" /></a></li>
+				<li class="col s3"><a href="${s:mvcUrl('paginaHome').build() }"><img
+						class="logo responsive-img" style="max-width: 120px" src="/img/menu-logo.png" /></a></li>
 
 				<sec:authorize access="!isAuthenticated()">
+				
+					<div class="col s1"></div>
 					<li class="col s2 waves-effect hide-on-small-only"><a
 						href="${s:mvcUrl('paginaLogin').build() }">Entrar</a></li>
 					<li class="col s2 waves-effect hide-on-small-only"><a href="#">Registrar</a></li>
+					
 				</sec:authorize>
 				<sec:authorize access="isAuthenticated()">
-					<li class="col s4 waves-effect hide-on-small-only"><a
-						class='dropdown-trigger valign-wrapper' href='#' data-target='submenu'>
+					<li class="col s5 waves-effect hide-on-small-only"><a
+						class='dropdown-trigger right valign-wrapper' href='#' data-target='submenu'>
 						
 						<sec:authentication property="principal" var="user"/>
 						
@@ -47,10 +50,10 @@
 						<li><a class="black-seuphone white-text waves-effect" href="${s:mvcUrl('paginaPainel').build() }">Acessar Painel</a></li>
 						<li><a class="black-seuphone white-text waves-effect" href="${s:mvcUrl('meuPerfil').build() }">Detalhes</a></li>
 						<hr />
-						<li><a class="black-seuphone white-text waves-effect" href="${s:mvcUrl('listarUsuarios').build() }">Usuários</a></li>
 						<li><a class="black-seuphone white-text waves-effect" href="${s:mvcUrl('listarPerfis').build() }">Perfis</a></li>
-						<li><a class="black-seuphone white-text waves-effect" href="${s:mvcUrl('listarProdutos').build() }">Produtos</a></li>
+						<li><a class="black-seuphone white-text waves-effect" href="${s:mvcUrl('listarUsuarios').build() }">Usuários</a></li>
 						<li><a class="black-seuphone white-text waves-effect" href="${s:mvcUrl('listarFornecedores').build() }">Fornecedores</a></li>
+						<li><a class="black-seuphone white-text waves-effect" href="${s:mvcUrl('listarProdutos').build() }">Produtos</a></li>
 						<li><a class="black-seuphone white-text waves-effect" href="${s:mvcUrl('listarPedidos').build() }">Pedido de Compra</a></li>
 						<li><a class="black-seuphone white-text waves-effect" href="${s:mvcUrl('listarNotasFiscais').build() }">Notas Fiscais</a></li>
 						<li><a class="black-seuphone white-text waves-effect" href="/logout">Sair</a></li>
@@ -92,10 +95,10 @@
 		<li><a href="${s:mvcUrl('paginaPainel').build() }" class="white-text waves-effect">Acessar Painel</a></li>
 		<li><a href="${s:mvcUrl('meuPerfil').build() }" class="white-text waves-effect">Detalhes</a></li>
 								<hr />
-						<li><a class="black-seuphone white-text waves-effect" href="${s:mvcUrl('listarUsuarios').build() }">Usuários</a></li>
 						<li><a class="black-seuphone white-text waves-effect" href="${s:mvcUrl('listarPerfis').build() }">Perfis</a></li>
-						<li><a class="black-seuphone white-text waves-effect" href="${s:mvcUrl('listarProdutos').build() }">Produtos</a></li>
+						<li><a class="black-seuphone white-text waves-effect" href="${s:mvcUrl('listarUsuarios').build() }">Usuários</a></li>
 						<li><a class="black-seuphone white-text waves-effect" href="${s:mvcUrl('listarFornecedores').build() }">Fornecedores</a></li>
+						<li><a class="black-seuphone white-text waves-effect" href="${s:mvcUrl('listarProdutos').build() }">Produtos</a></li>
 						<li><a class="black-seuphone white-text waves-effect" href="${s:mvcUrl('listarPedidos').build() }">Pedido de Compra</a></li>
 						<li><a class="black-seuphone white-text waves-effect" href="${s:mvcUrl('listarNotasFiscais').build() }">Notas Fiscais</a></li>
 		<li><a class="white-text waves-effect" href="/logout">Sair</a></li>

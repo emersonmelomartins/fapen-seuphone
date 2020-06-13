@@ -35,6 +35,7 @@ import br.com.fapen.seuphone.repositories.FornecedorRepository;
 import br.com.fapen.seuphone.repositories.PedidoCompraRepository;
 import br.com.fapen.seuphone.repositories.ProdutoRepository;
 import br.com.fapen.seuphone.services.PedidoCompraService;
+import br.com.fapen.seuphone.services.RecebimentoService;
 import br.com.fapen.seuphone.validations.PedidoCompraFormValidator;
 
 @Controller
@@ -49,6 +50,9 @@ public class PedidoCompraController {
 
 	@Autowired
 	private ProdutoRepository produtoRep;
+	
+	@Autowired
+	private RecebimentoService recebimentoService;
 
 	@Autowired
 	private PedidoCompraService pedidoService;
@@ -73,12 +77,14 @@ public class PedidoCompraController {
 		mav.addObject("pedidoFiltroForm", pedidoFiltroForm);
 		mav.addObject("listaPaginada", pedidos);
 		mav.addObject("listaStatus",StatusPedidoEnum.values());
+		mav.addObject("listaFornecedores", fornecedorRep.findAllByInativoFalse());
 		return mav;
 	}
 
 	@GetMapping(value = "/novo", name = "novoPedido")
 	public ModelAndView newOrder(PedidoCompraForm pedidoCompraForm) {
 		ModelAndView mav = new ModelAndView("/pedidos/novo");
+		
 
 		mav.addObject("listaFornecedores", fornecedorRep.findAllByInativoFalse());
 		mav.addObject("listaStatusPedido", StatusPedidoEnum.values());
@@ -96,12 +102,7 @@ public class PedidoCompraController {
 
 			return newOrder(pedidoCompraForm);
 		}
-		
-		if(pedidoCompraForm.getPedidoCompra().getSituacaoPedido().equals(StatusPedidoEnum.RECEBIDO)) {
-			atributos.addFlashAttribute("mensagemErro", "Pedidos com status 'Recebido' não podem ser alterados.");
-			return new ModelAndView("redirect:/pedidos");
-		}
-		
+
 		pedidoService.salvar(pedidoCompraForm);
 		atributos.addFlashAttribute("mensagemSucesso", "Pedido foi salvo com sucesso!");
 		return new ModelAndView("redirect:/pedidos");
@@ -138,10 +139,16 @@ public class PedidoCompraController {
 	}
 	
 	@RequestMapping(value = "/{id}/editar", method = RequestMethod.GET, name = "editarPedido")
-	public ModelAndView alterarPedido(@PathVariable Long id) {
+	public ModelAndView alterarPedido(@PathVariable Long id, RedirectAttributes atributos) {
 		
 		PedidoCompra pedidoCompra = pedidoRep.getOne(id);
 		PedidoCompraForm pedidoCompraForm = new PedidoCompraForm(pedidoCompra);
+		
+		if(pedidoCompraForm.getPedidoCompra().getSituacaoPedido() != StatusPedidoEnum.EM_DIGITACAO) {
+			atributos.addFlashAttribute("mensagemErro", "Pedidos com status 'Recebido' ou 'Cancelado' não podem ser alterados.");
+			return new ModelAndView("redirect:/pedidos");
+		}
+		
 
 		ModelAndView mav = new ModelAndView("/pedidos/novo");
 		mav.addObject("listaFornecedores", fornecedorRep.findAllByInativoFalse());
@@ -162,6 +169,22 @@ public class PedidoCompraController {
 		atributos.addFlashAttribute("mensagemSucesso", "Pedido deletado com sucesso!");
 		return "redirect:/pedidos";
 	}
+	
+	@RequestMapping(value = "/{id}/estornar", method = RequestMethod.POST, name = "estornarPedido")
+	public String estornarPedido(@PathVariable Long id, RedirectAttributes atributos) {
+		
+		try {
+			recebimentoService.estornar(id);
+		} catch (Exception e) {
+			atributos.addFlashAttribute("mensagemErro", "Falha ao estornar " + e.getMessage());
+			return "redirect:/pedidos";
+		}
+		
+		atributos.addFlashAttribute("mensagemSucesso", "Pedido estornado com sucesso!");
+		return "redirect:/pedidos";
+	}   
+	
+	
 	
 	@GetMapping(value = "/{id}/nf", name = "visualizarNotaFiscalPedido")
 	public ModelAndView viewInvoice(@PathVariable Long id) {

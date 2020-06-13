@@ -10,29 +10,24 @@ public class PedidoFiltroForm {
 	private StatusPedidoEnum status;
 	private LocalDate entregaInicial;
 	private LocalDate entregaFinal;
+	private String fornecedor;
 	private String tipoFiltro;
 	private Integer pagina;
 	private boolean novoFiltro;
-	
+
 	public PedidoFiltroForm() {
 		this.pagina = 1;
 		this.novoFiltro = false;
 		this.tipoFiltro = "NP";
 	}
 
-	
-
 	public Long getNumeroPedido() {
 		return numeroPedido;
 	}
 
-
-
 	public void setNumeroPedido(Long numeroPedido) {
 		this.numeroPedido = numeroPedido;
 	}
-
-
 
 	public StatusPedidoEnum getStatus() {
 		return status;
@@ -81,6 +76,13 @@ public class PedidoFiltroForm {
 	public void setNovoFiltro(boolean novoFiltro) {
 		this.novoFiltro = novoFiltro;
 	}
-	
-	
+
+	public String getFornecedor() {
+		return fornecedor;
+	}
+
+	public void setFornecedor(String fornecedor) {
+		this.fornecedor = fornecedor;
+	}
+
 }
