@@ -26,6 +26,7 @@ public class SeuphoneSecurityConfig extends WebSecurityConfigurerAdapter{
 		http.authorizeRequests()
 		.antMatchers("/").permitAll()
 		.antMatchers("/home").permitAll()
+		.antMatchers("/error").permitAll()
 		.antMatchers("/js/**").permitAll()
 		.antMatchers("/css/**").permitAll()
 		.antMatchers("/img/**").permitAll()
