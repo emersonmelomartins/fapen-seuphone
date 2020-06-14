@@ -199,16 +199,33 @@
 											class="material-icons blue-text text-darken-3">edit</i></a>
 
 
+										<c:if test="${pedido.situacaoPedido.displayValue == 'Recebido' }">
 										<button href="#modalExcluir"
 											class="modal-excluir modal-trigger waves-effect waves-light btn-small red"
 											data-descr="estorno" data-tabela="pedidos"
-											data-id="${pedido.idPedido }" title="Excluir">
+											data-id="${pedido.idPedido }" title="Estornar">
 											<i class="material-icons red-text text-darken-3">delete</i>
 											<f:form
 												action="${s:mvcUrl('estornarPedido').arg(0, pedido.idPedido).build() }"
 												method="POST">
 											</f:form>
-										</button> <a class="waves-effect waves-light btn-small purple"
+										</button> 
+										</c:if>
+										
+										<c:if test="${pedido.situacaoPedido.displayValue == 'Em Digitação' || pedido.situacaoPedido.displayValue == 'Cancelado' }">
+										<button href="#modalExcluir"
+											class="modal-excluir modal-trigger waves-effect waves-light btn-small red"
+											data-descr="${pedido.idPedido }" data-tabela="pedidos"
+											data-id="${pedido.idPedido }" title="Excluir">
+											<i class="material-icons red-text text-darken-3">delete</i>
+											<f:form
+												action="${s:mvcUrl('apagarPedido').arg(0, pedido.idPedido).build() }"
+												method="POST">
+											</f:form>
+										</button> 
+										</c:if>
+										
+										<a class="waves-effect waves-light btn-small purple"
 										href="${s:mvcUrl('gerarPdfPedido').arg(0, pedido.idPedido).build() }"
 										target="_blank" title="Gerar PDF"><i
 											class="material-icons purple-text text-darken-3">print</i></a></td>
