@@ -285,20 +285,12 @@
 				$("#formFiltro").submit();
 			});
 
-			$("#btn-np, #btn-st, #btn-dt, #btn-fn"/*"#filtro-np, #filtro-st, #filtro-dt"*/).on("click", function(e) {
-				//if (event.which == 13 || event.keyCode == 13) {
+			$("#btn-np, #btn-st, #btn-dt, #btn-fn").on("click", function(e) {
 					e.preventDefault();
 					$("#novoFiltro").val("true");
 					$("#pedidoFiltroForm").submit();
-			    //}
 				
 			});
-		});
-	</script>
-
-	<script type="text/javascript">
-		$(document).ready(function() {
-
 		});
 	</script>
 </body>
