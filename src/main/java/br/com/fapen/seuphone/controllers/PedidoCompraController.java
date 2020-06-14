@@ -161,10 +161,11 @@ public class PedidoCompraController {
 	}
 	
 	@RequestMapping(value = "/{id}/excluir", method = RequestMethod.POST, name = "apagarPedido")
-	public String excluirPedido(@PathVariable Long id, RedirectAttributes atributos) {
+	public String inativarPedido(@PathVariable Long id, RedirectAttributes atributos) {
 		PedidoCompra pedidoCompra = pedidoRep.getOne(id);
 		
-		pedidoRep.delete(pedidoCompra);
+		pedidoCompra.setInativo(true);
+		pedidoRep.save(pedidoCompra);
 		
 		atributos.addFlashAttribute("mensagemSucesso", "Pedido deletado com sucesso!");
 		return "redirect:/pedidos";

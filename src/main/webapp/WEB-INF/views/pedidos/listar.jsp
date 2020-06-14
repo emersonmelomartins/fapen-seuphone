@@ -185,6 +185,10 @@
 												class="material-icons green-text text-darken-3">receipt</i></a>
 										</c:if>
 										
+										<c:if test="">
+										
+										</c:if>
+										
 										 <a class="waves-effect waves-light btn-small yellow"
 										href="${s:mvcUrl('visualizarPedido').arg(0, pedido.idPedido).build() }"
 										title="Visualizar"><i
