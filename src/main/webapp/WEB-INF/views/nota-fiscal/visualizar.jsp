@@ -73,7 +73,7 @@
 										</tr>
 										<tr>
 											<td>Número Nota Fiscal:</td>
-											<td>${notaFiscal.serieNotaFiscal }</td>
+											<td>${notaFiscal.numeroNotaFiscal }</td>
 										</tr>
 										<tr>
 											<td>Data da Nota Fiscal:</td>
