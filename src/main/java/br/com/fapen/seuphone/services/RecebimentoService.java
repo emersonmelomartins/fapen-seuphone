@@ -102,7 +102,7 @@ public class RecebimentoService {
 			produtoRep.save(produto);
 		}
 
-		pedido.setSituacaoPedido(StatusPedidoEnum.CANCELADO);
+		pedido.setSituacaoPedido(StatusPedidoEnum.EM_DIGITACAO);
 		notaFiscalRep.delete(nfe);
 	}
 	
