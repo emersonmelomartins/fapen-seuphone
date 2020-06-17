@@ -44,7 +44,7 @@ public class PedidoCompraService {
 				return pedidoRep.findAllByInativoFalse(paginacao);
 			}
 		} else if (pedidoFiltroForm.getTipoFiltro().equals("ST")) {
-			return pedidoRep.findAllBySituacaoPedidoAndInativoFalse(pedidoFiltroForm.getStatus(), paginacao);
+			return pedidoRep.findAllBySituacaoPedido(pedidoFiltroForm.getStatus(), paginacao);
 		} else if (pedidoFiltroForm.getTipoFiltro().equals("DT")) {
 			return pedidoRep.findAllByDtEntregaBetween(pedidoFiltroForm.getEntregaInicial(),
 					pedidoFiltroForm.getEntregaFinal(), paginacao);

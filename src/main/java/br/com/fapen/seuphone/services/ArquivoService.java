@@ -9,6 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
 @Service
 public class ArquivoService {
 
+	// Necessário alterar caminho das imagens salvas caso esteja em uma máquina diferente
 	public static final String DIRETORIO_BASE = "/home/emerson/Downloads/dev/media/";
 	
 	public String salvarArquivo(MultipartFile arquivo) {

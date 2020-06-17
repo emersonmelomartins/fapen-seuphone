@@ -164,6 +164,7 @@ public class PedidoCompraController {
 	public String inativarPedido(@PathVariable Long id, RedirectAttributes atributos) {
 		PedidoCompra pedidoCompra = pedidoRep.getOne(id);
 		
+		pedidoCompra.setSituacaoPedido(StatusPedidoEnum.CANCELADO);
 		pedidoCompra.setInativo(true);
 		pedidoRep.save(pedidoCompra);
 		

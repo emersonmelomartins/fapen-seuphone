@@ -29,6 +29,13 @@
 				</div>
 			</div>
 		</c:if>
+		<c:if test="${param.error != null}">
+			<div class="status-message row">
+				<div class="center col s4 red white-text animated bounceInLeft">
+					<p>Usuário ou senha inválido.</p>
+				</div>
+			</div>
+		</c:if>
 		<div class="row center">
 			<br>
 			<br>
@@ -38,7 +45,7 @@
 				<div class="row">
 					<div class="col s4"></div>
 					<div class="col s4">
-
+						
 						<div class="input-field col s12">
 							<label for="inputUsername">Usuário</label> <input
 								id="inputUsername" name="username" type="text" class="validate"

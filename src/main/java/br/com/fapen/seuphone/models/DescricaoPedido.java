@@ -9,12 +9,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
-@Entity(name = "tb_descricao_pedido")
+@Entity(name = "tb_itens_pedido")
 public class DescricaoPedido {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id_descricao")
+	@Column(name = "id_itens_pedido")
 	private Long idDescricao;
 	
 	@ManyToOne

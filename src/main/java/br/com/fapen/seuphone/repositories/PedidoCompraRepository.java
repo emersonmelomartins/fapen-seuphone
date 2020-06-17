@@ -19,6 +19,8 @@ public interface PedidoCompraRepository extends JpaRepository<PedidoCompra, Long
 	
 	public Page<PedidoCompra> findAllBySituacaoPedidoAndInativoFalse(StatusPedidoEnum status, Pageable paginacao);
 	
+	public Page<PedidoCompra> findAllBySituacaoPedido(StatusPedidoEnum status, Pageable paginacao);
+	
 	public Page<PedidoCompra> findAllByDtEntregaBetween(LocalDate dataInicial, LocalDate dataFinal, Pageable paginacao);
 	
 	public Page<PedidoCompra> findAllByInativoFalse(Pageable paginacao);
