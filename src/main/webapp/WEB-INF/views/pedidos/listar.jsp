@@ -111,7 +111,7 @@
 							</button>
 						</div>
 					</div>
-					
+
 					<div style="display: none;" id="filtro-fn">
 						<div class="input-field col s8">
 							<f:input path="fornecedor" cssClass="validate"
@@ -146,7 +146,6 @@
 								<th>Valor</th>
 								<th>Situação</th>
 								<th>Data Entrega</th>
-								<th>Status</th>
 								<th class="center-align">Ações</th>
 							</tr>
 						</thead>
@@ -162,70 +161,53 @@
 									<td>${pedido.situacaoPedido.displayValue}</td>
 									<td><fmt:formatDate value="${parsedDate }"
 											pattern="dd/MM/yyyy" /></td>
-									<td><c:if test="${!pedido.inativo }">
-											<div class="chip green-text">Ativo</div>
-										</c:if> <c:if test="${pedido.inativo }">
-											<div class="chip red-text">Inativo</div>
-										</c:if></td>
-									<td class="center-align">
-									
-									<c:if
+
+									<td class="center-align"><c:if
 											test="${pedido.situacaoPedido.displayValue == 'Em Digitação' }">
 											<a class="waves-effect waves-light btn-small orange"
 												href="${s:mvcUrl('novoRecebimento').build() }"
 												title="Novo Recebimento"><i
 												class="material-icons orange-text text-darken-3">local_shipping</i></a>
-										</c:if> 
-										
-										<c:if
+										</c:if> <c:if
 											test="${pedido.situacaoPedido.displayValue == 'Recebido' }">
 											<a class="waves-effect waves-light btn-small green"
 												href="${s:mvcUrl('visualizarNotaFiscalPedido').arg(0, pedido.idPedido).build() }"
 												title="Nota Fiscal"><i
 												class="material-icons green-text text-darken-3">receipt</i></a>
-										</c:if>
-										
-										<c:if test="">
-										
-										</c:if>
-										
-										 <a class="waves-effect waves-light btn-small yellow"
+										</c:if> <c:if test="">
+
+										</c:if> <a class="waves-effect waves-light btn-small yellow"
 										href="${s:mvcUrl('visualizarPedido').arg(0, pedido.idPedido).build() }"
 										title="Visualizar"><i
 											class="material-icons yellow-text text-darken-3">remove_red_eye</i></a>
 										<a class="waves-effect waves-light btn-small blue"
 										href="${s:mvcUrl('editarPedido').arg(0, pedido.idPedido).build() }"
 										title="Editar"><i
-											class="material-icons blue-text text-darken-3">edit</i></a>
-
-
-										<c:if test="${pedido.situacaoPedido.displayValue == 'Recebido' }">
-										<button href="#modalExcluir"
-											class="modal-excluir modal-trigger waves-effect waves-light btn-small red"
-											data-descr="estorno" data-tabela="pedidos"
-											data-id="${pedido.idPedido }" title="Estornar">
-											<i class="material-icons red-text text-darken-3">delete</i>
-											<f:form
-												action="${s:mvcUrl('estornarPedido').arg(0, pedido.idPedido).build() }"
-												method="POST">
-											</f:form>
-										</button> 
-										</c:if>
-										
-										<c:if test="${pedido.situacaoPedido.displayValue == 'Em Digitação' || pedido.situacaoPedido.displayValue == 'Cancelado' }">
-										<button href="#modalExcluir"
-											class="modal-excluir modal-trigger waves-effect waves-light btn-small red"
-											data-descr="${pedido.idPedido }" data-tabela="pedidos"
-											data-id="${pedido.idPedido }" title="Excluir">
-											<i class="material-icons red-text text-darken-3">delete</i>
-											<f:form
-												action="${s:mvcUrl('apagarPedido').arg(0, pedido.idPedido).build() }"
-												method="POST">
-											</f:form>
-										</button> 
-										</c:if>
-										
-										<a class="waves-effect waves-light btn-small purple"
+											class="material-icons blue-text text-darken-3">edit</i></a> <c:if
+											test="${pedido.situacaoPedido.displayValue == 'Recebido' }">
+											<button href="#modalExcluir"
+												class="modal-excluir modal-trigger waves-effect waves-light btn-small red"
+												data-descr="estorno" data-tabela="pedidos"
+												data-id="${pedido.idPedido }" title="Estornar">
+												<i class="material-icons red-text text-darken-3">delete</i>
+												<f:form
+													action="${s:mvcUrl('estornarPedido').arg(0, pedido.idPedido).build() }"
+													method="POST">
+												</f:form>
+											</button>
+										</c:if> <c:if
+											test="${pedido.situacaoPedido.displayValue == 'Em Digitação' || pedido.situacaoPedido.displayValue == 'Cancelado' }">
+											<button href="#modalExcluir"
+												class="modal-excluir modal-trigger waves-effect waves-light btn-small red"
+												data-descr="${pedido.idPedido }" data-tabela="pedidos"
+												data-id="${pedido.idPedido }" title="Excluir">
+												<i class="material-icons red-text text-darken-3">delete</i>
+												<f:form
+													action="${s:mvcUrl('apagarPedido').arg(0, pedido.idPedido).build() }"
+													method="POST">
+												</f:form>
+											</button>
+										</c:if> <a class="waves-effect waves-light btn-small purple"
 										href="${s:mvcUrl('gerarPdfPedido').arg(0, pedido.idPedido).build() }"
 										target="_blank" title="Gerar PDF"><i
 											class="material-icons purple-text text-darken-3">print</i></a></td>
@@ -283,13 +265,12 @@
 					$('#filtro-np').hide();
 					$('#filtro-st').hide();
 					$('#filtro-fn').hide();
+				} else if (filtro == 'FN') {
+					$('#filtro-fn').show();
+					$('#filtro-dt').hide();
+					$('#filtro-np').hide();
+					$('#filtro-st').hide();
 				}
-				 else if (filtro == 'FN') {
-					 	$('#filtro-fn').show();
-						$('#filtro-dt').hide();
-						$('#filtro-np').hide();
-						$('#filtro-st').hide();
-					}
 			});
 
 			$(".paginacao").on("click", function(e) {
@@ -303,10 +284,10 @@
 			});
 
 			$("#btn-np, #btn-st, #btn-dt, #btn-fn").on("click", function(e) {
-					e.preventDefault();
-					$("#novoFiltro").val("true");
-					$("#pedidoFiltroForm").submit();
-				
+				e.preventDefault();
+				$("#novoFiltro").val("true");
+				$("#pedidoFiltroForm").submit();
+
 			});
 		});
 	</script>
