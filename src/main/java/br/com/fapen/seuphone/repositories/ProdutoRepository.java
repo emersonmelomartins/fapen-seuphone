@@ -14,6 +14,8 @@ public interface ProdutoRepository extends JpaRepository<Produto, Long> {
 	
 	public Page<Produto> findByDescricaoContainingIgnoreCase(String busca, Pageable paginacao);
 	
+	public Page<Produto> findByDescricaoContainingIgnoreCaseAndInativoFalse(String busca, Pageable paginacao);
+
 	public Page<Produto> findAllByOrderByIdProdutoAsc(Pageable paginacao);
 	
 	public Produto findOneByIdProduto(Long id);
@@ -21,5 +23,7 @@ public interface ProdutoRepository extends JpaRepository<Produto, Long> {
 	public Page<Produto> findByInativoFalse(Pageable paginacao);
 
 	public List<Produto> findAllByInativoFalse();
+
+	public Page<Produto> findAll(Pageable paginacao);
 
 }
