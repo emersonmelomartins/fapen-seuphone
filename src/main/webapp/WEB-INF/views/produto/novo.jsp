@@ -55,33 +55,39 @@
 
 
 
-								<div class="card-image col s6">
-									<c:if test="${produto.getCaminhoFoto() == null }">
-										<img class="product-image" src="/img/default_product.png"
-											alt="Imagem do Produto">
-									</c:if>
-									<c:if test="${produto.getCaminhoFoto() != null}">
-										<img class="product-image" src="/${produto.getCaminhoFoto() }"
-											alt="Imagem do Produto">
-									</c:if>
-								</div>
 
-								<f:form action="${s:mvcUrl('alterarFotoProduto').build() }"
-									method="POST" enctype="multipart/form-data"
-									modelAttribute="produto">
-									<f:hidden path="idProduto" />
-									<div class="file-field input-field">
-										<div class="btn indigo">
-											<span><i class="material-icons">attach_file</i></span> <input
-												type="file" name="foto" multiple>
-										</div>
-										<div class="file-path-wrapper">
-											<input class="file-path validate" type="text"
-												placeholder="Selecione uma imagem">
-										</div>
-										<button class="btn-small indigo" type="submit">Salvar</button>
+
+								<c:if test="${produto.idProduto != null }">
+
+									<div class="card-image col s6">
+										<c:if test="${produto.getCaminhoFoto() == null }">
+											<img class="product-image" src="/img/default_product.png"
+												alt="Imagem do Produto">
+										</c:if>
+										<c:if test="${produto.getCaminhoFoto() != null}">
+											<img class="product-image"
+												src="/${produto.getCaminhoFoto() }" alt="Imagem do Produto">
+										</c:if>
 									</div>
-								</f:form>
+
+									<f:form action="${s:mvcUrl('alterarFotoProduto').build() }"
+										method="POST" enctype="multipart/form-data"
+										modelAttribute="produto">
+										<f:hidden path="idProduto" />
+										<div class="file-field input-field">
+											<div class="btn indigo">
+												<span><i class="material-icons">attach_file</i></span> <input
+													type="file" name="foto" multiple>
+											</div>
+											<div class="file-path-wrapper">
+												<input class="file-path validate" type="text"
+													placeholder="Selecione uma imagem">
+											</div>
+											<button class="btn-small indigo" type="submit">Salvar</button>
+										</div>
+									</f:form>
+								</c:if>
+
 								<f:form method="POST"
 									action="${s:mvcUrl('salvarProduto').build() }"
 									modelAttribute="produto" class="col s12">
