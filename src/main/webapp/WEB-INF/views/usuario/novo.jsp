@@ -52,7 +52,9 @@
 									modelAttribute="usuarioForm" class="col s12">
 									<f:hidden path="usuario.idLogin" />
 									<f:hidden path="inclusao" />
-									<f:hidden path="usuario.caminhoFoto" />
+									<c:if test="${!usuarioForm.inclusao }">
+										<f:hidden path="usuario.caminhoFoto" />
+									</c:if>
 
 									<div class="row">
 										<div class="input-field col s6">
