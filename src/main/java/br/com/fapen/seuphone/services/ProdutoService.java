@@ -34,10 +34,10 @@ public class ProdutoService {
 
         if(isAdmin){
             if(busca.equals("")) {
-               return listaProdutos = produtoRep.findAll(Paginacao.getPaginacao(pagina));
+               return listaProdutos = produtoRep.findAllByOrderByIdProdutoAsc(Paginacao.getPaginacao(pagina));
             } else {
                return listaProdutos = produtoRep.findByDescricaoContainingIgnoreCase(busca, Paginacao.getPaginacao(pagina));
-            } 
+            }
         }
 
         if(busca.equals("")) {
