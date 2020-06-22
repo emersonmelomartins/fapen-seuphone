@@ -6,6 +6,8 @@
 <%@ taglib prefix="f" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="sec"
+	uri="http://www.springframework.org/security/tags"%>
 
 <head>
 <meta charset="UTF-8">
@@ -110,6 +112,10 @@
 										<div class="input-field col s6">
 											<i class="material-icons prefix">description</i>
 											<f:select path="fornecedor">
+												<c:if test="${produto.fornecedor != null }">
+													<f:option selected="true" value="${produto.fornecedor }"
+														label="${produto.fornecedor.razaoSocial }" />
+												</c:if>
 												<f:option value="">Selecione um Fornecedor</f:option>
 												<c:forEach items="${listaFornecedores}" var="fornecedor">
 													<f:option value="${fornecedor.id}">${fornecedor.razaoSocial}</f:option>
@@ -163,6 +169,20 @@
 											<label for="valor">Valor</label>
 										</div>
 									</div>
+
+									<sec:authorize access="hasRole('ROLE_ADMIN')">
+										<div class="row">
+											<div class="input-field col s6">
+												<i class="material-icons prefix">description</i>
+												<f:select path="inativo" id="inativo" cssClass="validate">
+													<f:option value="false">Ativo</f:option>
+													<f:option value="true">Inativo</f:option>
+												</f:select>
+												<f:errors path="inativo" cssClass="helper-text red-text" />
+												<label for="inativo">Status do Produto</label>
+											</div>
+										</div>
+									</sec:authorize>
 							</div>
 
 						</div>

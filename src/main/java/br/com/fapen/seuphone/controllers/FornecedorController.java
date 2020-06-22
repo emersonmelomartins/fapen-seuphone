@@ -74,8 +74,6 @@ public class FornecedorController {
 	public String createProvider(@Valid Fornecedor fornecedor, BindingResult resultadoValidacao, RedirectAttributes atributos) {
 		
 		if(resultadoValidacao.hasErrors()) {
-
-			
 			return newProvider(fornecedor);
 		}
 		

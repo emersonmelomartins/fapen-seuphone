@@ -6,6 +6,8 @@
 <%@ taglib prefix="f" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="sec"
+	uri="http://www.springframework.org/security/tags"%>
 
 <head>
 <meta charset="UTF-8">
@@ -167,20 +169,21 @@
 									</div>
 
 
-
-									<div class="row">
-										<div class="input-field col s6">
-											<i class="material-icons prefix">description</i>
-											<f:select path="usuario.inativo" id="usuario.inativo"
-												cssClass="validate">
-												<f:option value="false">Ativo</f:option>
-												<f:option value="true">Inativo</f:option>
-											</f:select>
-											<f:errors path="usuario.inativo"
-												cssClass="helper-text red-text" />
-											<label for="usuario.inativo">Status do Usuário</label>
+									<sec:authorize access="hasRole('ROLE_ADMIN')">
+										<div class="row">
+											<div class="input-field col s6">
+												<i class="material-icons prefix">description</i>
+												<f:select path="usuario.inativo" id="usuario.inativo"
+													cssClass="validate">
+													<f:option value="false">Ativo</f:option>
+													<f:option value="true">Inativo</f:option>
+												</f:select>
+												<f:errors path="usuario.inativo"
+													cssClass="helper-text red-text" />
+												<label for="usuario.inativo">Status do Usuário</label>
+											</div>
 										</div>
-									</div>
+									</sec:authorize>
 
 									<br />
 									<label for="perfil">Perfil</label>

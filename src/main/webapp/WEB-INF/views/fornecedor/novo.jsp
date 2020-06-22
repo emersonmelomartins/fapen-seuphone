@@ -197,14 +197,13 @@
 											<label for="endereco.complemento">Complemento</label>
 										</div>
 									</div>
-									
-									
-									<sec:authorize access="hasRole('ROLE_ADMIN')" >
+
+
+									<sec:authorize access="hasRole('ROLE_ADMIN')">
 										<div class="row">
 											<div class="input-field col s6">
 												<i class="material-icons prefix">description</i>
-												<f:select path="inativo" id="inativo"
-													cssClass="validate">
+												<f:select path="inativo" id="inativo" cssClass="validate">
 													<f:option value="false">Ativo</f:option>
 													<f:option value="true">Inativo</f:option>
 												</f:select>
@@ -212,8 +211,7 @@
 												<label for="inativo">Status do Fornecedor</label>
 											</div>
 										</div>
-									</sec:authorize>
-							</div>
+									</sec:authorize></div>
 
 						</div>
 						<div class="card-action">
