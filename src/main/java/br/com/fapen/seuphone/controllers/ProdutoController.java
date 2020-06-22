@@ -1,5 +1,7 @@
 package br.com.fapen.seuphone.controllers;
 
+import java.security.Principal;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +25,7 @@ import br.com.fapen.seuphone.repositories.FornecedorRepository;
 import br.com.fapen.seuphone.repositories.Paginacao;
 import br.com.fapen.seuphone.repositories.ProdutoRepository;
 import br.com.fapen.seuphone.services.ArquivoService;
+import br.com.fapen.seuphone.services.ProdutoService;
 import br.com.fapen.seuphone.validations.ProdutoValidator;
 
 
@@ -42,6 +45,9 @@ public class ProdutoController {
 	@Autowired
 	private ArquivoService arquivoService;
 
+	@Autowired
+	private ProdutoService produtoService;
+
 	@InitBinder("produto")
 	protected void init(WebDataBinder binder) {
 		binder.setValidator(produtoValidator);
@@ -50,14 +56,9 @@ public class ProdutoController {
 	
 
 	@GetMapping(name = "listarProdutos")
-	public ModelAndView listProduct(@RequestParam(defaultValue = "1") Integer pagina, @RequestParam(defaultValue = "") String busca) {
+	public ModelAndView listProduct(@RequestParam(defaultValue = "1") Integer pagina, @RequestParam(defaultValue = "") String busca, Principal principal) {
 		
-		Page<Produto> listaProdutos;
-		if(busca.equals("")) {
-			listaProdutos = produtoRep.findByInativoFalse(Paginacao.getPaginacao(pagina));
-		} else {
-			listaProdutos = produtoRep.findByDescricaoContainingIgnoreCase(busca, Paginacao.getPaginacao(pagina));
-		}
+		Page<Produto> listaProdutos = produtoService.listar(busca, pagina, principal);
 
 		ModelAndView mav = new ModelAndView("produto/listar");
 		mav.addObject("listaPaginada", listaProdutos);
