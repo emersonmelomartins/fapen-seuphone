@@ -93,14 +93,7 @@
 											<td>Situação do Pedido:</td>
 											<td>${notaFiscal.pedido.situacaoPedido.displayValue }</td>
 										</tr>
-										<tr>
-											<td>Status do Pedido:</td>
-											<td><c:if test="${!pedido.inativo }">
-													<span class="chip green-text">Ativo</span>
-												</c:if> <c:if test="${pedido.inativo }">
-													<span class="chip red-text">Inativo</span>
-												</c:if></td>
-										</tr>
+										
 									</tbody>
 								</table>
 								<h5 style="text-transform: uppercase;" class="black-text">
