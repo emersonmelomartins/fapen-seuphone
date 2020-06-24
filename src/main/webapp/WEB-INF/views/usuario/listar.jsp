@@ -85,10 +85,12 @@
 								<tr>
 									<td>${usuario.idLogin}</td>
 									<td>
-										<c:if test="${usuario.getCaminhoFoto() == null }">
+										<c:if test="${usuario.getCaminhoFoto() == null}">
 											<img class="profile-avatar" src="/img/default_avatar.png"
 												width=30 alt="Avatar do Usuário">
-										</c:if> <c:if test="${usuario.getCaminhoFoto() != null}">
+										</c:if> 
+										
+										<c:if test="${usuario.getCaminhoFoto() != null}">
 											<img class="profile-avatar"
 												width=30 src="/${usuario.getCaminhoFoto() }" alt="Avatar do Usuário">
 										</c:if>

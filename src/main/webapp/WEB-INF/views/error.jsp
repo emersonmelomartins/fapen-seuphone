@@ -33,12 +33,12 @@
 			<div class="col s2"></div>
 			<div class="col s8">
 				<h1 class="titulo">Ocorreu um erro</h1>
-				<p></p>
 				<table class="centered">
-				
+
 					<tr>
 						<td>Data de Ocorrência</td>
-						<td><fmt:formatDate value="${timestamp}" pattern="dd/MM/yyyy HH:mm"/> </td>
+						<td><fmt:formatDate value="${timestamp}"
+								pattern="dd/MM/yyyy HH:mm" /></td>
 					</tr>
 					<tr>
 						<td>Erro Encontrado</td>
@@ -50,7 +50,12 @@
 					</tr>
 					<tr>
 						<td>Mensagem</td>
-						<td>${message}</td>
+						<td>
+							<c:if test="${status == 403 }">
+								Você não tem permissão para acessar essa página
+							</c:if>
+							<p>${message}</p>
+						</td>
 					</tr>
 					<tr>
 						<td>Exception</td>
@@ -63,7 +68,7 @@
 				</table>
 
 			</div>
-			<div class="col s2"></div>s
+			<div class="col s2"></div>
 		</div>
 	</div>
 

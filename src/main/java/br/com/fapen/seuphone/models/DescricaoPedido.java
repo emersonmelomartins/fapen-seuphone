@@ -1,6 +1,7 @@
 package br.com.fapen.seuphone.models;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -68,7 +69,13 @@ public class DescricaoPedido {
 		this.valor = valor;
 	}
 
-
+	public BigDecimal calculaQtdTotal(BigDecimal valor, Double quantidade) {
+		BigDecimal roundedValor = valor.setScale(2, RoundingMode.HALF_EVEN);
+		BigDecimal qtd = new BigDecimal(quantidade);
+		BigDecimal total = roundedValor.multiply(qtd);
+		
+		return total;
+	}
 	
 	
 }

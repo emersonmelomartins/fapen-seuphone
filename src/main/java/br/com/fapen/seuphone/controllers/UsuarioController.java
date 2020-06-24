@@ -86,6 +86,9 @@ public class UsuarioController {
 			
 			return newUser(usuarioForm);
 		}
+		if(usuarioForm.getUsuario().getCaminhoFoto() == "") {
+			usuarioForm.getUsuario().setCaminhoFoto(null);
+		}
 		
 		usuarioService.salvar(usuarioForm);
 		

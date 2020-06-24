@@ -109,7 +109,7 @@
 												<td>${item.quantidade }</td>
 												<td>${item.produto.valor }</td>
 												<!-- Temporário -->
-												<td>${item.produto.valor*item.quantidade }</td>
+												<td>${item.calculaQtdTotal(item.produto.valor,item.quantidade) }</td>
 											</tr>
 										</c:forEach>
 										<tr>
