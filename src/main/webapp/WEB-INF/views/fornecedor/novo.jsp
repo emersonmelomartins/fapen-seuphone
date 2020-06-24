@@ -177,6 +177,7 @@
 											<label for="endereco.uf">UF</label>
 										</div>
 
+
 										<div class="input-field col s6">
 											<i class="material-icons prefix">description</i>
 											<f:input path="endereco.cidade" cssClass="validate"
