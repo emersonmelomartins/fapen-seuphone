@@ -9,6 +9,16 @@
 
 <p align="center">Projeto Articulador e de Inovação (P.A.I.) da faculdade <a href="https://fapen.edu.br/" target="_blank">FAPEN (Faculdade Pentágono)</a> com objetivo de desenvolver um gerenciamento de estoque</p>
 
+##  Preview
+<p align="left">
+  <img src="/preview-home.png" width=300 alt="Página Inicial" />
+  <img src="/preview-login.png" width=300 alt="Página de Login" />
+</p>
+<p align="left">
+  <img src="/preview-painel.png" width=300 alt="Página Painel Administrativo" />
+  <img src="/preview-produtos.png" width=300 alt="Página de listagem de Produtos" />
+</p>
+
 ##  Requisitos
 
 Esse projeto utiliza as ferramentas:
