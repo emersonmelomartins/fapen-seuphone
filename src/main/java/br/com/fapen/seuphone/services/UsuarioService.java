@@ -4,6 +4,7 @@ import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.Principal;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -58,6 +59,10 @@ public class UsuarioService implements UserDetailsService {
 		}
 
 		
+	}
+	
+	public List<Usuario> findAll() {
+		return usuarioRep.findAll();
 	}
 	
 	public void salvar(UsuarioForm usuarioForm) {
