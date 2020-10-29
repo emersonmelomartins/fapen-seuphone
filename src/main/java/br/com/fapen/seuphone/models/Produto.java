@@ -41,6 +41,8 @@ public class Produto {
 	@Column(name = "caminho_foto")
 	private String caminhoFoto;
 	
+	private String fotoEmString;
+	
 	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_fornecedor")
 	private Fornecedor fornecedor;
@@ -136,5 +138,14 @@ public class Produto {
 	public void setCaminhoFoto(String caminhoFoto) {
 		this.caminhoFoto = caminhoFoto;
 	}
+
+	public String getFotoEmString() {
+		return fotoEmString;
+	}
+
+	public void setFotoEmString(String fotoEmString) {
+		this.fotoEmString = fotoEmString;
+	}
+	
 	
 }
