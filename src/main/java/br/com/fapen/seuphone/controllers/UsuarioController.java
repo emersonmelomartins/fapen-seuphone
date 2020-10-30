@@ -72,8 +72,6 @@ public class UsuarioController {
 	@GetMapping(value = "/novo", name = "novoUsuario")
 	public ModelAndView newUser(UsuarioForm usuarioForm) {
 		
-		System.out.println(usuarioForm.isInclusao());
-		
 		ModelAndView mav = new ModelAndView("/usuario/novo");
 		mav.addObject("listaPerfis", perfilRep.findAll());
 		return mav;
