@@ -42,14 +42,14 @@ public class ProdutoApiController {
 	@CrossOrigin
 	@GetMapping
 	public List<Produto> listar() throws IOException {
-		List<Produto> produtos = produtoRep.findAll();
+		List<Produto> produtos = produtoRep.findAllByInativoFalse();
 		
 		
 		for(Produto produto : produtos){
-			if(!produto.getCaminhoFoto().isEmpty() || !produto.getCaminhoFoto().isBlank() || produto.getCaminhoFoto() != null) {
-					
-				System.out.println(produto.getCaminhoFoto());
-				produto.setFotoEmString(arquivoService.ImageToString(produto.getCaminhoFoto()));				
+			if(produto.getCaminhoFoto() != null) {
+				produto.setFotoEmString("data:image/png;base64,"+arquivoService.ImageToString(produto.getCaminhoFoto()));
+			} else {
+				produto.setFotoEmString("");
 			}
         }
 		return produtos;
@@ -59,9 +59,11 @@ public class ProdutoApiController {
 	public ResponseEntity<Produto> buscarPorId(@PathVariable Long id) throws IOException {
 		Optional<Produto> prod = produtoRep.findById(id);
 		
-		String imagemEmString = arquivoService.ImageToString(prod.get().getCaminhoFoto());
-		
-		prod.get().setFotoEmString(imagemEmString);
+		if(prod.get().getCaminhoFoto() != null) {
+			prod.get().setFotoEmString("data:image/png;base64,"+arquivoService.ImageToString(prod.get().getCaminhoFoto()));
+		} else {
+			prod.get().setFotoEmString("");
+		}
 		
 		if(prod.isEmpty()) {
 			return new ResponseEntity<Produto>(HttpStatus.NOT_FOUND);
