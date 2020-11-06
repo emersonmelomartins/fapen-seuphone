@@ -35,6 +35,12 @@ public class Produto {
 	@Column(length = 255)
 	private String descricao;
 	
+	@Column(name = "cor_em_hexadecimal")
+	private String corEmHexadecimal;
+	
+	@Column
+	private String capacidade;
+	
 	@Column(name = "quantidade_estoque")
 	private int quantidadeEstoque;
 	
@@ -146,6 +152,23 @@ public class Produto {
 	public void setFotoEmString(String fotoEmString) {
 		this.fotoEmString = fotoEmString;
 	}
+
+	public String getCorEmHexadecimal() {
+		return corEmHexadecimal;
+	}
+
+	public void setCorEmHexadecimal(String corEmHexadecimal) {
+		this.corEmHexadecimal = corEmHexadecimal;
+	}
+
+	public String getCapacidade() {
+		return capacidade;
+	}
+
+	public void setCapacidade(String capacidade) {
+		this.capacidade = capacidade;
+	}
+	
 	
 	
 }
