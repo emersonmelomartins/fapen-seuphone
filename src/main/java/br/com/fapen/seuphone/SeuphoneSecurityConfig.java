@@ -55,9 +55,9 @@ public class SeuphoneSecurityConfig extends WebSecurityConfigurerAdapter {
 		@Override
 		protected void configure(HttpSecurity http) throws Exception {
 
-			http.cors().disable().antMatcher("/api/**").authorizeRequests().antMatchers("/api/usuarios/login")
-					.permitAll().antMatchers(HttpMethod.GET, "/api/produtos/**").permitAll()
-					.antMatchers(HttpMethod.POST, "/api/**").authenticated()
+			http.cors().and().csrf().disable().antMatcher("/api/**").authorizeRequests()
+					.antMatchers("/api/usuarios/login").permitAll().antMatchers(HttpMethod.GET, "/api/produtos/**")
+					.permitAll().antMatchers(HttpMethod.POST, "/api/**").authenticated()
 					.antMatchers(HttpMethod.POST, "/api/produtos/**").authenticated()
 					.antMatchers(HttpMethod.POST, "/api/produtos").authenticated()
 					.antMatchers(HttpMethod.POST, "/api/usuarios/**").authenticated()

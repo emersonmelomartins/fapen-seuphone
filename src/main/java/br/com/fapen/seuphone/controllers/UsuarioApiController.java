@@ -2,7 +2,6 @@ package br.com.fapen.seuphone.controllers;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Optional;
 
 import javax.validation.Valid;
 
@@ -25,10 +24,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.fapen.seuphone.DTO.Base64ImageRequestDTO;
 import br.com.fapen.seuphone.DTO.JwtRequestDTO;
 import br.com.fapen.seuphone.DTO.JwtResponseDTO;
 import br.com.fapen.seuphone.forms.UsuarioForm;
-import br.com.fapen.seuphone.models.Produto;
 import br.com.fapen.seuphone.models.Usuario;
 import br.com.fapen.seuphone.repositories.UsuarioRepository;
 import br.com.fapen.seuphone.services.ArquivoService;
@@ -43,7 +42,7 @@ public class UsuarioApiController {
 
 	@Autowired
 	private UsuarioService usuarioService;
-	
+
 	@Autowired
 	private UsuarioRepository usuarioRep;
 
@@ -102,31 +101,25 @@ public class UsuarioApiController {
 		usuarioService.salvar(usuarioForm);
 		return new ResponseEntity<Object>(usuarioForm, HttpStatus.CREATED);
 	}
-	
+
+	@CrossOrigin
 	@GetMapping("/{login}")
 	public ResponseEntity<Usuario> buscarPorLogin(@PathVariable String login) throws IOException {
 		Usuario usuario = usuarioRep.findByLogin(login);
-		
-		
+
 		return new ResponseEntity<Usuario>(usuario, HttpStatus.OK);
 	}
 
-	/*
-	 * @PostMapping(value = "/avatarUpdate") public ResponseEntity<Object>
-	 * alterarFotoPerfil() {
-	 * 
-	 * 
-	 * //String caminhoDaFoto = arquivoService.salvarArquivo(foto);
-	 * 
-	 * //Usuario usuario = usuarioRep.findByLogin(principal.getName());
-	 * //usuario.setCaminhoFoto(caminhoDaFoto); //usuarioRep.save(usuario);
-	 * 
-	 * //Authentication authentication = new
-	 * UsernamePasswordAuthenticationToken(usuario, usuario.getSenha(),
-	 * usuario.getAuthorities());
-	 * //SecurityContextHolder.getContext().setAuthentication(authentication);
-	 * 
-	 * return new ResponseEntity<Object>(base64Image, HttpStatus.ACCEPTED); }
-	 */
+	@PostMapping(value = "/avatarUpdate")
+	public ResponseEntity<Object> alterarFotoPerfil(@RequestBody Base64ImageRequestDTO requestForm) throws IOException {
+
+		String avatarPath = arquivoService.saveBase64Image(requestForm.getBase64Image());
+
+		Usuario usuario = usuarioRep.findByLogin(requestForm.getUserLogin());
+		usuario.setCaminhoFoto(avatarPath);
+		usuarioRep.save(usuario);
+
+		return new ResponseEntity<Object>(HttpStatus.ACCEPTED);
+	}
 
 }

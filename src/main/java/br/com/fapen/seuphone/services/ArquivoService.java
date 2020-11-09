@@ -3,6 +3,7 @@ package br.com.fapen.seuphone.services;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 
 import org.apache.tomcat.util.codec.binary.Base64;
@@ -47,4 +48,32 @@ public class ArquivoService {
 		
 		return imgEncoded;
 	}
+	
+	public String saveBase64Image(String base64Image) throws IOException {
+		    byte imageBytes[] = Base64.decodeBase64(base64Image);
+		    String caminhoFisico = DIRETORIO_BASE;
+		    
+		    File diretorio = new File(caminhoFisico);
+		    if(!diretorio.exists()) {
+		    	diretorio.mkdir();
+		    }
+		    diretorio = null;
+		    
+			
+		
+			try {
+				File file = new File(caminhoFisico + System.currentTimeMillis()+"_profile.png");
+				
+				FileOutputStream fos = new FileOutputStream(file); 
+				fos.write(imageBytes);
+				fos.close();
+				return "media/" + file.getName();
+			} catch (IllegalStateException e) {
+				System.out.println("Ocorreu um erro! --> " + e.getMessage());
+				return "";
+			}
+		    
+		    
+			
+		}
 }
