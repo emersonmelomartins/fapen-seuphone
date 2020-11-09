@@ -28,6 +28,7 @@ import br.com.fapen.seuphone.DTO.Base64ImageRequestDTO;
 import br.com.fapen.seuphone.DTO.JwtRequestDTO;
 import br.com.fapen.seuphone.DTO.JwtResponseDTO;
 import br.com.fapen.seuphone.forms.UsuarioForm;
+import br.com.fapen.seuphone.models.Produto;
 import br.com.fapen.seuphone.models.Usuario;
 import br.com.fapen.seuphone.repositories.UsuarioRepository;
 import br.com.fapen.seuphone.services.ArquivoService;
@@ -106,6 +107,16 @@ public class UsuarioApiController {
 	@GetMapping("/{login}")
 	public ResponseEntity<Usuario> buscarPorLogin(@PathVariable String login) throws IOException {
 		Usuario usuario = usuarioRep.findByLogin(login);
+
+		if (usuario.equals("") || usuario.equals(null)) {
+			return new ResponseEntity<Usuario>(HttpStatus.NOT_FOUND);
+		}
+
+		if (usuario.getCaminhoFoto() != null) {
+			usuario.setFotoEmString("data:image/png;base64," + arquivoService.ImageToString(usuario.getCaminhoFoto()));
+		} else {
+			usuario.setFotoEmString("");
+		}
 
 		return new ResponseEntity<Usuario>(usuario, HttpStatus.OK);
 	}
