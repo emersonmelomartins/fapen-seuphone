@@ -28,7 +28,6 @@ import br.com.fapen.seuphone.DTO.Base64ImageRequestDTO;
 import br.com.fapen.seuphone.DTO.JwtRequestDTO;
 import br.com.fapen.seuphone.DTO.JwtResponseDTO;
 import br.com.fapen.seuphone.forms.UsuarioForm;
-import br.com.fapen.seuphone.models.Produto;
 import br.com.fapen.seuphone.models.Usuario;
 import br.com.fapen.seuphone.repositories.UsuarioRepository;
 import br.com.fapen.seuphone.services.ArquivoService;

@@ -35,7 +35,7 @@ public class ProdutoApiController {
 	@CrossOrigin
 	@GetMapping
 	public List<Produto> listar() throws IOException {
-		List<Produto> produtos = produtoRep.findAllByInativoFalse();
+		List<Produto> produtos = produtoRep.findAllByInativoFalseAndEstoque();
 
 		for (Produto produto : produtos) {
 			if (produto.getCaminhoFoto() != null) {
@@ -46,6 +46,25 @@ public class ProdutoApiController {
 			}
 		}
 		return produtos;
+	}
+	
+	@GetMapping("/verificaEstoque/{id}")
+	public boolean verificaEstoque(@PathVariable Long id) {
+		Optional<Produto> prod = produtoRep.findById(id);
+		
+		if (!prod.isEmpty()) {
+			int produtoEstoque = prod.get().getQuantidadeEstoque();
+			
+			if(produtoEstoque > 0) {
+				return true;
+			} else {
+				return false;
+			}
+			
+		} else {
+			return false;
+		}
+
 	}
 
 	@GetMapping("/{id}")
