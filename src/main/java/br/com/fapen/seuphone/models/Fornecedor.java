@@ -11,33 +11,33 @@ import javax.persistence.OneToOne;
 
 @Entity(name = "tb_fornecedor")
 public class Fornecedor {
-    
-    @Id
+
+	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id_fornecedor")
-    private Long id;
+	private Long id;
 
-    @Column(name = "razao_social")
-    private String razaoSocial;
-    
-    @Column(name = "cnpj")
-    private String cnpj;
+	@Column(name = "razao_social")
+	private String razaoSocial;
 
-    @Column(name = "tel_fornecedor")
-    private String tel;
+	@Column(name = "cnpj")
+	private String cnpj;
 
-    @Column(name = "email")
-    private String email;
+	@Column(name = "tel_fornecedor")
+	private String tel;
 
-    @Column(name = "categoria_produto")
-    private String categoriaProduto;
+	@Column(name = "email")
+	private String email;
 
-    @Column(columnDefinition = "boolean default false")
+	@Column(name = "categoria_produto")
+	private String categoriaProduto;
+
+	@Column(columnDefinition = "boolean default false")
 	private boolean inativo;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "id_endereco")
-    private Endereco endereco;
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "id_endereco")
+	private Endereco endereco;
 
 	public Long getId() {
 		return id;
@@ -60,7 +60,7 @@ public class Fornecedor {
 	}
 
 	public void setCnpj(String cnpj) {
-		this.cnpj = cnpj.replaceAll("[^0-9]", "");;
+		this.cnpj = cnpj.replaceAll("[^0-9]", "");
 	}
 
 	public String getTel() {
@@ -102,7 +102,5 @@ public class Fornecedor {
 	public void setEndereco(Endereco endereco) {
 		this.endereco = endereco;
 	}
-
-    
 
 }

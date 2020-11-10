@@ -88,9 +88,8 @@ public class UsuarioApiController {
 		}
 	}
 
-	@PostMapping
-	public ResponseEntity<Object> incluir(@Valid @RequestBody UsuarioForm usuarioForm,
-			BindingResult resultadoValidacao) {
+	@PostMapping("/criarUsuario")
+	public ResponseEntity<Object> incluir(@Valid @RequestBody UsuarioForm usuarioForm, BindingResult resultadoValidacao) {
 
 		if (resultadoValidacao.hasErrors()) {
 			return new ResponseEntity<Object>(resultadoValidacao.getAllErrors(), HttpStatus.BAD_REQUEST);
