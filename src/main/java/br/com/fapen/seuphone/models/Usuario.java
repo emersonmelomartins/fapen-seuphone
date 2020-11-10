@@ -18,8 +18,6 @@ import javax.persistence.OneToOne;
 
 import org.springframework.security.core.userdetails.UserDetails;
 
-
-
 @Entity(name = "tb_login")
 public class Usuario implements UserDetails {
 
@@ -45,12 +43,14 @@ public class Usuario implements UserDetails {
 
 	@Column(length = 100, nullable = false)
 	private String email;
-	
+
 	@Column(name = "caminho_foto")
 	private String caminhoFoto;
-	
+
+	private String fotoEmString;
+
 	private String hash;
-	
+
 	@Column(columnDefinition = "boolean default false")
 	private boolean inativo;
 
@@ -93,7 +93,6 @@ public class Usuario implements UserDetails {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	
 
 	public String getCaminhoFoto() {
 		return caminhoFoto;
@@ -102,7 +101,6 @@ public class Usuario implements UserDetails {
 	public void setCaminhoFoto(String caminhoFoto) {
 		this.caminhoFoto = caminhoFoto;
 	}
-	
 
 	public String getHash() {
 		return hash;
@@ -120,17 +118,22 @@ public class Usuario implements UserDetails {
 		this.inativo = inativo;
 	}
 
+	public String getFotoEmString() {
+		return fotoEmString;
+	}
+
+	public void setFotoEmString(String fotoEmString) {
+		this.fotoEmString = fotoEmString;
+	}
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
-	
+
 	@ManyToMany(fetch = FetchType.EAGER)
-	@JoinTable(name = "tb_login_perfil",
-			joinColumns = @JoinColumn(name = "id_login"),
-			inverseJoinColumns = @JoinColumn(name = "id_perfil"))
+	@JoinTable(name = "tb_login_perfil", joinColumns = @JoinColumn(name = "id_login"), inverseJoinColumns = @JoinColumn(name = "id_perfil"))
 	private List<Perfil> authorities = new ArrayList<Perfil>();
-	
+
 	public void setAuthorities(List<Perfil> authorities) {
 		this.authorities = authorities;
 	}

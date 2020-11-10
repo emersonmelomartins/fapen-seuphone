@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.fapen.seuphone.DTO.Base64ImageRequestDTO;
 import br.com.fapen.seuphone.DTO.JwtRequestDTO;
 import br.com.fapen.seuphone.DTO.JwtResponseDTO;
 import br.com.fapen.seuphone.forms.UsuarioForm;
@@ -100,29 +101,34 @@ public class UsuarioApiController {
 		return new ResponseEntity<Object>(usuarioForm, HttpStatus.CREATED);
 	}
 
+	@CrossOrigin
 	@GetMapping("/{login}")
 	public ResponseEntity<Usuario> buscarPorLogin(@PathVariable String login) throws IOException {
 		Usuario usuario = usuarioRep.findByLogin(login);
 
+		if (usuario.equals("") || usuario.equals(null)) {
+			return new ResponseEntity<Usuario>(HttpStatus.NOT_FOUND);
+		}
+
+		if (usuario.getCaminhoFoto() != null) {
+			usuario.setFotoEmString("data:image/png;base64," + arquivoService.ImageToString(usuario.getCaminhoFoto()));
+		} else {
+			usuario.setFotoEmString("");
+		}
+
 		return new ResponseEntity<Usuario>(usuario, HttpStatus.OK);
 	}
 
-	/*
-	 * @PostMapping(value = "/avatarUpdate") public ResponseEntity<Object>
-	 * alterarFotoPerfil() {
-	 * 
-	 * 
-	 * //String caminhoDaFoto = arquivoService.salvarArquivo(foto);
-	 * 
-	 * //Usuario usuario = usuarioRep.findByLogin(principal.getName());
-	 * //usuario.setCaminhoFoto(caminhoDaFoto); //usuarioRep.save(usuario);
-	 * 
-	 * //Authentication authentication = new
-	 * UsernamePasswordAuthenticationToken(usuario, usuario.getSenha(),
-	 * usuario.getAuthorities());
-	 * //SecurityContextHolder.getContext().setAuthentication(authentication);
-	 * 
-	 * return new ResponseEntity<Object>(base64Image, HttpStatus.ACCEPTED); }
-	 */
+	@PostMapping(value = "/avatarUpdate")
+	public ResponseEntity<Object> alterarFotoPerfil(@RequestBody Base64ImageRequestDTO requestForm) throws IOException {
+
+		String avatarPath = arquivoService.saveBase64Image(requestForm.getBase64Image());
+
+		Usuario usuario = usuarioRep.findByLogin(requestForm.getUserLogin());
+		usuario.setCaminhoFoto(avatarPath);
+		usuarioRep.save(usuario);
+
+		return new ResponseEntity<Object>(HttpStatus.ACCEPTED);
+	}
 
 }
