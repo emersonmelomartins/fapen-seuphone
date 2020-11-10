@@ -2,7 +2,6 @@ package br.com.fapen.seuphone.controllers;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Optional;
 
 import javax.validation.Valid;
 
@@ -28,7 +27,6 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.fapen.seuphone.DTO.JwtRequestDTO;
 import br.com.fapen.seuphone.DTO.JwtResponseDTO;
 import br.com.fapen.seuphone.forms.UsuarioForm;
-import br.com.fapen.seuphone.models.Produto;
 import br.com.fapen.seuphone.models.Usuario;
 import br.com.fapen.seuphone.repositories.UsuarioRepository;
 import br.com.fapen.seuphone.services.ArquivoService;
@@ -43,7 +41,7 @@ public class UsuarioApiController {
 
 	@Autowired
 	private UsuarioService usuarioService;
-	
+
 	@Autowired
 	private UsuarioRepository usuarioRep;
 
@@ -89,9 +87,8 @@ public class UsuarioApiController {
 		}
 	}
 
-	@PostMapping
-	public ResponseEntity<Object> incluir(@Valid @RequestBody UsuarioForm usuarioForm,
-			BindingResult resultadoValidacao) {
+	@PostMapping("/criarUsuario")
+	public ResponseEntity<Object> incluir(@Valid @RequestBody UsuarioForm usuarioForm, BindingResult resultadoValidacao) {
 
 		if (resultadoValidacao.hasErrors()) {
 			return new ResponseEntity<Object>(resultadoValidacao.getAllErrors(), HttpStatus.BAD_REQUEST);
@@ -102,12 +99,11 @@ public class UsuarioApiController {
 		usuarioService.salvar(usuarioForm);
 		return new ResponseEntity<Object>(usuarioForm, HttpStatus.CREATED);
 	}
-	
+
 	@GetMapping("/{login}")
 	public ResponseEntity<Usuario> buscarPorLogin(@PathVariable String login) throws IOException {
 		Usuario usuario = usuarioRep.findByLogin(login);
-		
-		
+
 		return new ResponseEntity<Usuario>(usuario, HttpStatus.OK);
 	}
 

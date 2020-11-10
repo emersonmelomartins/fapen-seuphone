@@ -5,16 +5,15 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
 
 @Entity(name = "tb_endereco")
 public class Endereco {
 
     @Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id_endereco")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_endereco")
     private Long id;
-    
+
     @Column(name = "uf")
     private String uf;
 
@@ -35,7 +34,6 @@ public class Endereco {
 
     @Column(name = "numero")
     private int numero;
-
 
     public Long getId() {
         return this.id;
@@ -101,19 +99,11 @@ public class Endereco {
         this.numero = numero;
     }
 
-
     @Override
     public String toString() {
-        return "{" +
-            " id='" + id + "'" +
-            ", uf='" + uf + "'" +
-            ", cidade='" + cidade + "'" +
-            ", logradouro='" + logradouro + "'" +
-            ", bairro='" + bairro + "'" +
-            ", cep='" + cep + "'" +
-            ", complemento='" + complemento + "'" +
-            ", numero='" + numero + "'" +
-            "}";
+        return "{" + " id='" + getId() + "'" + "'" + ", uf='" + getUf() + "'" + ", cidade='" + getCidade() + "'"
+                + ", logradouro='" + getLogradouro() + "'" + ", bairro='" + getBairro() + "'" + ", cep='" + getCep()
+                + "'" + ", complemento='" + getComplemento() + "'" + ", numero='" + getNumero() + "'" + "}";
     }
 
 }
