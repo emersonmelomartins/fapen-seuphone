@@ -168,6 +168,22 @@ public class Produto {
 	public void setCapacidade(String capacidade) {
 		this.capacidade = capacidade;
 	}
+
+	@Override
+	public String toString() {
+		return "Produto [idProduto=" + idProduto + ", tipoProduto=" + tipoProduto + ", modelo=" + modelo + ", valor="
+				+ valor + ", peso=" + peso + ", cor=" + cor + ", descricao=" + descricao + ", corEmHexadecimal="
+				+ corEmHexadecimal + ", capacidade=" + capacidade + ", quantidadeEstoque=" + quantidadeEstoque
+				+ ", caminhoFoto=" + caminhoFoto + ", fotoEmString=" + fotoEmString + ", fornecedor=" + fornecedor
+				+ ", inativo=" + inativo + ", getIdProduto()=" + getIdProduto() + ", getTipoProduto()="
+				+ getTipoProduto() + ", getModelo()=" + getModelo() + ", getValor()=" + getValor() + ", getPeso()="
+				+ getPeso() + ", getCor()=" + getCor() + ", getDescricao()=" + getDescricao()
+				+ ", getQuantidadeEstoque()=" + getQuantidadeEstoque() + ", isInativo()=" + isInativo()
+				+ ", getFornecedor()=" + getFornecedor() + ", getCaminhoFoto()=" + getCaminhoFoto()
+				+ ", getFotoEmString()=" + getFotoEmString() + ", getCorEmHexadecimal()=" + getCorEmHexadecimal()
+				+ ", getCapacidade()=" + getCapacidade() + ", getClass()=" + getClass() + ", hashCode()=" + hashCode()
+				+ ", toString()=" + super.toString() + "]";
+	}
 	
 	
 	

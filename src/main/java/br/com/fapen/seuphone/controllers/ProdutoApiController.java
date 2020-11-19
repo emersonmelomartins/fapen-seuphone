@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.fapen.seuphone.DTO.ResponseEstoqueDTO;
 import br.com.fapen.seuphone.models.Produto;
 import br.com.fapen.seuphone.repositories.ProdutoRepository;
 import br.com.fapen.seuphone.services.ArquivoService;
@@ -47,23 +48,33 @@ public class ProdutoApiController {
 		}
 		return produtos;
 	}
-	
+
 	@GetMapping("/verificaEstoque/{id}")
-	public boolean verificaEstoque(@PathVariable Long id) {
-		Optional<Produto> prod = produtoRep.findById(id);
+	public ResponseEntity<ResponseEstoqueDTO> verificaEstoque(@PathVariable Long id) {
 		
-		if (!prod.isEmpty()) {
+		ResponseEstoqueDTO estoque = new ResponseEstoqueDTO();
+
+		try {
+			Optional<Produto> prod = produtoRep.findById(id);
+
 			int produtoEstoque = prod.get().getQuantidadeEstoque();
-			
-			if(produtoEstoque > 0) {
-				return true;
+
+			if (produtoEstoque > 0) {
+				estoque.setTemEstoque(true);
+				estoque.setQuantidade_estoque(produtoEstoque);
+
 			} else {
-				return false;
+				estoque.setTemEstoque(false);
+				estoque.setQuantidade_estoque(0);
 			}
-			
-		} else {
-			return false;
+
+		} catch (Exception e) {
+			estoque.setTemEstoque(false);
+			estoque.setQuantidade_estoque(0);
+			return new ResponseEntity<ResponseEstoqueDTO>(estoque, HttpStatus.NOT_FOUND);
 		}
+		
+		return new ResponseEntity<ResponseEstoqueDTO>(estoque, HttpStatus.OK);
 
 	}
 
