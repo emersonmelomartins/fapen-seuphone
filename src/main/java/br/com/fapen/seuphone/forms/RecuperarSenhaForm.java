@@ -3,7 +3,7 @@ package br.com.fapen.seuphone.forms;
 import br.com.fapen.seuphone.models.Usuario;
 
 public class RecuperarSenhaForm {
-	
+
 	private Usuario usuario;
 	private String novoPassword;
 	private String confirmarPassword;
@@ -35,6 +35,5 @@ public class RecuperarSenhaForm {
 	public void setConfirmarPassword(String confirmarPassword) {
 		this.confirmarPassword = confirmarPassword;
 	}
-	
-	
+
 }
