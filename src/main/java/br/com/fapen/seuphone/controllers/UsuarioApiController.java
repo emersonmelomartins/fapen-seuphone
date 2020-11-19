@@ -53,7 +53,7 @@ public class UsuarioApiController {
 
 	@Autowired
 	private ArquivoService arquivoService;
-	
+
 	@Autowired
 	private EmailService emailService;
 
@@ -104,9 +104,11 @@ public class UsuarioApiController {
 			usuarioForm.getUsuario().setCaminhoFoto(null);
 		}
 		usuarioService.salvar(usuarioForm);
+
+		emailService.enviarEmailHtml(usuarioForm.getUsuario().getEmail(), "Cadastro de Usuário - Seuphone",
+				HtmlTemplate.emailCadastro(usuarioForm.getUsuario().getLogin(),
+						usuarioForm.getUsuario().getPessoa().getNome(), usuarioForm.getUsuario().getEmail()));
 		
-		//emailService.enviarEmailHtml(usuarioForm.getUsuario().getEmail(), "Cadastro de Usuário - Seuphone",
-				//HtmlTemplate.cadastro(novoHash, buscaUsuario.getPessoa().getNome()));
 		return new ResponseEntity<Object>(usuarioForm, HttpStatus.CREATED);
 
 	}

@@ -41,4 +41,20 @@ public class HtmlTemplate {
 				"</div>";
 		return conteudo;
 	}
+	
+	public static String emailCadastro(String login, String nome, String email) {
+		String conteudo = "<div style='font-family: Arial; text-align: center; margin: 0 auto; max-width: 600px; padding: 20px;'>\n" + 
+				"  <img src='cid:logo-seuphone' alt='Logo Seuphone' />\n" + 
+				"  <hr />\n" + 
+				"  <h2>Email de Cadastro</h2>\n" + 
+				"  <p align='justify'><b>" + nome + "</b> obrigado por se registrar na SeuPhone !</p>\n" + 
+				"  <br />\n" +
+				"  <p align='justify'> Sua conta com o E-mail :" + email + "e Login com : " + login + " foi criado com sucesso !</p>\n" +  
+				"  <hr />\n" + 
+				"  <footer>\n" + 
+				"    <p style='font-size: 12px;'>Seuphone &copy; - 2020</p>\n" + 
+				"  </footer>\n" + 
+				"</div>";
+		return conteudo;
+	}
 }
