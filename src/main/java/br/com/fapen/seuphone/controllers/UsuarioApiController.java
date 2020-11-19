@@ -31,8 +31,10 @@ import br.com.fapen.seuphone.forms.UsuarioForm;
 import br.com.fapen.seuphone.models.Usuario;
 import br.com.fapen.seuphone.repositories.UsuarioRepository;
 import br.com.fapen.seuphone.services.ArquivoService;
+import br.com.fapen.seuphone.services.EmailService;
 import br.com.fapen.seuphone.services.JwtTokenService;
 import br.com.fapen.seuphone.services.UsuarioService;
+import br.com.fapen.seuphone.templates.HtmlTemplate;
 import br.com.fapen.seuphone.validations.UsuarioFormValidator;
 
 @RestController
@@ -51,6 +53,9 @@ public class UsuarioApiController {
 
 	@Autowired
 	private ArquivoService arquivoService;
+	
+	@Autowired
+	private EmailService emailService;
 
 	@Autowired
 	private UsuarioFormValidator usuarioFormValidator;
@@ -99,6 +104,9 @@ public class UsuarioApiController {
 			usuarioForm.getUsuario().setCaminhoFoto(null);
 		}
 		usuarioService.salvar(usuarioForm);
+		
+		//emailService.enviarEmailHtml(usuarioForm.getUsuario().getEmail(), "Cadastro de Usuário - Seuphone",
+				//HtmlTemplate.cadastro(novoHash, buscaUsuario.getPessoa().getNome()));
 		return new ResponseEntity<Object>(usuarioForm, HttpStatus.CREATED);
 
 	}
