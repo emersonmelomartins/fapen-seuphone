@@ -99,6 +99,7 @@ public class UsuarioApiController {
 		}
 		usuarioService.salvar(usuarioForm);
 		return new ResponseEntity<Object>(usuarioForm, HttpStatus.CREATED);
+
 	}
 
 	@CrossOrigin

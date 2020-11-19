@@ -55,10 +55,10 @@ public class SeuphoneSecurityConfig extends WebSecurityConfigurerAdapter {
 		@Override
 		protected void configure(HttpSecurity http) throws Exception {
 
-			http.cors().and().csrf().disable().antMatcher("/api/**").authorizeRequests()
-					.antMatchers("/api/usuarios/login").permitAll().antMatchers(HttpMethod.GET, "/api/produtos/**")
-					.permitAll().antMatchers(HttpMethod.POST, "/api/**").authenticated()
-					.antMatchers(HttpMethod.POST, "/api/produtos/**").authenticated()
+			http.cors().and().csrf().disable().antMatcher("/api/**").authorizeRequests().antMatchers("/api/usuarios/login")
+					.permitAll().antMatchers("/api/usuarios/criarUsuario").permitAll()
+					.antMatchers(HttpMethod.GET, "/api/produtos/**").permitAll().antMatchers(HttpMethod.POST, "/api/**")
+					.authenticated().antMatchers(HttpMethod.POST, "/api/produtos/**").authenticated()
 					.antMatchers(HttpMethod.POST, "/api/produtos").authenticated()
 					.antMatchers(HttpMethod.POST, "/api/usuarios/**").authenticated()
 					.antMatchers(HttpMethod.POST, "/api/usuarios").authenticated().anyRequest().authenticated().and()
@@ -76,19 +76,18 @@ public class SeuphoneSecurityConfig extends WebSecurityConfigurerAdapter {
 
 		@Override
 		protected void configure(HttpSecurity http) throws Exception {
-			http.authorizeRequests().antMatchers("/api/**").permitAll().antMatchers("/").permitAll()
-					.antMatchers("/home").permitAll().antMatchers("/error").permitAll().antMatchers("/js/**")
-					.permitAll().antMatchers("/css/**").permitAll().antMatchers("/img/**").permitAll()
-					.antMatchers("/esqueci-senha").permitAll().antMatchers("/esqueci-senha/**").permitAll()
-					.antMatchers("/recuperar-senha").permitAll().antMatchers("/recuperar-senha/**").permitAll()
-					.antMatchers(HttpMethod.POST, "/enviar-email").permitAll()
-					.antMatchers(HttpMethod.POST, "/trocar-senha").permitAll().antMatchers("/usuarios/meuperfil")
-					.authenticated().antMatchers("/usuarios/alterarFoto").authenticated().antMatchers("/usuarios/**")
-					.hasRole("ADMIN").antMatchers("/perfis/**").hasRole("ADMIN").antMatchers("/produtos/**/excluir")
-					.hasRole("ADMIN").antMatchers("/fornecedores/**/excluir").hasRole("ADMIN")
-					.antMatchers("/pedidos/**/excluir").hasRole("ADMIN").anyRequest().authenticated().and().formLogin()
-					.loginPage("/login").defaultSuccessUrl("/painel").permitAll().and().csrf().disable().logout()
-					.logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/");
+			http.authorizeRequests().antMatchers("/api/**").permitAll().antMatchers("/").permitAll().antMatchers("/home")
+					.permitAll().antMatchers("/error").permitAll().antMatchers("/js/**").permitAll().antMatchers("/css/**")
+					.permitAll().antMatchers("/img/**").permitAll().antMatchers("/esqueci-senha").permitAll()
+					.antMatchers("/esqueci-senha/**").permitAll().antMatchers("/recuperar-senha").permitAll()
+					.antMatchers("/recuperar-senha/**").permitAll().antMatchers(HttpMethod.POST, "/enviar-email").permitAll()
+					.antMatchers(HttpMethod.POST, "/trocar-senha").permitAll().antMatchers("/usuarios/meuperfil").authenticated()
+					.antMatchers("/usuarios/alterarFoto").authenticated().antMatchers("/usuarios/**").hasRole("ADMIN")
+					.antMatchers("/perfis/**").hasRole("ADMIN").antMatchers("/produtos/**/excluir").hasRole("ADMIN")
+					.antMatchers("/fornecedores/**/excluir").hasRole("ADMIN").antMatchers("/pedidos/**/excluir").hasRole("ADMIN")
+					.anyRequest().authenticated().and().formLogin().loginPage("/login").defaultSuccessUrl("/painel").permitAll()
+					.and().csrf().disable().logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+					.logoutSuccessUrl("/");
 		}
 	}
 
