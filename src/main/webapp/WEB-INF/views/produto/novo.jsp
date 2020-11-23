@@ -153,10 +153,26 @@
 										</div>
 
 										<div class="input-field col s6">
+											<i class="material-icons prefix">border_color</i>
+											<f:input path="corEmHexadecimal" cssClass="validate" placeholder="#ffffff" />
+											<f:errors path="corEmHexadecimal" cssClass="helper-text red-text" />
+											<label for="corEmHexadecimal">Cor em Hexadecimal</label>
+										</div>
+									</div>
+									
+									<div class="row">
+										<div class="input-field col s6">
 											<i class="material-icons prefix">fitness_center</i>
 											<f:input path="peso" cssClass="validate" placeholder="200g" />
 											<f:errors path="peso" cssClass="helper-text red-text" />
 											<label for="peso">Peso</label>
+										</div>
+										
+										<div class="input-field col s6">
+											<i class="material-icons prefix">fitness_center</i>
+											<f:input path="capacidade" cssClass="validate" placeholder="128gb" />
+											<f:errors path="capacidade" cssClass="helper-text red-text" />
+											<label for="capacidade">Capacidade</label>
 										</div>
 									</div>
 
