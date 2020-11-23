@@ -47,9 +47,9 @@ public class HtmlTemplate {
 				"  <img src='cid:logo-seuphone' alt='Logo Seuphone' />\n" + 
 				"  <hr />\n" + 
 				"  <h2>Email de Cadastro</h2>\n" + 
-				"  <p align='justify'><b>" + nome + "</b> obrigado por se registrar na SeuPhone !</p>\n" + 
+				"  <p align='justify'>Olá, <b>" + nome + "</b>! <br> Agradecemos a você por se registrar na SeuPhone!</p>\n" + 
 				"  <br />\n" +
-				"  <p align='justify'> Sua conta com o E-mail :" + email + "e Login com : " + login + " foi criado com sucesso !</p>\n" +  
+				"  <p align='justify'>Seus dados para acesso são:<br> E-mail <b>" + email + "</b> <br> Login: <b>" + login + "</b> <br> Seu acesso foi ativado com sucesso!</p>\n" +  
 				"  <hr />\n" + 
 				"  <footer>\n" + 
 				"    <p style='font-size: 12px;'>Seuphone &copy; - 2020</p>\n" + 

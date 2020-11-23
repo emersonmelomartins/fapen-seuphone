@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -28,6 +29,7 @@ import br.com.fapen.seuphone.DTO.Base64ImageRequestDTO;
 import br.com.fapen.seuphone.DTO.JwtRequestDTO;
 import br.com.fapen.seuphone.DTO.JwtResponseDTO;
 import br.com.fapen.seuphone.forms.UsuarioForm;
+import br.com.fapen.seuphone.models.Endereco;
 import br.com.fapen.seuphone.models.Usuario;
 import br.com.fapen.seuphone.repositories.UsuarioRepository;
 import br.com.fapen.seuphone.services.ArquivoService;
@@ -141,6 +143,22 @@ public class UsuarioApiController {
 		usuarioRep.save(usuario);
 
 		return new ResponseEntity<Object>(HttpStatus.ACCEPTED);
+	}
+	
+	@CrossOrigin
+	@PutMapping(value = "/addressUpdate")
+	public ResponseEntity<Usuario> AlterarEndereco(@RequestBody Usuario usuario) throws IOException {
+
+
+		
+		Usuario user = usuarioRep.findByLogin(usuario.getLogin());
+		
+		user.getPessoa().setEndereco(usuario.getPessoa().getEndereco());
+		usuario.setFotoEmString("");
+		usuarioRep.save(user);
+		
+
+		return new ResponseEntity<Usuario>(HttpStatus.ACCEPTED);
 	}
 
 }
